@@ -1,10 +1,14 @@
 package models;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import play.data.validation.Constraints.Required;
 
+import utils.PasswordHash;
 import utils.StringUtils;
 import utils.Utils;
 
@@ -65,7 +69,7 @@ public class Users extends Base {
 	}
 	
 	
-	/*
+	/**
 	 * DB calls
 	 */
 	public static Users findByEmail(final String email) {
@@ -73,5 +77,19 @@ public class Users extends Base {
 			return null;
 		return find.where().eq("active", true).eq("email", email.toLowerCase()).findUnique();
 	}
+	
+	/**
+     * Authenticate a User.
+	 * @throws InvalidKeySpecException 
+	 * @throws NoSuchAlgorithmException 
+     */
+    public static boolean authenticate(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    	Users user = find.where()
+			        .eq("email", email.toLowerCase())
+			        .findUnique();
+    	if (user == null)
+    		return false;
+        return PasswordHash.validatePassword(password, user.password);
+    }
 	
 }

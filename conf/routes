@@ -4,6 +4,17 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET     /index                      controllers.Application.index()
+POST    /index                      controllers.Application.doLogin()
+
+
+# User
+# User
+GET     /user                       controllers.UserController.getLoggedUser()
+#POST	/user						controllers.UserController.create()
+#GET	/user/:userId				controllers.UserController.show(userId: Long)
+#PUT	/user/:userId				controllers.UserController.update(userId: Long)
+#DELETE	/user/:userId				controllers.UserController.delete(userId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
