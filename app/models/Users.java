@@ -69,6 +69,10 @@ public class Users extends Base {
 	}
 	
 	
+	public String getFullName() {
+		return (firstName + " " + lastName).trim();
+	}
+	
 	/**
 	 * DB calls
 	 */

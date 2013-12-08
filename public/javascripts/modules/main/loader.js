@@ -30,7 +30,7 @@ var dependencies = [
 //    "module/users/loader",
     "modules/sidebar/loader",
 //    "module/enquiry/loader",
-//    "module/settings/loader",
+    "modules/settings/loader",
     "modules/header/loader",
 
 //    "module/main/controller"
