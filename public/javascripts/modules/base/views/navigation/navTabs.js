@@ -1,4 +1,4 @@
-Tracker.module("Base",function (Base, Tracker, Backbone, Marionette, $, _) {
+Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
     Base.views.NavTab = Marionette.ItemView.extend({
         template: "base/views/navigation/navTab",
         tagName: "li",

@@ -1,6 +1,6 @@
-Tracker.module("Sidebar", function(Sidebar, Tracker, Backbone, Marionette, $, _) {
+Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
-    Sidebar.views.SideBarView = Marionette.ItemView.extend({
+    Sidebar.views.SideBarTab = Marionette.ItemView.extend({
         template: "sidebar/views/sidebarTab",
         tagName: "li",
 
@@ -26,9 +26,9 @@ Tracker.module("Sidebar", function(Sidebar, Tracker, Backbone, Marionette, $, _)
         }
     });
 
-    Sidebar.views.SidebarCollection = Marionette.CompositeView.extend({
+    Sidebar.views.SidebarOptions = Marionette.CompositeView.extend({
         template: "sidebar/views/sidebarContainer",
-        itemView: Sidebar.views.SideBarView,
+        itemView: Sidebar.views.SideBarTab,
         itemViewContainer: "#main-nav",
 
         initialize: function(){

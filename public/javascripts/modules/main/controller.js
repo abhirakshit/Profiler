@@ -1,6 +1,6 @@
 //Delete this file
 
-Tracker.module("Main", function(Main, Tracker, Backbone, Marionette, $, _) {
+Application.module("Main", function(Main, Application, Backbone, Marionette, $, _) {
 
     this.show = function() {
 //        this.updateLoggedUser();
@@ -8,9 +8,8 @@ Tracker.module("Main", function(Main, Tracker, Backbone, Marionette, $, _) {
 //        this.bodyView = new this.views.BodyView();
         this.footerView = new this.views.FooterView();
 
-//        Tracker.header.show(this.headerView);
-//        Tracker.body1.show(this.bodyView);
-        Tracker.footer.show(this.footerView);
+//    Application.ker.header.show(this.headerView);
+//Application.Tracker.body1.show(this.bodyVieApplication.    Tracker.footer.show(this.footerView);
     };
 
 

@@ -6,9 +6,8 @@
 GET     /                           controllers.Application.index()
 GET     /index                      controllers.Application.index()
 POST    /index                      controllers.Application.doLogin()
+GET     /logout                     controllers.Application.logout()
 
-
-# User
 # User
 GET     /user                       controllers.UserController.getLoggedUser()
 #POST	/user						controllers.UserController.create()

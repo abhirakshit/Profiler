@@ -1,4 +1,4 @@
-Tracker.module("Base", function (Base, Tracker, Backbone, Marionette, $, _) {
+Application.module("Base", function (Base, Application, Backbone, Marionette, $, _) {
     _.extend(Backbone.Validation.callbacks, {
         valid: function (view, attr, selector) {
             var control, group;

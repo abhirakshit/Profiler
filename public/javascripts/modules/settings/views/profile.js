@@ -1,4 +1,4 @@
-Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, _) {
+Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
 
     Settings.views.showProfile = Marionette.ItemView.extend({
         template: "settings/views/profile",

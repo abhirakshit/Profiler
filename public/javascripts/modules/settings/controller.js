@@ -1,4 +1,4 @@
-Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, _) {
+Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
     Settings.onTemplatesLoaded = function() {
         this.show();
     };
@@ -6,7 +6,7 @@ Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, 
     Settings.show = function() {
         console.log("Show Settings...");
         Settings.controller = new Settings.Controller({
-            region: Tracker.pageContent
+            region: Application.pageContent
         });
 
         Settings.router = new Settings.Router({
@@ -28,7 +28,7 @@ Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, 
         },
 
         showSettingsHome: function() {
-            Settings.mainLayout = new Tracker.Base.views.MainLayout();
+            Settings.mainLayout = new Application.Base.views.MainLayout();
             this.region.show(Settings.mainLayout);
 
             //Add views
@@ -40,22 +40,22 @@ Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, 
     });
 
     Settings.addPageHeader = function() {
-        var headerLayout = new Tracker.Base.views.HeaderLayout();
-        Settings.mainLayout.pageHeaderRegion.show(headerLayout);
+        var headerLayoutView = new Application.Base.views.HeaderLayout();
+        Settings.mainLayout.pageHeaderRegion.show(headerLayoutView);
 
         //Show header
-        var pgHeader = new Tracker.Base.PageHeader({
+        var pgHeader = new Application.Base.PageHeader({
             model: new Backbone.Model({header: "Settings"})
         });
-        headerLayout.pageHeader.show(pgHeader);
+        headerLayoutView.pageHeader.show(pgHeader);
 
     };
 
     Settings.showProfile = function() {
-        var userProfile = new Settings.views.showProfile({
-            model : Tracker.Base.loggedUser
+        var userProfileView = new Settings.views.showProfile({
+            model : Application.Base.loggedUser
         })
-        Settings.mainLayout.tabContentRegion.show(userProfile);
+        Settings.mainLayout.tabContentRegion.show(userProfileView);
 
         Settings.router.navigate(Settings.profileUrl);
     }
@@ -64,7 +64,7 @@ Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, 
 
 //    Settings.showProfile = function() {
 //        var profile = new Settings.views.showProfile({
-//            model: Tracker.Base.loggedUser
+//            model: Application.Base.loggedUser
 //        });
 //        Settings.mainLayout.tabContentRegion.show(profile);
 //

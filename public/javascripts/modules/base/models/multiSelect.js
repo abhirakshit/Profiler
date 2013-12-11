@@ -1,9 +1,7 @@
-Tracker.module("Base",function (Base, Tracker, Backbone, Marionette, $, _) {
-    Base.MultiSelectModel = Backbone.Model.extend({
-    });
+Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
-    Base.MultiSelectCollection = Backbone.Collection.extend({
-        model: Base.MultiSelectModel,
+    Base.collections.MultiSelect = Backbone.Collection.extend({
+        model: Base.models.Generic,
 
         initialize: function(attributes, options) {
             if (options && options.url)

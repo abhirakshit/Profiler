@@ -1,31 +1,27 @@
-Tracker.module("Sidebar", function(Sidebar, Tracker, Backbone, Marionette, $, _) {
-
-    Sidebar.SidebarTab = Backbone.Model.extend();
-    Sidebar.SidebarNav = Backbone.Collection.extend({
-        model: Sidebar.SidebarTab
-    });
-
+Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
     Sidebar.NavEnquiriesId = "sidebar-nav-enquiries";
     Sidebar.NavUsersId = "sidebar-nav-users";
     Sidebar.NavSettingsId = "sidebar-nav-settings";
 
-    var tabCollection = new Sidebar.SidebarNav([
-        new Sidebar.SidebarTab({id: Sidebar.NavEnquiriesId, name:"Students", icon: "icon-user"}),
-//        new Sidebar.SidebarTab({id: Sidebar.NavUsersId, name:"Users", icon: "icon-user"}),
-        new Sidebar.SidebarTab({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
-    ]);
+    getSideBarOptionCollection = function() {
+        return new Application.Base.collections.Generic([
+            new Application.Base.models.Generic({id: Sidebar.NavEnquiriesId, name:"Students", icon: "icon-user"}),
+//        new Application.Base.models.Generic({id: Sidebar.NavUsersId, name:"Users", icon: "icon-user"}),
+            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
+        ]);
+    }
 
     Sidebar.onTemplatesLoaded = function() {
         Sidebar.show();
     };
 
     Sidebar.show = function(){
-        Sidebar.sidebarCollection = new this.views.SidebarCollection({
-            collection: tabCollection
+        Sidebar.sidebarOptionsView = new this.views.SidebarOptions({
+            collection: getSideBarOptionCollection()
         });
 
-        this.listenTo(Sidebar.sidebarCollection, "collectionview:itemview:sidebar-navtab:clicked",
+        this.listenTo(Sidebar.sidebarOptionsView, "collectionview:itemview:sidebar-navtab:clicked",
             function(tabId){
                 if (Sidebar.NavEnquiriesId == tabId) {
                     Sidebar.showEnquiryModule();
@@ -36,26 +32,26 @@ Tracker.module("Sidebar", function(Sidebar, Tracker, Backbone, Marionette, $, _)
                 }
             }
         );
-        Tracker.sidebar.show(Sidebar.sidebarCollection);
+        Application.sidebar.show(Sidebar.sidebarOptionsView);
         Sidebar.activateSidebarTab(Sidebar.NavEnquiriesId);
     };
 
     Sidebar.showEnquiryModule = function() {
-        Tracker.vent.trigger(Tracker.Base.showEnquiryHomeEvt);
+        Application.vent.trigger(Application.Base.showEnquiryHomeEvt);
         Sidebar.activateSidebarTab(Sidebar.NavEnquiriesId);
     };
 
     Sidebar.showUsersModule = function() {
-        Tracker.vent.trigger(Tracker.Base.showUsersHomeEvt);
+        Application.vent.trigger(Application.Base.showUsersHomeEvt);
         Sidebar.activateSidebarTab(Sidebar.NavUsersId);
     };
 
     Sidebar.showSettingsModule = function() {
-        Tracker.vent.trigger(Tracker.Base.showSettingsHomeEvt);
+        Application.vent.trigger(Application.Base.showSettingsHomeEvt);
         Sidebar.activateSidebarTab(Sidebar.NavSettingsId);
     };
 
     Sidebar.activateSidebarTab = function(id) {
-        Sidebar.sidebarCollection.selectTabView(id);
+        Sidebar.sidebarOptionsView.selectTabView(id);
     }
 });

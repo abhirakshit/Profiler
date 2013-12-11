@@ -1,4 +1,4 @@
-Tracker.module("Base",function (Base, Tracker, Backbone, Marionette, $, _) {
+Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
     Base.views.AddButton = Marionette.ItemView.extend({
         template: "base/views/forms/createButton",
@@ -19,7 +19,7 @@ Tracker.module("Base",function (Base, Tracker, Backbone, Marionette, $, _) {
         template: "base/views/forms/dropDown",
 
         initialize: function() {
-            this.optionsList = new Tracker.Base.MultiSelectCollection([], {
+            this.optionsList = new Application.Base.collections.MultiSelect([], {
                 url: this.model.get('url')
             });
             this.optionsList.fetch({async: false});

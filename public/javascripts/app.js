@@ -16,7 +16,7 @@ require.config({
         moment: "lib/utils/moment.min",
         dateTimePicker: "lib/utils/bootstrap-datetimepicker.min",
         dataTables: "lib/jquery-dataTables/jquery.dataTables.min",
-        bootstrap: "lib/bootstrap/bootstrap",
+        bootstrap: "lib/bootstrap/bootstrap"
 
     },
 
@@ -67,8 +67,8 @@ var dependencies = [
 
 require(dependencies, function (Marionette) {
     console.log("Init Application...")
-    window.Tracker = new Marionette.Application();
-    Tracker.addRegions({
+    window.Application = new Marionette.Application();
+    Application.addRegions({
         headerRegion: "#header-region",
         sidebar: "#sidebar-region",
         pageContent: "#page-content-region",
@@ -77,6 +77,6 @@ require(dependencies, function (Marionette) {
 
     require(["modules/main/loader"], function () {
         console.log("Start Application...")
-        Tracker.start();
+        Application.start();
     });
 });

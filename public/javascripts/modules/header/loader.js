@@ -1,26 +1,32 @@
-Tracker.module("Header", function(){
+Application.module("Header", function(){
     this.prefix = "header";
     this.templatePath = "assets/javascripts/modules/";
     this.views = {};
     this.template = function(str) {
         return this.prefix + '-' + str;
     };
+
+    // This has been added to only keep class naming consistent with views.
+    this.models = {};
+    this.collections = {};
 });
 
 var dependencies = [
-    "modules/header/views/header",
-    "modules/header/controller",
-
     // Base
-    "modules/base/loader"
+    "modules/base/loader",
+
+    "modules/header/views/layouts/layout",
+    "modules/header/views/header",
+    "modules/header/controller"
+
 ];
 
 require(dependencies, function(){
-    Tracker.module("Tracker.Header", function(Header, Tracker, Backbone, Marionette, $, _){
-        Tracker.addInitializer(function(){
+    Application.module("Application.Header", function(Header, Application, Backbone, Marionette, $, _){
+        Application.addInitializer(function(){
             //Load Templates
             console.log("Init Header...")
-            Marionette.TemplateLoader.loadModuleTemplates(Tracker.Header, Tracker.Header.show);
+            Marionette.TemplateLoader.loadModuleTemplates(Application.Header, Application.Header.show);
         });
     });
 });

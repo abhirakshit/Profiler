@@ -49,5 +49,11 @@ public class Application extends Controller {
     		return index();
     	}
     }
+
+    public static Result logout() {
+        session().clear();
+        flash(Application.FLASH_MESSAGE_KEY, "You have been logged out.");
+        return index();
+    }
   
 }

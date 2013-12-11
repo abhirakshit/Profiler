@@ -1,11 +1,24 @@
-Tracker.module("Base", function(Base, Tracker, Backbone, Marionette, $, _) {
+Application.module("Base", function(Base, Application, Backbone, Marionette, $, _) {
 
 //    Base.allUsers_Url = "/user/all";
     Base.getLoggedInUser = "/user";
-    Base.updateLoggedUser = function() {
+
+    Base.Router = Marionette.AppRouter.extend({
+        appRoutes: {
+            "home" : "showAppHome"
+        }
+    })
+
+    Base.Controller = Marionette.Controller.extend({
+        showAppHome : function() {
+
+        }
+    })
+
+    updateLoggedUser = function() {
         //Get local user
         var options = {urlRoot: Base.getLoggedInUser};
-        Base.loggedUser = new Base.Model([], options);
+        Base.loggedUser = new Base.models.Generic([], options);
         Base.loggedUser.fetch({async : false});
 //        console.dir(Base.loggedUser);
     };
@@ -16,24 +29,33 @@ Tracker.module("Base", function(Base, Tracker, Backbone, Marionette, $, _) {
 
     Base.show = function(){
         console.log("Show Base...");
-        Base.updateLoggedUser();
+        Base.controller = new Base.Controller();
+        Base.router = new Base.Router({
+            controller: Base.controller
+        });
+        updateLoggedUser();
     };
 
     Base.showUsersHomeEvt = "showUsersHome";
     Base.showEnquiryHomeEvt = "showEnquiryHome";
     Base.showSettingsHomeEvt = "showSettingsHome";
 
-    Tracker.vent.on('all', function (evt, model) {
+//    Base.showAppHome = function() {
+//
+//    };
+
+    Application.vent.on('all', function (evt, model) {
         if (Base.showEnquiryHomeEvt == evt){
-            Tracker.Enquiry.controller.start();
+            Application.Enquiry.controller.start();
         } else if (Base.showUsersHomeEvt == evt) {
-            Tracker.Users.controller.showUsersHome();
+            Application.Users.controller.showUsersHome();
         } else if (Base.showSettingsHomeEvt == evt) {
-            Tracker.Settings.controller.showSettingsHome();
+            Application.Settings.controller.showSettingsHome();
         }
 
     });
 
+    // Will need later
     Base.addDataTables = function(layout) {
         //AddDataTables - Sorting, Filter etc
         layout.$el.find('.dataTable').dataTable({

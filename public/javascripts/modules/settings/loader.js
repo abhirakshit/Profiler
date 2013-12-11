@@ -1,10 +1,14 @@
-Tracker.module("Settings", function(){
+Application.module("Settings", function(){
     this.prefix = "settings";
     this.templatePath = "assets/javascripts/modules/";
     this.views = {};
     this.template = function(str) {
         return this.prefix + '-' + str;
     };
+
+    // This has been added to only keep class naming consistent with views.
+    this.models = {};
+    this.collections = {};
 });
 
 var dependencies = [
@@ -16,12 +20,12 @@ var dependencies = [
 ];
 
 require(dependencies, function(){
-    Tracker.module("Settings", function(Settings, Tracker, Backbone, Marionette, $, _){
-        Tracker.addInitializer(function(){
+    Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _){
+        Application.addInitializer(function(){
             //Load Templates
             console.log("Load Settings...")
-            Marionette.TemplateLoader.loadModuleTemplates(Tracker.Settings, Tracker.Settings.show);
-//            Tracker.Settings.show();
+            Marionette.TemplateLoader.loadModuleTemplates(Application.Settings, Application.Settings.show);
+//            Application.Settings.show();
         });
     });
 });

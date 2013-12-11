@@ -1,35 +1,21 @@
-Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
+Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
-    //Layouts
-    Header.views.Layout = Marionette.Layout.extend({
-        template: "header/views/layout",
-        className: "navbar-inner",
-
-        regions: {
-            appLabel: "#app-label",
-            navTabs: "#header-nav-tabs",
-            userDropDown: "#user-dropdown"
-        }
-    });
-
-//    var userDDLayoutHtml = "<div id='user-btn'></div><div id='user-dropdown'></div>"
-//    Header.UserDropDownLayout = Marionette.Layout.extend({
-//        className: "btn-group pull-right",
-//
-//        template: function(serialized_model) {
-//            return _.template(userDDLayoutHtml);
-//        },
+//    //Layouts
+//    Header.views.Layout = Marionette.Layout.extend({
+//        template: "header/views/layout",
+//        className: "navbar-inner",
 //
 //        regions: {
-//            userBtn: "#user-btn",
+//            appLabel: "#app-label",
+//            navTabs: "#header-nav-tabs",
 //            userDropDown: "#user-dropdown"
 //        }
-//    })
+//    });
 
 
     //Views
     var appLabel = '<%=args.appLabel%>';
-    Header.AppLabel = Marionette.ItemView.extend({
+    Header.views.AppLabel = Marionette.ItemView.extend({
         tagName: "a",
         className: "brand",
         id: "appLabel",
@@ -51,9 +37,8 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
     });
 
 
-//    <li id="search"><a href="@routes.UserController.search()">Search</a></li>
     var navTabHtml = '<a href="<%=args.tabUrl%>"><%=args.tabLabel%></a>';
-    Header.HeaderTabView = Marionette.ItemView.extend({
+    Header.views.HeaderTab = Marionette.ItemView.extend({
         tagName: "li",
         template: function(serialized_model) {
             return _.template(navTabHtml,
@@ -62,15 +47,12 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
                 {variable: 'args'});
         }
 
-//        onRender: function() {
-//            console.log("#### Header tab rendered")
-//        }
     });
 
-    Header.HeaderTabCollection = Marionette.CompositeView.extend({
+    Header.collections.HeaderTab = Marionette.CompositeView.extend({
         tagName: "ul",
         className: "nav",
-        itemView: Header.HeaderTabView,
+        itemView: Header.views.HeaderTab,
 //        itemViewContainer: "#main-nav"
 
         template: function(serialized_model) {
@@ -79,7 +61,7 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
     });
 
     var userDropDownOptionHtml = '<a href="<%=args.optionUrl%>"><i class="<%=args.iconClass%>"></i>&nbsp<%=args.optionText%></a>';
-    Header.UserDropDownOption = Marionette.ItemView.extend({
+    Header.views.UserDropDownOption = Marionette.ItemView.extend({
         tagName: "li",
 
         initialize: function() {
@@ -108,7 +90,7 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
     Header.views.UserDropDownCollection = Marionette.CompositeView.extend({
         template: "header/views/userBtn",
         className: "btn-group pull-right",
-        itemView: Header.UserDropDownOption,
+        itemView: Header.views.UserDropDownOption,
         itemViewContainer: "#user-actions",
 
         serializeData: function(){
@@ -120,7 +102,7 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
         initialize: function() {
             var that = this;
             this.on("itemview:dropdown:selected", function(childView, msg){
-                console.dir(childView);
+//                console.dir(childView);
                 that.trigger("collectionview:itemview:dropdown:selected", childView.model);
             });
         },
@@ -138,7 +120,7 @@ Tracker.module("Header", function(Header, Tracker, Backbone, Marionette, $, _) {
         showProfile: function(event) {
             event.preventDefault()
             console.log("Show profile")
-            Tracker.vent.trigger(Tracker.Base.showSettingsHomeEvt);
+            Application.vent.trigger(Application.Base.showSettingsHomeEvt);
         }
 //
 //        showAdmin: function() {

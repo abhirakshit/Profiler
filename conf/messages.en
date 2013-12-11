@@ -1,7 +1,7 @@
 # Override default Play's validation messages
 
 # --- Application
-app.title=Profiler
+app.title=Student Profiler
 
 # --- Constraints
 constraint.required=Required

@@ -21,12 +21,25 @@
     
     <body>
 	    <div id="header-region" class="navbar navbar-fixed-top navbar-inner">
-	    	<a class="brand" href="@routes.Application.index()">Profiler</a>
+            <div class="container">
+	    	    <a class="brand" href="@routes.Application.index()">@Messages("app.title")</a>
+                
+            </div>
 	    </div>
 	    
 	    <div id="content">
 		    <div class="container">
 		        <!-- Main content -->
+                @if(flash.contains(Application.FLASH_ERROR_KEY)) {
+                    <div class="alert alert-error">
+                        @flash().get(Application.FLASH_ERROR_KEY)
+                    </div>
+                }
+                @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
+                    <div class="alert alert-success">
+                        @flash().get(Application.FLASH_MESSAGE_KEY)
+                    </div>
+                }
 		        <div>
 					  <div class="hero-unit">
 				        <h1>@Messages("index.intro")</h1>

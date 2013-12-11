@@ -1,4 +1,4 @@
-Tracker.module("Base",function (Base, Tracker, Backbone, Marionette, $, _) {
+Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 // Layouts
     Base.views.MainLayout = Marionette.Layout.extend({
         template: "base/views/layouts/mainLayout",

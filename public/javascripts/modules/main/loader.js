@@ -6,7 +6,7 @@
 
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
-//Tracker.module("Main", function (Main) {
+//Application.module("Main", function (Main) {
 //    Main.prefix = "main";
 //    Main.templatePath = "assets/javascripts/module/";
 //    Main.views = {};
@@ -47,11 +47,11 @@ var dependencies = [
 define(dependencies,
     function () {
         console.log("Init Main...")
-        Tracker.module("Main", function (Main, Tracker, Backbone, Marionette, $, _) {
-            Tracker.addInitializer(function () {
+        Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {
+            Application.addInitializer(function () {
                 console.log("Start Main...")
                 // load templates for this module
-                Marionette.TemplateLoader.loadModuleTemplates(Tracker.Main, Tracker.Main.show);
+                Marionette.TemplateLoader.loadModuleTemplates(Application.Main, Application.Main.show);
 
                 if (Backbone.history){
                     console.log("Start Backbone history...");

@@ -19,6 +19,13 @@ Marionette.TemplateLoader = (function(Marionette, _) {
         var templatesToLoad = [];
         for (var viewName in module.views) {
             var view = module.views[viewName];
+            var template = view.prototype.template
+
+            //Check if template is a separate html if not do not put in array
+            if (typeof template == 'function'){
+                continue;
+            }
+
             templatesToLoad.push(view.prototype.template);
         }
         var loadingTemplates = templateLoader.preloadTemplates(templatesToLoad, module);

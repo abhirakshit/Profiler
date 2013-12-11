@@ -1,13 +1,18 @@
 
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
-Tracker.module("Base", function(){
+Application.module("Base", function(){
     this.prefix = "base";
     this.templatePath = "assets/javascripts/modules/";
     this.views = {};
+
     this.template = function(str) {
         return this.prefix + '-' + str;
     };
+
+    // This has been added to only keep class naming consistent with views.
+    this.models = {};
+    this.collections = {};
 });
 
 var dependencies = [
@@ -36,10 +41,10 @@ var dependencies = [
 ];
 
 define(dependencies, function(){
-    Tracker.module("Base", function(Base, Tracker, Backbone, Marionette, $, _){
-        Tracker.addInitializer(function(){
+    Application.module("Base", function(Base, Application, Backbone, Marionette, $, _){
+        Application.addInitializer(function(){
             console.log("Init Base...")
-            Marionette.TemplateLoader.loadModuleTemplates(Tracker.Base, Tracker.Base.show);
+            Marionette.TemplateLoader.loadModuleTemplates(Application.Base, Application.Base.show);
         });
     });
 });
