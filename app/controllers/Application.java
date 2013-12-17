@@ -5,6 +5,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import controllers.form.LoginForm;
+import controllers.form.SignupForm;
 
 public class Application extends Controller {
   
@@ -15,11 +16,15 @@ public class Application extends Controller {
 //	public static final String ADMIN_LABEL = "Admin";
 //	public static final String SUPER_ADMIN_LABEL = "Super Admin";
 	
+	public static final String COUNSELOR = "counselor";
+	public static final String STUDENT = "student";
 	public static final String USER = "user";
 	public static final String ADMIN = "admin";
 	public static final String SUPER_ADMIN = "superAdmin";
 	
 	static final Form<LoginForm> loginForm = Form.form(LoginForm.class);
+	static final Form<SignupForm> signupForm = Form.form(SignupForm.class);
+	
     public static Result index() {
         if (isUserLoggedIn()) {
     		return ok(views.html.index.render());
@@ -49,6 +54,19 @@ public class Application extends Controller {
     		return index();
     	}
     }
+
+    public static Result doSignup() {
+        	Form<SignupForm> completedForm = signupForm.bindFromRequest();
+        	if (completedForm.hasErrors()) {
+        		flash(Application.FLASH_ERROR_KEY, completedForm.errors().get("").get(0).message());
+        		return badRequest(views.html.login.render(loginForm));
+        	} else {
+        		//Create User
+        		Users.create(completedForm.get());
+        		session("email", completedForm.get().email);
+        		return index();
+        	}
+        }
 
     public static Result logout() {
         session().clear();

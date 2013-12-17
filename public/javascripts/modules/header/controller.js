@@ -93,7 +93,7 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
 
     Header.getDropDownOptions = function(user) {
         var role = user.attributes.roleType;
-        if (role == "admin" || role == "superAdmin")
+        if (role == Application.Base.ADMIN_ROLE || role == Application.Base.SUPER_ADMIN_ROLE)
 //            return adminDropDownOptions;
             return getAdminDropDownOptions();
 

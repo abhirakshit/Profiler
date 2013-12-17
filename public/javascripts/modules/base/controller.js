@@ -1,5 +1,11 @@
 Application.module("Base", function(Base, Application, Backbone, Marionette, $, _) {
 
+
+    Base.STUDENT_ROLE = "student";
+    Base.COUNSELOR_ROLE = "counselor";
+    Base.ADMIN_ROLE = "admin";
+    Base.SUPER_ADMIN_ROLE = "superAdmin";
+
 //    Base.allUsers_Url = "/user/all";
     Base.getLoggedInUser = "/user";
 
@@ -36,8 +42,8 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
         updateLoggedUser();
     };
 
-    Base.showUsersHomeEvt = "showUsersHome";
-    Base.showEnquiryHomeEvt = "showEnquiryHome";
+    Base.showQueriesHomeEvt = "showQueriesHome";
+    Base.showProfilesHomeEvt = "showProfilesHome";
     Base.showSettingsHomeEvt = "showSettingsHome";
 
 //    Base.showAppHome = function() {
@@ -45,16 +51,18 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
 //    };
 
     Application.vent.on('all', function (evt, model) {
-        if (Base.showEnquiryHomeEvt == evt){
+        if (Base.showQueriesHomeEvt == evt){
             Application.Enquiry.controller.start();
-        } else if (Base.showUsersHomeEvt == evt) {
-            Application.Users.controller.showUsersHome();
+        } else if (Base.showProfilesHomeEvt == evt) {
+            Application.Profiles.controller.showProfilesHome();
         } else if (Base.showSettingsHomeEvt == evt) {
             Application.Settings.controller.showSettingsHome();
         }
 
     });
 
+
+    //JAVASCRIPTS
     // Will need later
     Base.addDataTables = function(layout) {
         //AddDataTables - Sorting, Filter etc
@@ -64,4 +72,12 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
             "bInfo": false
         });
     };
+
+    Base.onHoverEditable = function(layout) {
+        layout.$el.find((".editable")).hover(function(){
+            $(this).addClass('over');
+        }, function(){
+            $(this).removeClass('over');
+        })
+    }
 });

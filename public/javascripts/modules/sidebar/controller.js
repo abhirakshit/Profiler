@@ -1,13 +1,21 @@
 Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
-    Sidebar.NavEnquiriesId = "sidebar-nav-enquiries";
-    Sidebar.NavUsersId = "sidebar-nav-users";
+    Sidebar.NavQueriesId = "sidebar-nav-queries";
+    Sidebar.NavProfilesId = "sidebar-nav-profiles";
     Sidebar.NavSettingsId = "sidebar-nav-settings";
 
-    getSideBarOptionCollection = function() {
+    getCounselorSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({id: Sidebar.NavEnquiriesId, name:"Students", icon: "icon-user"}),
-//        new Application.Base.models.Generic({id: Sidebar.NavUsersId, name:"Users", icon: "icon-user"}),
+            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
+            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Students", icon: "icon-user"}),
+            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
+        ]);
+    }
+
+    getStudentSideBarOptionCollection = function() {
+        return new Application.Base.collections.Generic([
+            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
+            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Profile", icon: "icon-user"}),
             new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
         ]);
     }
@@ -17,33 +25,39 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     };
 
     Sidebar.show = function(){
+        var _collection;
+        if (Application.Base.loggedUser.attributes.roleType == Application.Base.COUNSELOR_ROLE){
+            _collection = getCounselorSideBarOptionCollection();
+        } else {
+            _collection = getStudentSideBarOptionCollection();
+        }
         Sidebar.sidebarOptionsView = new this.views.SidebarOptions({
-            collection: getSideBarOptionCollection()
+            collection: _collection
         });
 
         this.listenTo(Sidebar.sidebarOptionsView, "collectionview:itemview:sidebar-navtab:clicked",
             function(tabId){
-                if (Sidebar.NavEnquiriesId == tabId) {
-                    Sidebar.showEnquiryModule();
-                } else if (Sidebar.NavUsersId == tabId) {
-                    Sidebar.showUsersModule();
+                if (Sidebar.NavQueriesId == tabId) {
+                    Sidebar.showQueriesModule();
+                } else if (Sidebar.NavProfilesId == tabId) {
+                    Sidebar.showProfilesModule();
                 } else if (Sidebar.NavSettingsId == tabId) {
                     Sidebar.showSettingsModule();
                 }
             }
         );
         Application.sidebar.show(Sidebar.sidebarOptionsView);
-        Sidebar.activateSidebarTab(Sidebar.NavEnquiriesId);
+        Sidebar.activateSidebarTab(Sidebar.NavQueriesId);
     };
 
-    Sidebar.showEnquiryModule = function() {
-        Application.vent.trigger(Application.Base.showEnquiryHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavEnquiriesId);
+    Sidebar.showQueriesModule = function() {
+        Application.vent.trigger(Application.Base.showQueriesHomeEvt);
+        Sidebar.activateSidebarTab(Sidebar.NavQueriesId);
     };
 
-    Sidebar.showUsersModule = function() {
-        Application.vent.trigger(Application.Base.showUsersHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavUsersId);
+    Sidebar.showProfilesModule = function() {
+        Application.vent.trigger(Application.Base.showProfilesHomeEvt);
+        Sidebar.activateSidebarTab(Sidebar.NavProfilesId);
     };
 
     Sidebar.showSettingsModule = function() {

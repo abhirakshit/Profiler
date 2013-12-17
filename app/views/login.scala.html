@@ -8,13 +8,111 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="description" content="Enquiry Tracker">
 	    <meta name="author" content="Abhishek">
-        
+
+
+        <!-- Le scripts -->
+        <script src="@routes.Assets.at("javascripts/lib/jquery/jquery.js")"></script>
+        <script src="@routes.Assets.at("javascripts/lib/jquery-validate/jquery.validate.min.js")"></script>
+
         <link href="@routes.Assets.at("css/bootstrap.css")" rel="stylesheet">
 		<link href="@routes.Assets.at("css/bootstrap-responsive.css")" rel="stylesheet">
 		<link href="@routes.Assets.at("css/custom.css")" rel="stylesheet">
 		<link href="@routes.Assets.at("css/layout.css")" rel="stylesheet">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("img/favicon.png")">
+
+
+        <script type="text/javascript">
+                $(document).ready(function() {
+
+                    // Show Signup/Login Forms
+                    $("#signupBtn").show();
+                    $("#loginBtn").hide();
+
+                    $("#signup").hide();
+                    $("#login").show();
+
+                    $("#signupBtn").click(function() {
+                        $("#signupBtn").hide();
+                        $("#loginBtn").show();
+
+                        $("#signup").show();
+                        $("#login").hide();
+                    });
+
+                    $("#loginBtn").click(function() {
+                        $("#signupBtn").show();
+                        $("#loginBtn").hide();
+
+                        $("#signup").hide();
+                        $("#login").show();
+                    });
+
+                    //Validate Froms
+                    $('#loginForm').validate({ // initialize the plugin
+                        rules: {
+                            email: {
+                                required: true,
+                                email: true
+                            },
+                            password: {
+                                required: true
+                            }
+                        },
+
+                        messages: {
+                            email: {
+                                required: "Please enter email"
+                            },
+                            password: {
+                                required: "Please enter password"
+                            }
+                        }
+                    });
+
+                    $('#signupForm').validate({ // initialize the plugin
+                        rules: {
+                            firstName: {
+                                required: true
+                            },
+                            lastName: {
+                                required: true
+                            },
+                            email: {
+                                required: true,
+                                email: true
+                            },
+                            passwd: {
+                                required: true
+                            },
+                            confirmPasswd: {
+                                required: true,
+                                equalTo: "#passwd"
+                            }
+                        },
+
+                        messages: {
+
+                            firstName: {
+                                required: "Please enter first name"
+                            },
+                            lastName: {
+                                required: "Please enter last name"
+                            },
+                            email: {
+                                required: "Please enter email"
+                            },
+                            passwd: {
+                                required: "Please enter password"
+                            },
+                            confirmPasswd: {
+                                required: "Please confirm password",
+                                equalTo: "Passwords don't match"
+                            }
+                        }
+                    });
+
+                });
+        </script>
     
     </head>
     
@@ -23,7 +121,7 @@
 	    <div id="header-region" class="navbar navbar-fixed-top navbar-inner">
             <div class="container">
 	    	    <a class="brand" href="@routes.Application.index()">@Messages("app.title")</a>
-                
+
             </div>
 	    </div>
 	    
@@ -42,32 +140,124 @@
                 }
 		        <div>
 					  <div class="hero-unit">
-				        <h1>@Messages("index.intro")</h1>
+                          <div class="row-fluid">
+                              <div class="span9">
+				                  <h1>@Messages("index.intro")</h1>
+                              </div>
+
+                              <div class="span3" style="padding-top: 25px">
+                                  <p>
+                                      <button id="signupBtn" class="btn btn-large btn-primary" type="button">@Messages("signup.now")</button>
+                                      <button id="loginBtn" class="btn btn-large btn-primary" type="button">@Messages("login.title")</button>
+                                  </p>
+                              </div>
+                          </div>
 				      </div>
 				
 				      <!-- Example row of columns -->
 				      <div class="row-fluid">
-				        <div class="span8">
+				        <div class="span7">
 				          <h2>Create quickly. Manage effortlessly.</h2>
 				           <p>A hassle free way to create, manage and track student profiles.</p>
 				        </div>
-				        
-				        <div class="span4">
-				          <div id="login" class="row-fluid">
-					   		<form class="form-horizontal" action="@routes.Application.doLogin()" method="post">
+
+
+
+				        <div class="span5" id="login-signup-form">
+				          <div id="login">
+					   		<form id="loginForm" class="form-horizontal" action="@routes.Application.doLogin()" method="post">
+                                <legend>Login</legend>
 								<div class="control-group">
-									<input type="text" id="email" name="email" placeholder="Email">
+                                    <label class="control-label">Email</label>
+                                    <div class="controls">
+                                        <div class="input-prepend">
+									        <input type="text" id="email" name="email" placeholder="Email">
+                                        </div>
+                                    </div>
 								</div>
 								<div class="control-group">
-									<input type="password" id="password" name="password"
-										placeholder="Password">
+                                    <label class="control-label">Password</label>
+                                    <div class="controls">
+                                        <div class="input-prepend">
+									        <input type="password" id="password" name="password" placeholder="Password">
+                                        </div>
+                                    </div>
 								</div>
-								<div>
-									<button type="submit" class="btn btn-primary">@Messages("login.title")</button>
+                                <div class="control-group">
+                                    <label class="control-label"></label>
+                                    <div class="controls">
+									    <button type="submit" class="btn btn-success">@Messages("login.title")</button>
+                                    </div>
 								</div>
-					
 							</form>
 				          </div>
+
+                          <div id="signup">
+                              <form id="signupForm" class="form-horizontal" action="@routes.Application.doSignup()" method="post">
+                                  <legend>Sign Up</legend>
+                                  <div class="control-group">
+                                      <label class="control-label">First Name</label>
+                                      <div class="controls">
+                                          <div class="input-prepend">
+                                              <input type="text" class="input-xlarge" id="firstName" name="firstName" placeholder="First Name">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="control-group ">
+                                      <label class="control-label">Last Name</label>
+                                      <div class="controls">
+                                          <div class="input-prepend">
+                                              <input type="text" class="input-xlarge" id="lastName" name="lastName" placeholder="Last Name">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="control-group">
+                                      <label class="control-label">Email</label>
+                                      <div class="controls">
+                                          <div class="input-prepend">
+                                              <input type="text" class="input-xlarge" id="email" name="email" placeholder="Email">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="control-group">
+                                      <label class="control-label">Password</label>
+                                      <div class="controls">
+                                          <div class="input-prepend">
+                                              <input type="Password" id="passwd" class="input-xlarge" name="passwd" placeholder="Password">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="control-group">
+                                      <label class="control-label">Confirm Password</label>
+                                      <div class="controls">
+                                          <div class="input-prepend">
+                                              <input type="Password" id="confirmPasswd" class="input-xlarge" name="confirmPasswd" placeholder="Re-enter Password">
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="control-group">
+                                      <label class="control-label">Role</label>
+                                      <div class="controls">
+                                          <!--<div class="input-prepend">-->
+                                          <div>
+                                              <!--<input type="Password" id="confirmPassword" class="input-xlarge" name="confirmPassword" placeholder="Re-enter Password">-->
+                                              <input type="radio" name="roleType" value="student" checked>&nbsp;Student<br>
+                                              <input type="radio" name="roleType" value="counselor">&nbsp;Counselor
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="control-group">
+                                      <label class="control-label"></label>
+                                      <div class="controls">
+                                          <button type="submit" class="btn btn-success" >@Messages("signup.now")</button>
+                                      </div>
+
+                                  </div>
+
+                              </form>
+                          </div>
 				        </div>
 				      </div>    
 		        </div>

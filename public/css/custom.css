@@ -1,4 +1,18 @@
 
+.ulNoBullet {
+    list-style-type: none;
+}
+
+.over {
+    border:1px solid #d3d3d3;
+    cursor:pointer;
+    /*margin-right: 11px !important;*/
+}
+
+.error {
+    color: red;
+}
+
 .primaryRightBtn {
     float: right;
 }

@@ -27,7 +27,7 @@
 var dependencies = [
 
 //    "module/footer/footer",
-//    "module/users/loader",
+    "modules/profiles/loader",
     "modules/sidebar/loader",
 //    "module/enquiry/loader",
     "modules/settings/loader",

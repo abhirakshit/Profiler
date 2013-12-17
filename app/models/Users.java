@@ -2,9 +2,11 @@ package models;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 import play.data.validation.Constraints.Required;
 
@@ -15,6 +17,8 @@ import utils.Utils;
 import com.avaje.ebean.validation.Email;
 
 import controllers.Application;
+import controllers.Secured;
+import controllers.form.SignupForm;
 
 @Entity
 public class Users extends Base {
@@ -41,6 +45,33 @@ public class Users extends Base {
 	public String roleType;
 
 	public boolean active = true;
+	
+	//Profile Attributes for Students
+	
+	public String contactNumber;
+	
+	@Lob
+	public String address;
+	
+	public String fieldInterested;
+	
+	public String countryInterested;
+	
+	//X
+	public String highSchoolScore;
+	
+	//X+2
+	public String seniorSecondaryScore;
+	
+	public String graduationScore;
+	
+	public String testScores;
+	
+	public String programInterested;
+	
+	@Lob
+	public String remarks;
+
 
 	public static final Finder<Long, Users> find = new Finder<Long, Users>(Long.class, Users.class);
 
@@ -61,6 +92,20 @@ public class Users extends Base {
 		roleType = _roleType;
 	}
 	
+	public static Users create(SignupForm completedForm) {
+		final Users user = new Users(completedForm.firstName, completedForm.lastName, completedForm.email, completedForm.passwd, completedForm.roleType);
+		user.active = true;
+		user.save();
+		return user;
+	}
+	
+	public static Users createAdmin(String _firstName, String _lastName, String _email, String _password) {
+		final Users user = new Users(_firstName, _lastName, _email, _password, Application.ADMIN);
+		user.active = true;
+		user.save();
+		return user;
+	}
+	
 	public static Users createSuperAdmin(String _firstName, String _lastName, String _email, String _password) {
 		final Users user = new Users(_firstName, _lastName, _email, _password, Application.SUPER_ADMIN);
 		user.active = true;
@@ -76,10 +121,19 @@ public class Users extends Base {
 	/**
 	 * DB calls
 	 */
+	
+	public static List<Users> findAll() {
+		return find.all();
+	}
+	
 	public static Users findByEmail(final String email) {
 		if (email == null || email.isEmpty())
 			return null;
 		return find.where().eq("active", true).eq("email", email.toLowerCase()).findUnique();
+	}
+	
+	public static Users findById(Long id) {
+		return find.ref(id);
 	}
 	
 	/**
@@ -95,5 +149,20 @@ public class Users extends Base {
     		return false;
         return PasswordHash.validatePassword(password, user.password);
     }
+
+	public static List<Users> getAllUsersExceptAdmins() {
+		return find.where().ne("roleType", Application.ADMIN)
+				.ne("roleType", Application.SUPER_ADMIN).findList();
+	}
+	
+	public static List<Users> getAllStudents() {
+		return find.where().eq("roleType", Application.STUDENT)
+				.findList();
+	}
+	
+	public static List<Users> getAllCounselors() {
+		return find.where().eq("roleType", Application.COUNSELOR)
+				.findList();
+	}
 	
 }

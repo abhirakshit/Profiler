@@ -13,6 +13,16 @@ create table users (
   password                  varchar(255),
   role_type                 varchar(255),
   active                    boolean,
+  contact_number            varchar(255),
+  address                   text,
+  field_interested          varchar(255),
+  country_interested        varchar(255),
+  high_school_score         varchar(255),
+  senior_secondary_score    varchar(255),
+  graduation_score          varchar(255),
+  test_scores               varchar(255),
+  program_interested        varchar(255),
+  remarks                   text,
   constraint uq_users_email unique (email),
   constraint pk_users primary key (id))
 ;
