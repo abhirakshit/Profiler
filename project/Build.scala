@@ -19,9 +19,9 @@ object ApplicationBuild extends Build {
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
     requireJs += "app.js",
-    //requireNativePath := scala.util.Properties.envOrNone("REQUIREJS_PATH")
+    requireNativePath := scala.util.Properties.envOrNone("REQUIREJS_PATH")
     //requireNativePath := Some("C:\Users\rabhishe\AppData\Roaming\npm\node_modules\requirejs\bin\r.js")
-    requireNativePath := Some("C:/Users/rabhishe/AppData/Roaming/npm/node_modules/requirejs/bin/r.js")
+    //requireNativePath := Some("C:/Users/rabhishe/AppData/Roaming/npm/node_modules/requirejs/bin/r.js")
      //requireJsShim += "app.js"
   )
 
