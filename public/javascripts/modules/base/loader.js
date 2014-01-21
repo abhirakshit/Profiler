@@ -1,19 +1,19 @@
 
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
-Application.module("Base", function(){
-    this.prefix = "base";
-    this.templatePath = "assets/javascripts/modules/";
-    this.views = {};
-
-    this.template = function(str) {
-        return this.prefix + '-' + str;
-    };
-
-    // This has been added to only keep class naming consistent with views.
-    this.models = {};
-    this.collections = {};
-});
+//Application.module("Base", function(){
+//    this.prefix = "base";
+//    this.templatePath = "assets/javascripts/modules/";
+//    this.views = {};
+//
+//    this.template = function(str) {
+//        return this.prefix + '-' + str;
+//    };
+//
+//    // This has been added to only keep class naming consistent with views.
+//    this.models = {};
+//    this.collections = {};
+//});
 
 var dependencies = [
 
@@ -42,6 +42,20 @@ var dependencies = [
 define(dependencies, function(){
 //    console.log(module.config().user)
     Application.module("Base", function(Base, Application, Backbone, Marionette, $, _){
+
+        this.prefix = "base";
+        this.templatePath = "assets/javascripts/modules/";
+        this.views = {};
+
+        this.template = function(str) {
+            return this.prefix + '-' + str;
+        };
+
+        // These have been added to only keep model classes naming consistent with views.
+        this.models = {};
+        this.collections = {};
+
+
         Application.addInitializer(function(){
             console.log("Init Base...")
 //            console.log(module.config().user)
