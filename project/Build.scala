@@ -18,7 +18,8 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
-     //requireJs += "app.js",
+    requireJs += "app.js",
+    requireNativePath := Some("/usr/local/lib/node_modules/requirejs/bin/r.js")
      //requireJsShim += "app.js"
   )
 
