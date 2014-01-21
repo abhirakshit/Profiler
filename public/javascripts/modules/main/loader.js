@@ -48,7 +48,7 @@ var dependencies = [
 // define the loader last. generally, it should depend on all
 // module files, otherwise they may not get loaded
 
-define(dependencies,
+define("Main", dependencies,
     function () {
         console.log("Init Main...")
         Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {

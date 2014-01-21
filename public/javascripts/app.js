@@ -1,5 +1,4 @@
 require.config({
-
     baseUrl: 'assets/javascripts',
     paths: {
         //Framework
