@@ -38,7 +38,7 @@ Application.module("Profiles", function(Profiles, Application, Backbone, Marione
             //Profiles.addNavTabs();
             Profiles.showProfile();
 
-            Application.Base.onHoverEditable(Profiles.mainLayout);
+//            Application.Base.onHoverEditable(Profiles.mainLayout);
         }
 
     });
@@ -49,11 +49,14 @@ Application.module("Profiles", function(Profiles, Application, Backbone, Marione
 
         //Show header
         var pgHeader = new Application.Base.views.PageHeader({
-            model: new Backbone.Model({header: "Profiles"})
+            model: new Backbone.Model({header: "Profile"})
         });
         headerLayoutView.pageHeader.show(pgHeader);
 
     };
+
+
+//    Profiles.models.studentProfile = Marionette.Model.extend()
 
     Profiles.showProfile = function() {
         var userProfileView = new Profiles.views.showProfile({
@@ -64,10 +67,22 @@ Application.module("Profiles", function(Profiles, Application, Backbone, Marione
         var spLayoutView = new Profiles.views.StudentProfileLayout();
         Profiles.mainLayout.tabContentRegion.show(spLayoutView);
 
-        var institutionalView = new Profiles.views.InstitutionalView();
-//        spLayoutView.institutionRegion.show(userProfileView);
+        var institutionalView = new Profiles.views.InstitutionalView({
+            model : Application.Base.loggedUser
+        });
         spLayoutView.institutionRegion.show(institutionalView);
 
+        var careerView = new Profiles.views.CareerView({
+            model : Application.Base.loggedUser
+        });
+        spLayoutView.careerRegion.show(careerView);
+
+        var academicView = new Profiles.views.AcademicView({
+            model : Application.Base.loggedUser
+        });
+        spLayoutView.academicRegion.show(academicView);
+
+//        Application.Base.onHoverEditable(spLayoutView);
         Profiles.router.navigate(Profiles.profileUrl);
     }
 

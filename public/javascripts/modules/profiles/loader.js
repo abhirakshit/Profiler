@@ -1,5 +1,5 @@
 Application.module("Profiles", function(){
-    this.prefix = "settings";
+    this.prefix = "profiles";
     this.templatePath = "assets/javascripts/modules/";
     this.views = {};
     this.template = function(str) {

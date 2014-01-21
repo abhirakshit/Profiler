@@ -16,8 +16,6 @@ Application.module("Base", function(){
 });
 
 var dependencies = [
-//    //App
-//    "modules/templateLoader/templateLoader",
 
     //Libs
     "dataTables",
@@ -31,6 +29,7 @@ var dependencies = [
 
     //Views
     "modules/base/views/layouts/layouts",
+    "modules/base/views/tables/tables",
     "modules/base/views/forms/formElems",
     "modules/base/views/headers/pageHeader",
     "modules/base/views/navigation/navTabs",
@@ -41,9 +40,11 @@ var dependencies = [
 ];
 
 define(dependencies, function(){
+//    console.log(module.config().user)
     Application.module("Base", function(Base, Application, Backbone, Marionette, $, _){
         Application.addInitializer(function(){
             console.log("Init Base...")
+//            console.log(module.config().user)
             Marionette.TemplateLoader.loadModuleTemplates(Application.Base, Application.Base.show);
         });
     });

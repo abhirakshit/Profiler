@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+@(loggedUserId: String)
 <html lang="@lang().code()">
 <head>
     <title>@Messages("app.title")</title>
@@ -8,12 +8,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content=@Messages("app.title")>
     <meta name="author" content="Abhishek">
+
+    <script type="text/javascript">
+        window.userId = "@loggedUserId";
+    </script>
+
     @helper.requireJs(core = routes.Assets.at("javascripts/lib/require/require.js").url, module = routes.Assets.at("javascripts/app").url)
 
 	<!-- Le Css -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <link href='@routes.Assets.at("css/jquery-ui-chosen/chosen.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/jquery-ui-combobox/jquery.ui.combobox.css")' rel="stylesheet">
     <link href='@routes.Assets.at("css/jquery-ui.css")' rel="stylesheet">
+
     <link href='@routes.Assets.at("css/bootstrap.css")' rel="stylesheet">
+    <!--<link href='@routes.Assets.at("css/bootstrap3/bootstrap.css")' rel="stylesheet">-->
     <link href='@routes.Assets.at("css/bootstrap-responsive.css")' rel="stylesheet">
+
+    <link href='@routes.Assets.at("css/select2/select2-bootstrap.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/select2/select2.css")' rel="stylesheet">
+
+    <link href='@routes.Assets.at("css/bootstrap-editable/bootstrap-editable.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysiwyg-color.css")' rel="stylesheet">
     <link href='@routes.Assets.at("css/bootstrap-datetimepicker.min.css")' rel="stylesheet">
     <link href='@routes.Assets.at("css/jquery.jgrowl.css")' rel="stylesheet">
     <link href='@routes.Assets.at("css/demo_table.css")' rel="stylesheet">

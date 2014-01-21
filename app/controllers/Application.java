@@ -6,6 +6,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import controllers.form.LoginForm;
 import controllers.form.SignupForm;
+import flexjson.JSONSerializer;
 
 public class Application extends Controller {
   
@@ -22,12 +23,18 @@ public class Application extends Controller {
 	public static final String ADMIN = "admin";
 	public static final String SUPER_ADMIN = "superAdmin";
 	
+	public static final String STATUS_NEW = "New";
+	public static final String STATUS_OPEN = "Open";
+	public static final String STATUS_CLOSED = "Closed";
+	
+	
 	static final Form<LoginForm> loginForm = Form.form(LoginForm.class);
 	static final Form<SignupForm> signupForm = Form.form(SignupForm.class);
 	
     public static Result index() {
         if (isUserLoggedIn()) {
-    		return ok(views.html.index.render());
+        	JSONSerializer serializer = new JSONSerializer();
+    		return ok(views.html.index.render(serializer.serialize(getLocalUser().id.toString())));
     	}
         return ok(views.html.login.render(loginForm));
     }
@@ -73,5 +80,19 @@ public class Application extends Controller {
         flash(Application.FLASH_MESSAGE_KEY, "You have been logged out.");
         return index();
     }
+    
+    
+//    public static Result populateUser() {
+//		JsonNode reqJson = request().body().asJson();
+//		if (reqJson !=null ||
+//				(reqJson.get(UserController.PASSWORD) != null || !reqJson.get(UserController.PASSWORD).asText().isEmpty()) ||
+//				(reqJson.get(UserController.CONFIRM_PASSWORD) != null || !reqJson.get(UserController.CONFIRM_PASSWORD).asText().isEmpty()) ||
+//				!UserController.checkPasswordMatching(reqJson.get(UserController.PASSWORD).asText(), reqJson.get(UserController.CONFIRM_PASSWORD).asText())
+//				) 
+//			return badRequest();
+//		Users user = Users.create(reqJson);
+//		JSONSerializer serializer = new JSONSerializer();
+//		return ok(serializer.serialize(user));
+//	}
   
 }

@@ -44,7 +44,7 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
         Settings.mainLayout.pageHeaderRegion.show(headerLayoutView);
 
         //Show header
-        var pgHeader = new Application.Base.PageHeader({
+        var pgHeader = new Application.Base.views.PageHeader({
             model: new Backbone.Model({header: "Settings"})
         });
         headerLayoutView.pageHeader.show(pgHeader);

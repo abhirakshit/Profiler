@@ -22,7 +22,8 @@ Marionette.TemplateLoader = (function(Marionette, _) {
             var template = view.prototype.template
 
             //Check if template is a separate html if not do not put in array
-            if (typeof template == 'function'){
+            if (!template ||
+                typeof template == 'function'){
                 continue;
             }
 

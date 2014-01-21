@@ -1,11 +1,13 @@
 Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
+    Sidebar.NavSearchId = "sidebar-nav-search";
     Sidebar.NavQueriesId = "sidebar-nav-queries";
     Sidebar.NavProfilesId = "sidebar-nav-profiles";
     Sidebar.NavSettingsId = "sidebar-nav-settings";
 
     getCounselorSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
+            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
             new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
             new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Students", icon: "icon-user"}),
             new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
@@ -14,6 +16,7 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
 
     getStudentSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
+            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
             new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
             new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Profile", icon: "icon-user"}),
             new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
@@ -43,6 +46,8 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
                     Sidebar.showProfilesModule();
                 } else if (Sidebar.NavSettingsId == tabId) {
                     Sidebar.showSettingsModule();
+                } else if (Sidebar.NavSearchId == tabId) {
+                    Sidebar.showSearchModule();
                 }
             }
         );
@@ -63,6 +68,11 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     Sidebar.showSettingsModule = function() {
         Application.vent.trigger(Application.Base.showSettingsHomeEvt);
         Sidebar.activateSidebarTab(Sidebar.NavSettingsId);
+    };
+
+    Sidebar.showSearchModule = function() {
+        Application.vent.trigger(Application.Base.showSearchHomeEvt);
+        Sidebar.activateSidebarTab(Sidebar.NavSearchId);
     };
 
     Sidebar.activateSidebarTab = function(id) {

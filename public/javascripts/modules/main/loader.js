@@ -26,10 +26,14 @@
 
 var dependencies = [
 
-//    "module/footer/footer",
+    //Base - Forcing base to load here. Have been having issues when trying to load as dependency from other module
+    "modules/base/loader",
+
+//    "modules/footer/footer",
+    "modules/queries/loader",
     "modules/profiles/loader",
     "modules/sidebar/loader",
-//    "module/enquiry/loader",
+    "modules/search/loader",
     "modules/settings/loader",
     "modules/header/loader",
 

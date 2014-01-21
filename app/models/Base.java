@@ -9,7 +9,7 @@ import play.data.format.Formats;
 import play.db.ebean.Model;
 
 @MappedSuperclass	
-public class Base extends Model{
+public abstract class Base extends Model{
 	
 	private static final long serialVersionUID = 1L;
 

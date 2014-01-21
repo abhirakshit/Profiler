@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# Application
 GET     /                           controllers.Application.index()
 GET     /index                      controllers.Application.index()
 POST    /login                      controllers.Application.doLogin()
@@ -10,16 +10,95 @@ POST    /signup                     controllers.Application.doSignup()
 GET     /logout                     controllers.Application.logout()
 
 # User
-GET     /user                       controllers.UserController.getLoggedUser()
+#GET     /user                       controllers.UserController.getLoggedUser()
+POST	/user						controllers.UserController.create()
+GET		/user/:userId				controllers.UserController.show(userId: Long)
+PUT		/user/:userId				controllers.UserController.update(userId: Long)
+PATCH	/user/:userId				controllers.UserController.updatePartial(userId: Long)
+DELETE	/user/:userId				controllers.UserController.delete(userId: Long)
+
 GET     /users/all                  controllers.UserController.getAllUsers()
 GET     /users/students             controllers.UserController.getAllStudents()
 GET     /users/counselors           controllers.UserController.getAllCounselors()
 
+# Schools
+POST    /school						controllers.InstitutionController.createSchool()
+GET     /school/:instId				controllers.InstitutionController.showSchool(instId: Long)
+PUT     /school/:instId				controllers.InstitutionController.updateSchool(instId: Long)
+DELETE  /school/:instId				controllers.InstitutionController.deleteSchool(instId: Long)
 
-#POST	/user						controllers.UserController.create()
-GET		/user/:userId				controllers.UserController.show(userId: Long)
-#PUT	/user/:userId				controllers.UserController.update(userId: Long)
-#DELETE	/user/:userId				controllers.UserController.delete(userId: Long)
+GET		/schools/all				controllers.InstitutionController.getAllSchools()
+
+# Colleges
+POST    /college					controllers.InstitutionController.createCollege()
+GET     /college/:instId			controllers.InstitutionController.showCollege(instId: Long)
+PUT     /college/:instId			controllers.InstitutionController.updateCollege(instId: Long)
+DELETE  /college/:instId			controllers.InstitutionController.deleteCollege(instId: Long)
+GET		/colleges/all				controllers.InstitutionController.getAllColleges()
+
+# Universities
+POST    /university					controllers.InstitutionController.createUniversity()
+GET     /university/:instId			controllers.InstitutionController.showUniversity(instId: Long)
+PUT     /university/:instId			controllers.InstitutionController.updateUniversity(instId: Long)
+DELETE  /university/:instId			controllers.InstitutionController.deleteUniversity(instId: Long)
+GET		/universities/all			controllers.InstitutionController.getAllUniversities()
+
+
+# Queries
+POST	/query						controllers.QueryController.create()
+GET		/query/:queryId				controllers.QueryController.show(queryId: Long)
+PUT		/query/:queryId				controllers.QueryController.update(queryId: Long)
+DELETE	/query/:queryId				controllers.QueryController.delete(queryId: Long)
+
+# Stream
+POST    /stream									controllers.SearchController.createStream()
+GET     /stream/:streamId						controllers.SearchController.showStream(streamId: Long)
+PUT     /stream/:streamId						controllers.SearchController.updateStream(streamId: Long)
+PATCH	/stream/:streamId						controllers.SearchController.updateStreamPartial(streamId: Long)
+DELETE  /stream/:streamId						controllers.SearchController.deleteStream(streamId: Long)
+GET		/stream/:streamId/majors				controllers.SearchController.getAllMajors(streamId: Long)
+
+GET		/streams/all							controllers.SearchController.getAllStreams()
+
+# Major
+POST    /major								controllers.MajorsController.create()
+GET     /major/:majorId						controllers.MajorsController.show(majorId: Long)
+PUT     /major/:majorId						controllers.MajorsController.update(majorId: Long)
+PATCH	/major/:majorId						controllers.MajorsController.updatePartial(majorId: Long)
+DELETE  /major/:majorId						controllers.MajorsController.delete(majorId: Long)
+
+GET		/majors								controllers.MajorsController.all()
+
+
+# Specializations
+POST    /specialization								controllers.SpecializationsController.create()
+GET     /specialization/:specializationId			controllers.SpecializationsController.show(specializationId: Long)
+PUT     /specialization/:specializationId			controllers.SpecializationsController.update(specializationId: Long)
+PATCH	/specialization/:specializationId			controllers.SpecializationsController.updatePartial(specializationId: Long)
+DELETE  /specialization/:specializationId			controllers.SpecializationsController.delete(specializationId: Long)
+
+GET		/specializations							controllers.SpecializationsController.all()
+
+# Occupations
+POST    /occupation								controllers.OccupationsController.create()
+GET     /occupation/:occupationId				controllers.OccupationsController.show(occupationId: Long)
+PUT     /occupation/:occupationId				controllers.OccupationsController.update(occupationId: Long)
+PATCH	/occupation/:occupationId				controllers.OccupationsController.updatePartial(occupationId: Long)
+DELETE  /occupation/:occupationId				controllers.OccupationsController.delete(occupationId: Long)
+
+GET		/occupations							controllers.OccupationsController.all()
+
+
+# Degree
+POST	/degree						controllers.DegreeController.create()
+GET 	/degree						controllers.DegreeController.show(degreeId: Long)
+PUT 	/degree						controllers.DegreeController.update(degreeId: Long)
+DELETE	/degree						controllers.DegreeController.delete(degreeId: Long)
+
+GET 	/degrees					controllers.DegreeController.all()
+GET 	/degrees/bachelors			controllers.DegreeController.allBachelors()
+GET 	/degrees/masters			controllers.DegreeController.allMasters()
+GET 	/degrees/doctorate			controllers.DegreeController.allDoctorate()
 
 
 # Map static resources from the /public folder to the /assets URL path

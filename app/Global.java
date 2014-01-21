@@ -10,7 +10,9 @@ public class Global extends GlobalSettings {
 
 	private void initialData() {
 		// Create Admin user if not present
-		if (Users.findByEmail("admin@admin.com") == null)
-			Users.createSuperAdmin("Admin", "", "admin@admin.com", "admin");
+		if (Users.findByEmail("admin@admin.com") == null) {
+			Users.createAdmin("Admin", "", "admin@admin.com", "admin");
+			Users.createSuperAdmin("Super", "Admin", "sa@sa.com", "sa");
+		}
 	}
 }

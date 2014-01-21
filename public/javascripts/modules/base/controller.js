@@ -7,7 +7,14 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
     Base.SUPER_ADMIN_ROLE = "superAdmin";
 
 //    Base.allUsers_Url = "/user/all";
+//    Base.userUrl = "/user";
     Base.getLoggedInUser = "/user";
+    Base.getAllCounselorUrl ="/users/counselors";
+    Base.getAllScoolsUrl ="/schools/all";
+
+    //This is to get the userId when user has logged in. When we log in we save a window variable so that we can call the server to get
+    //the data.
+    Base.loggedUserId = window.userId.replace(/&quot;/g, '')
 
     Base.Router = Marionette.AppRouter.extend({
         appRoutes: {
@@ -23,15 +30,57 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
 
     updateLoggedUser = function() {
         //Get local user
-        var options = {urlRoot: Base.getLoggedInUser};
-        Base.loggedUser = new Base.models.Generic([], options);
+//        console.log("User Id: " + Base.loggedUserId);
+//        var options = {urlRoot: Base.getLoggedInUser};
+//        Base.loggedUser = new Base.models.Generic([], options);
+        Base.loggedUser = new Base.models.User({id: Base.loggedUserId});
         Base.loggedUser.fetch({async : false});
 //        console.dir(Base.loggedUser);
     };
 
+    Base.isAdmin = function(){
+        var role = Base.loggedUser.attributes.roleType;
+        if (role == Application.Base.ADMIN_ROLE || role == Application.Base.SUPER_ADMIN_ROLE)
+            return true;
+
+        return false;
+    }
+
+    Base.isSuperAdmin = function(){
+        var role = Base.loggedUser.attributes.roleType;
+        if (role == Application.Base.SUPER_ADMIN_ROLE)
+            return true;
+
+        return false;
+    }
+
+    populateCounselorCollection = function() {
+//        var options = {url: Base.getAllCounselorUrl};
+//        Base.allCounselorCollection = new Base.collections.Generic([], options);
+        Base.allCounselorCollection = new Base.collections.Generic([], {url: Base.getAllCounselorUrl});
+        Base.allCounselorCollection.fetch({async:false});
+    };
+
+    populateInstitutionCollection = function() {
+//        var options = {url: Base.getAllScoolsUrl};
+//        Base.allSchoolsCollection = new Base.collections.Generic([], options);
+        Base.allSchoolsCollection = new Base.collections.Generic([], {url: Base.getAllScoolsUrl});
+        Base.allSchoolsCollection.fetch({async:false});
+    };
+
+
     Base.onTemplatesLoaded = function() {
         Base.show();
     };
+
+    setUpXEditableConfig = function() {
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.ajaxOptions = {type: "PATCH", dataType: 'json'};
+
+        if (!Base.isAdmin() && !Base.isSuperAdmin())
+            $.fn.editable.defaults.disabled = 'true';
+
+    }
 
     Base.show = function(){
         console.log("Show Base...");
@@ -39,9 +88,14 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
         Base.router = new Base.Router({
             controller: Base.controller
         });
+
         updateLoggedUser();
+        setUpXEditableConfig();
+        populateInstitutionCollection();
+        populateCounselorCollection();
     };
 
+    Base.showSearchHomeEvt = "showSearchHome";
     Base.showQueriesHomeEvt = "showQueriesHome";
     Base.showProfilesHomeEvt = "showProfilesHome";
     Base.showSettingsHomeEvt = "showSettingsHome";
@@ -52,15 +106,37 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
 
     Application.vent.on('all', function (evt, model) {
         if (Base.showQueriesHomeEvt == evt){
-            Application.Enquiry.controller.start();
+            Application.Queries.controller.showQueriesHome();
         } else if (Base.showProfilesHomeEvt == evt) {
             Application.Profiles.controller.showProfilesHome();
         } else if (Base.showSettingsHomeEvt == evt) {
             Application.Settings.controller.showSettingsHome();
+        } else if (Base.showSearchHomeEvt == evt) {
+            Application.Search.controller.showSearchHome();
         }
 
     });
 
+    //Utils
+    Base.getCounselorName = function(id) {
+        if (id) {
+            var counselor = _.findWhere(Base.allCounselorCollection.toJSON(),{id: id})
+            if (counselor)
+                return counselor.fullName;
+        }
+
+        return "";
+    }
+
+    Base.dateViewHelper = {
+        formatDate: function(date, format) {
+            return moment(date).format(format);
+        },
+
+        getCurrentDate: function(format) {
+            return moment().format(format);
+        }
+    };
 
     //JAVASCRIPTS
     // Will need later
@@ -71,12 +147,20 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
             "sPaginationType": "full_numbers",
             "bInfo": false
         });
+
+//        layout.$el.each('.dataTable').dataTable({
+//            "bJQueryUI": true,
+//            "sPaginationType": "full_numbers",
+//            "bInfo": false
+//        });
     };
 
     Base.onHoverEditable = function(layout) {
         layout.$el.find((".editable")).hover(function(){
+//            console.log("Mouse Enter..")
             $(this).addClass('over');
         }, function(){
+//            console.log("Mouse Out..")
             $(this).removeClass('over');
         })
     }
