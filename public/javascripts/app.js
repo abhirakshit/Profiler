@@ -52,9 +52,6 @@ require.config({
             deps: ["marionette"]
         },
 
-        dataTables: {
-            deps: ["jquery"]
-        },
 //        jqueryUIChosen: {
 //            deps: ["jquery"]
 //        },
@@ -67,6 +64,14 @@ require.config({
 
         bootstrap: {
             deps: ["jquery"]
+        },
+
+        dateTimePicker: {
+            deps: ["bootstrap"]
+        },
+
+        dataTables: {
+            deps: "jquery"
         },
 
 
@@ -102,14 +107,13 @@ var dependencies = [
     "moment",
     "jquery",
     "jqueryUI",
-//    "jqueryUICombobox",
-//    "jqueryUIChosen",
+    "dataTables",
+    "dateTimePicker",
     "jGrowl",
     "backboneValidation",
     "backboneSyphon",
-//    "backboneInlineEditable",
     "bootstrapEditable",
-    "wysihtml5", //Editable extension
+    "wysihtml5", //XEditable extension
     "bootstrap",
     "select2"
 
@@ -118,6 +122,7 @@ var dependencies = [
 require(dependencies, function (Marionette) {
     console.log("Init Application...")
     window.Application = new Marionette.Application();
+//    Application = new Marionette.Application();
     Application.addRegions({
         headerRegion: "#header-region",
         sidebar: "#sidebar-region",
