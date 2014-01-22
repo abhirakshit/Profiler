@@ -28,9 +28,9 @@ require.config({
         dateTimePicker: "lib/utils/bootstrap-datetimepicker.min",
         dataTables: "lib/jquery-dataTables/jquery.dataTables.min",
         bootstrapEditable: "lib/bootstrap-editable/bootstrap-editable",
-        bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2",
-        wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0",
         wysihtml5: "lib/bootstrap-editable/wysihtml5/wysihtml5",
+        wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0",
+        bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2",
 
         select2: "lib/select2/select2",
         bootstrap: "lib/bootstrap/bootstrap"
@@ -130,7 +130,7 @@ define(dependencies, function (Marionette) {
         footer: "#footer-region"
     });
 
-    define(["modules/main/loader"], function () {
+    require(["modules/main/loader"], function () {
         console.log("Start Application...")
         Application.start();
     });
