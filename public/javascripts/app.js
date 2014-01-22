@@ -1,10 +1,6 @@
 require.config({
 
-//    appDir: '../',
-//    baseUrl: '../javascripts',
-
     baseUrl: 'assets/javascripts',
-//    dir: '../../public-build',
     paths: {
         //Framework
         jquery: "lib/jquery/jquery",
@@ -39,6 +35,11 @@ require.config({
     },
 
     shim: {
+
+        jqueryUI: {
+            deps: ["jquery"]
+        },
+
         underscore: {
             exports: "_"
         },
@@ -100,6 +101,9 @@ require.config({
             deps: ["jquery"]
         }
     }
+
+//    modules: [
+//    ]
 });
 
 var dependencies = [
