@@ -1,7 +1,10 @@
 require.config({
 
-    appDir: 'assets',
+//    appDir: '../',
+//    baseUrl: '../javascripts',
+
     baseUrl: 'assets/javascripts',
+//    dir: '../../public-build',
     paths: {
         //Framework
         jquery: "lib/jquery/jquery",
@@ -117,7 +120,7 @@ var dependencies = [
 
 ];
 
-require(dependencies, function (Marionette) {
+define(dependencies, function (Marionette) {
     console.log("Init Application...")
     window.Application = new Marionette.Application();
     Application.addRegions({
@@ -127,7 +130,7 @@ require(dependencies, function (Marionette) {
         footer: "#footer-region"
     });
 
-    require(["modules/main/loader"], function () {
+    define(["modules/main/loader"], function () {
         console.log("Start Application...")
         Application.start();
     });
