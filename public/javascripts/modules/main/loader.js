@@ -48,7 +48,7 @@ var dependencies = [
 // define the loader last. generally, it should depend on all
 // module files, otherwise they may not get loaded
 
-require(dependencies,
+define(dependencies,
 //define([
 //
 //    //Base - Forcing base to load here. Have been having issues when trying to load as dependency from other module

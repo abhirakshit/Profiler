@@ -21,7 +21,7 @@ var dependencies = [
 
 ];
 
-require(dependencies, function(){
+define(dependencies, function(){
     Application.module("Header", function(Header, Application, Backbone, Marionette, $, _){
         Header.addInitializer(function(){
             //Load Templates
