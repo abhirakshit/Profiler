@@ -129,7 +129,7 @@ var dependencies = [
 
 require(dependencies, function (Marionette) {
     console.log("Init Application...")
-    window.Application = new Marionette.Application();
+    Application = new Marionette.Application();
     Application.addRegions({
         headerRegion: "#header-region",
         sidebar: "#sidebar-region",
@@ -142,3 +142,4 @@ require(dependencies, function (Marionette) {
         Application.start();
     });
 });
+
