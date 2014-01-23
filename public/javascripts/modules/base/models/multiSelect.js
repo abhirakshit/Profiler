@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
     Base.collections.MultiSelect = Backbone.Collection.extend({
@@ -12,4 +13,5 @@ Application.module("Base",function (Base, Application, Backbone, Marionette, $, 
             return response;
         }
     });
+});
 });

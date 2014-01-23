@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
     Sidebar.NavSearchId = "sidebar-nav-search";
@@ -78,4 +79,5 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     Sidebar.activateSidebarTab = function(id) {
         Sidebar.sidebarOptionsView.selectTabView(id);
     }
+});
 });

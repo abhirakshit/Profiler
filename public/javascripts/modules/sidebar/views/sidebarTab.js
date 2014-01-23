@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
     Sidebar.views.SideBarTab = Marionette.ItemView.extend({
@@ -56,4 +57,5 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
 
     });
 
+});
 });

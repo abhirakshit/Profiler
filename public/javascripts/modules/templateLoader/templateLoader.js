@@ -1,3 +1,4 @@
+define(function(){
 Marionette.TemplateLoader = (function(Marionette, _) {
     "use strict";
 
@@ -104,3 +105,6 @@ Marionette.TemplateLoader = (function(Marionette, _) {
 
     return templateLoader;
 })(Marionette,_);
+
+});
+

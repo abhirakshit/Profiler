@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
     var headerHtml = '<h1 class="page-title"><%=args.header%></h1>'
@@ -7,4 +8,5 @@ Application.module("Base",function (Base, Application, Backbone, Marionette, $, 
             return _.template(headerHtml, {header: _header}, {variable: 'args'});
         }
     });
+});
 });

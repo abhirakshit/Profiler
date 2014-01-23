@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
     var Base = Application.module("Base");
@@ -115,4 +116,5 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
 //        new Header.GenericModel({optionId:"logout", optionUrl: "#logout", optionText: "Logout", iconClass: "icon-off"})
 //    ]
 
+});
 });

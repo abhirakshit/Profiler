@@ -1,31 +1,28 @@
 
-Application.module("Sidebar", function(){
-    this.prefix = "sidebar";
-    this.templatePath = "assets/javascripts/modules/";
-    this.views = {};
-    this.template = function(str) {
-        return this.prefix + '-' + str;
-    };
-
-    // This has been added to only keep class naming consistent with views.
-    this.models = {};
-    this.collections = {};
-});
-
-var dependencies = [
+//var dependencies = [
+//    "modules/sidebar/views/sidebarTab",
+//    "modules/sidebar/controller",
+//
+//    //Base
+//    "modules/base/loader"
+//];
+//
+//require(dependencies,
+define([
+    "modules/sidebar/setup",
     "modules/sidebar/views/sidebarTab",
-    "modules/sidebar/controller",
+    "modules/sidebar/controller"
 
-    //Base
-    "modules/base/loader"
-];
+//    //Base
+//    "modules/base/loader"
+],
 
-require(dependencies, function(){
+    function(){
     Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _){
-        Application.addInitializer(function(){
+        Sidebar.addInitializer(function(){
             //Load Templates
             console.log("Load Sidebar...")
-            Marionette.TemplateLoader.loadModuleTemplates(Application.Sidebar, Application.Sidebar.show);
+            Marionette.TemplateLoader.loadModuleTemplates(Sidebar, Sidebar.show);
         });
     });
 });

@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
 
     Settings.createAdminEvt = "createAdmin";
@@ -51,4 +52,5 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
         }
 
     })
+});
 });

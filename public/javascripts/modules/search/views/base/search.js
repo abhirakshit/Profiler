@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function (Search, Application, Backbone, Marionette, $, _) {
 
     /**
@@ -43,4 +44,5 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         tagName: "span"
     })
 
+});
 });

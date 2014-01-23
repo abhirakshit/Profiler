@@ -1,4 +1,4 @@
-require.config({
+requirejs.config({
 
     /**
      * Heroku Setup
@@ -32,11 +32,7 @@ require.config({
         wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.min",
         bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min",
         select2: "lib/select2/select2",
-        bootstrap: "lib/bootstrap/bootstrap",
-
-
-        main: "modules/main/main"
-
+        bootstrap: "lib/bootstrap/bootstrap"
     },
 
     shim: {
@@ -62,10 +58,14 @@ require.config({
         templateLoader: {
             deps: ["marionette"]
         },
-//
-//        dataTables: {
-//            deps: ["jquery"]
-//        },
+
+        dateTimePicker: {
+            deps: ["jquery"]
+        },
+
+        dataTables: {
+            deps: ["jquery"]
+        },
 //
         jGrowl: {
             deps: ["jquery"]
@@ -118,27 +118,37 @@ var dependencies = [
     "bootstrapEditable",
     "wysihtml5", //Editable extension
     "bootstrap",
-    "select2"
+    "select2",
+
+    "dataTables",
+    "dateTimePicker"
 
 ];
 
 require(dependencies,
     function (Marionette) {
-    console.log("Init Application...")
-    window.Application = new Marionette.Application();
-//    alert("App starting");
-    Application.addRegions({
-        headerRegion: "#header-region",
-        sidebar: "#sidebar-region",
-        pageContent: "#page-content-region",
-        footer: "#footer-region"
-    });
+        console.log("Init Application...")
+        window.Application = new Marionette.Application();
+    //    alert("App starting");
+        Application.addRegions({
+            headerRegion: "#header-region",
+            sidebar: "#sidebar-region",
+            pageContent: "#page-content-region",
+            footer: "#footer-region"
+        });
 
-    require(["modules/main/loader"], function () {
-        console.log("Start Application...")
-        Application.start();
-    });
-});
+        Application.on("initialize:after", function(){
+            console.log("Application has started");
+        });
+
+        require(["modules/main/loader"], function () {
+            console.log("Start Application...")
+            Application.start();
+        });
+
+        return Application;
+    }
+);
 
 //require(dependencies,
 //    function (Application) {

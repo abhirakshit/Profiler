@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
     Settings.onTemplatesLoaded = function() {
         this.show();
@@ -108,4 +109,5 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
 //
 //        Settings.router.navigate(Settings.profileUrl);
 //    };
+});
 });

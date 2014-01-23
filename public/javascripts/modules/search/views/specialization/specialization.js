@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function (Search, Application, Backbone, Marionette, $, _) {
     Search.SPECIALIZATIONS = "specializations";
     Search.specializationUrl = "/specialization";
@@ -17,4 +18,5 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 //
 //        });
 //    };
+});
 });

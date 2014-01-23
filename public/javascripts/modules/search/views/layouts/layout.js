@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function(Search, Application, Backbone, Marionette, $, _) {
 
     Search.views.mainLayout = Marionette.Layout.extend({
@@ -9,4 +10,5 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         }
     });
 
+});
 });

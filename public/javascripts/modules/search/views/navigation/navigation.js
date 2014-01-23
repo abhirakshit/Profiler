@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function(Search, Application, Backbone, Marionette, $, _) {
 
     var streamSelectTemplateHtml = '<span id="<%=args.selectSpanId%>"></span>';
@@ -59,4 +60,5 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     })
 
 
+});
 });

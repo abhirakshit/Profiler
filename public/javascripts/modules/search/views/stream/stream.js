@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function (Search, Application, Backbone, Marionette, $, _) {
 
     Search.streamUrl = "/stream";
@@ -450,4 +451,5 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     };
 
 
+});
 });

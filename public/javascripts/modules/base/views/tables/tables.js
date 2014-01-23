@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
     Base.views.TableLayout = Marionette.Layout.extend({
         template: "base/views/tables/tableLayout",
@@ -63,4 +64,5 @@ Application.module("Base",function (Base, Application, Backbone, Marionette, $, 
 //        }
 //    });
 
+});
 });

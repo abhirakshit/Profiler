@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
     Base.views.AddButton = Marionette.ItemView.extend({
@@ -32,4 +33,5 @@ Application.module("Base",function (Base, Application, Backbone, Marionette, $, 
 //            }
         }
     });
+});
 });

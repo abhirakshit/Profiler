@@ -1,21 +1,5 @@
+define(function () {
 Application.module("Base", function (Base, Application, Backbone, Marionette, $, _) {
-
-//    Base.models.Base = Backbone.Model.extend({
-////        save: function (attrs, options) {
-////            attrs = attrs || this.toJSON();
-////            options = options || {};
-////
-////            // If model defines serverAttrs, replace attrs with trimmed version
-////            if (this.serverAttrs)
-////                attrs = _.pick(attrs, this.serverAttrs);
-////
-////            // Move attrs to options
-////            options.attrs = attrs;
-////
-////            // Call super with attrs moved to options
-////            Backbone.Model.prototype.save.call(this, attrs, options);
-////        }
-//    });
 
     Base.models.Generic = Backbone.Model.extend({
         initialize: function(attributes, options) {
@@ -56,4 +40,5 @@ Application.module("Base", function (Base, Application, Backbone, Marionette, $,
 //            }
 //        }
     });
+});
 });

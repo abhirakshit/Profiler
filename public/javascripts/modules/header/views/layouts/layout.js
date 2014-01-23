@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
     //Layouts
@@ -12,4 +13,5 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
         }
     });
 
+});
 });

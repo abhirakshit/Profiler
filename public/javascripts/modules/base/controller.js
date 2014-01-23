@@ -1,3 +1,4 @@
+define(function () {
 Application.module("Base", function(Base, Application, Backbone, Marionette, $, _) {
 
 
@@ -168,4 +169,5 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
             $(this).removeClass('over');
         })
     }
+});
 });

@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Search", function (Search, Application, Backbone, Marionette, $, _) {
 
     Search.setupWYSIWIGEditor = function(view, viewId, value, emptyText, modelAttr){
@@ -60,10 +61,5 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         }
 
     });
-
-
-
-
-
-
+});
 });
