@@ -59,11 +59,11 @@ define([
     "modules/header/loader",
     "modules/sidebar/loader",
     "modules/search/loader",
-    "modules/settings/loader"
+    "modules/settings/loader",
 
 //    "modules/footer/footer",
-//    "modules/queries/loader",
-//    "modules/profiles/loader",
+    "modules/queries/loader",
+    "modules/profiles/loader"
 
 //    "module/main/controller"
 

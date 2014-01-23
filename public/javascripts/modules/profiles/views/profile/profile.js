@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Profiles", function(Profiles, Application, Backbone, Marionette, $, _) {
 
     Profiles.views.StudentProfileLayout = Marionette.Layout.extend({
@@ -193,4 +194,5 @@ Application.module("Profiles", function(Profiles, Application, Backbone, Marione
             return this.data;
         }
     });
+});
 });

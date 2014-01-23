@@ -1,32 +1,26 @@
-Application.module("Queries", function(){
-    this.prefix = "queries";
-    this.templatePath = "assets/javascripts/modules/";
-    this.views = {};
-    this.template = function(str) {
-        return this.prefix + '-' + str;
-    };
+//var dependencies = [
+//    //Base
+//    "modules/base/loader",
+//
+//    "modules/queries/views/query",
+//    "modules/queries/controller"
+//
+//];
 
-    // This has been added to only keep class naming consistent with views.
-    this.models = {};
-    this.collections = {};
-});
+//define(dependencies,
+define([
 
-var dependencies = [
-    //Base
-    "modules/base/loader",
-
+    "modules/queries/setup",
     "modules/queries/views/query",
     "modules/queries/controller"
 
-];
-
-require(dependencies, function(){
+],
+    function(){
     Application.module("Queries", function(Queries, Application, Backbone, Marionette, $, _){
-        Application.addInitializer(function(){
+        Queries.addInitializer(function(){
             //Load Templates
             console.log("Load Queries...")
-            Marionette.TemplateLoader.loadModuleTemplates(Application.Queries, Application.Queries.show);
-//            Application.Queries.show();
+            Marionette.TemplateLoader.loadModuleTemplates(Queries, Queries.show);
         });
     });
 });

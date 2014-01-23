@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Profiles", function(Profiles, Application, Backbone, Marionette, $, _) {
     Profiles.onTemplatesLoaded = function() {
         this.show();
@@ -87,4 +88,5 @@ Application.module("Profiles", function(Profiles, Application, Backbone, Marione
     }
 
 
+});
 });

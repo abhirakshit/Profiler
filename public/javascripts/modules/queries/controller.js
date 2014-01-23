@@ -1,3 +1,4 @@
+define(function(){
 Application.module("Queries", function(Queries, Application, Backbone, Marionette, $, _) {
     Queries.onTemplatesLoaded = function() {
         this.show();
@@ -152,4 +153,5 @@ Application.module("Queries", function(Queries, Application, Backbone, Marionett
         return tableBodyView
     };
 
+});
 });
