@@ -117,7 +117,8 @@ var dependencies = [
 
 ];
 
-require(dependencies, function (Marionette) {
+require(dependencies,
+    function (Marionette) {
     console.log("Init Application...")
     window.Application = new Marionette.Application();
     alert("App starting");
