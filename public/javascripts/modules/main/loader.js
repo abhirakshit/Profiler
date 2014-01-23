@@ -51,7 +51,7 @@ var dependencies = [
 define(dependencies,
     function () {
         console.log("Init Main...")
-        return Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {
+        Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {
 //            Application.addInitializer(function () {
             Main.addInitializer(function () {
                 console.log("Start Main...")
