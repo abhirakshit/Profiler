@@ -58,7 +58,8 @@ public class Application extends Controller {
     		return badRequest(views.html.login.render(loginForm));
     	} else {
     		session("email", completedForm.get().email);
-    		return index();
+//    		return index();
+    		return redirect("/index");
     	}
     }
 

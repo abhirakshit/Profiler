@@ -4,6 +4,7 @@ import models.Users;
 
 import org.codehaus.jackson.JsonNode;
 
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -23,16 +24,21 @@ public class UserController extends Controller{
 		return ok(serializer.include("institution").include("queries").exclude("password").serialize(Users.findById(id)));
 	}
 	
+	static Form<Users> userForm = Form.form(Users.class);
 	public static Result create() {
 		JsonNode reqJson = request().body().asJson();
-		if (reqJson != null &&
-				(reqJson.get(PASSWORD) != null || !reqJson.get(PASSWORD).asText().isEmpty()) ||
-				(reqJson.get(CONFIRM_PASSWORD) != null || !reqJson.get(CONFIRM_PASSWORD).asText().isEmpty()) ||
-				!checkPasswordMatching(reqJson.get(PASSWORD).asText(), reqJson.get(CONFIRM_PASSWORD).asText())
-				) 
-			return badRequest();
+		System.err.println("User Json: " + reqJson);
+		if (!checkPasswordMatching(reqJson.get(PASSWORD).asText(), reqJson.get(CONFIRM_PASSWORD).asText())) 
+			return badRequest("Error in form data");
+
+//		Form<Users> newUserForm = userForm.bindFromRequest();
+//		if (newUserForm.hasErrors()) {
+//			return badRequest(newUserForm.errorsAsJson());
+//		} 
 //		checkPasswordMatching(reqJson.get(PASSWORD).asText(), reqJson.get(CONFIRM_PASSWORD).asText());
 		Users user = Users.create(reqJson);
+//		Users user = newUserForm.get();
+		user.save();
 		JSONSerializer serializer = new JSONSerializer();
 		return ok(serializer.serialize(user));
 	}
