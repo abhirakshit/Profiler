@@ -1,9 +1,17 @@
 require.config({
 
-    appDir: '../../',
-    baseUrl: 'javascripts',
+    /**
+     * Heroku Setup
+     */
+    appDir: "../",
+    baseUrl: "javascripts",
+    dir: "../../public-build",
 
+    /**
+     * Local Setup
+     */
 //    baseUrl: 'assets/javascripts',
+
     paths: {
         //Framework
         jquery: "lib/jquery/jquery.min",
