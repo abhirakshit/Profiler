@@ -6,15 +6,15 @@
 
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
-//Application.module("Main", function (Main) {
-//    Main.prefix = "main";
-//    Main.templatePath = "assets/javascripts/module/";
-//    Main.views = {};
-//    Main.template = function(str) {
-//        return Main.prefix + '-' + str;
-//    };
-//
-//});
+Application.module("Main", function (Main) {
+    Main.prefix = "main";
+    Main.templatePath = "assets/javascripts/module/";
+    Main.views = {};
+    Main.template = function(str) {
+        return Main.prefix + '-' + str;
+    };
+
+});
 
 
 // Recommended: define all dependencies for this module
@@ -86,4 +86,5 @@ define(dependencies,
                 }
             });
         });
+
     });
