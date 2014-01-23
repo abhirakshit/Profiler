@@ -43,10 +43,10 @@ define(dependencies,
     function(){
 //    console.log(module.config().user)
     Application.module("Base", function(Base, Application, Backbone, Marionette, $, _){
-        Application.addInitializer(function(){
+        return Base.addInitializer(function(){
             console.log("Init Base...")
 //            console.log(module.config().user)
-            Marionette.TemplateLoader.loadModuleTemplates(Application.Base, Application.Base.show);
+            Marionette.TemplateLoader.loadModuleTemplates(Base, Base.show);
         });
     });
 });

@@ -22,11 +22,11 @@ var dependencies = [
 ];
 
 require(dependencies, function(){
-    Application.module("Application.Header", function(Header, Application, Backbone, Marionette, $, _){
-        Application.addInitializer(function(){
+    Application.module("Header", function(Header, Application, Backbone, Marionette, $, _){
+        Header.addInitializer(function(){
             //Load Templates
             console.log("Init Header...")
-            Marionette.TemplateLoader.loadModuleTemplates(Application.Header, Application.Header.show);
+            Marionette.TemplateLoader.loadModuleTemplates(Header, Header.show);
         });
     });
 });

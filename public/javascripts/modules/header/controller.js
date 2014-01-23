@@ -1,5 +1,6 @@
 Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
+    var Base = Application.module("Base");
 //    //Models
 //    Header.GenericModel = Backbone.Model.extend();
 //    Header.GenericCollection = Backbone.Collection.extend({
@@ -13,23 +14,23 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
     var LOGOUT_URL = "logout"
 
     getUserDropDownOptions = function() {
-        return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({optionId:"profile", optionUrl: "#user/profile", optionText: "Profile", iconClass: ""}),
-            new Application.Base.models.Generic({optionId:"logout", optionUrl: LOGOUT_URL, optionText: "Logout", iconClass: "icon-off"})
+        return new Base.collections.Generic([
+            new Base.models.Generic({optionId:"profile", optionUrl: "#user/profile", optionText: "Profile", iconClass: ""}),
+            new Base.models.Generic({optionId:"logout", optionUrl: LOGOUT_URL, optionText: "Logout", iconClass: "icon-off"})
         ])
     };
 
     getAdminDropDownOptions = function() {
-        return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({optionId:"profile", optionUrl: "#user/profile", optionText: "Profile", iconClass: ""}),
-//            new Application.Base.models.Generic({optionId:"admin", optionUrl: "#admin", optionText: "Admin", iconClass: ""}),
-            new Application.Base.models.Generic({optionId:"logout", optionUrl: LOGOUT_URL, optionText: "Logout", iconClass: "icon-off"})
+        return new Base.collections.Generic([
+            new Base.models.Generic({optionId:"profile", optionUrl: "#user/profile", optionText: "Profile", iconClass: ""}),
+//            new Base.models.Generic({optionId:"admin", optionUrl: "#admin", optionText: "Admin", iconClass: ""}),
+            new Base.models.Generic({optionId:"logout", optionUrl: LOGOUT_URL, optionText: "Logout", iconClass: "icon-off"})
         ])
     }
 
     getHeaderTabCollection = function() {
-        return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({tabLabel:"Search", tabUrl: "#search"})
+        return new Base.collections.Generic([
+            new Base.models.Generic({tabLabel:"Search", tabUrl: "#search"})
         ])
     }
 
@@ -63,8 +64,8 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
 
         //Setup user dropdowns
         var userDropDownCollectionView = new Header.views.UserDropDownCollection({
-            collection: Header.getDropDownOptions(Application.Base.loggedUser),
-            model: Application.Base.loggedUser
+            collection: Header.getDropDownOptions(Base.loggedUser),
+            model: Base.loggedUser
         });
         Header.layout.userDropDown.show(userDropDownCollectionView);
         this.listenTo(userDropDownCollectionView, "collectionview:itemview:dropdown:selected",
@@ -76,7 +77,7 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
                         url: LOGOUT_URL,
                         success: function() {
                             console.log("Logged Out...");
-//                            Application.Base.router.navigate("login", false);
+//                            Base.router.navigate("login", false);
                             window.location.reload();
                         }
                     })
@@ -92,10 +93,10 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
     };
 
     Header.getDropDownOptions = function(user) {
-        if(Application.Base.isAdmin())
+        if(Base.isAdmin())
             return getAdminDropDownOptions();
 //        var role = user.attributes.roleType;
-//        if (role == Application.Base.ADMIN_ROLE || role == Application.Base.SUPER_ADMIN_ROLE)
+//        if (role == Base.ADMIN_ROLE || role == Base.SUPER_ADMIN_ROLE)
 ////            return adminDropDownOptions;
 //            return getAdminDropDownOptions();
 

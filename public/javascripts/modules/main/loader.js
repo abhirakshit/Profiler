@@ -48,14 +48,15 @@ var dependencies = [
 // define the loader last. generally, it should depend on all
 // module files, otherwise they may not get loaded
 
-require(dependencies,
+define(dependencies,
     function () {
         console.log("Init Main...")
-        Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {
-            Application.addInitializer(function () {
+        return Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {
+//            Application.addInitializer(function () {
+            Main.addInitializer(function () {
                 console.log("Start Main...")
                 // load templates for this module
-                Marionette.TemplateLoader.loadModuleTemplates(Application.Main, Application.Main.show);
+                Marionette.TemplateLoader.loadModuleTemplates(Main, Main.show);
 
                 if (Backbone.history){
                     console.log("Start Backbone history...");
