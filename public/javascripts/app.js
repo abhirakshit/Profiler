@@ -121,7 +121,7 @@ require(dependencies,
     function (Marionette) {
     console.log("Init Application...")
     window.Application = new Marionette.Application();
-    alert("App starting");
+//    alert("App starting");
     Application.addRegions({
         headerRegion: "#header-region",
         sidebar: "#sidebar-region",
