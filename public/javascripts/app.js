@@ -3,14 +3,14 @@ require.config({
     /**
      * Heroku Setup
      */
-    appDir: "../",
-    baseUrl: "javascripts",
-    dir: "../../public-build",
+//    appDir: "../",
+//    baseUrl: "javascripts",
+//    dir: "../../public-build",
 
     /**
      * Local Setup
      */
-//    baseUrl: 'assets/javascripts',
+    baseUrl: 'assets/javascripts',
 
     paths: {
         //Framework
