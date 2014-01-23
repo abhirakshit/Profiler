@@ -32,7 +32,10 @@ require.config({
         wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.min",
         bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min",
         select2: "lib/select2/select2",
-        bootstrap: "lib/bootstrap/bootstrap"
+        bootstrap: "lib/bootstrap/bootstrap",
+
+
+        main: "modules/main/main"
 
     },
 
@@ -100,6 +103,8 @@ require.config({
 });
 
 var dependencies = [
+//    "main", //???
+
     "marionette",
     "moment",
     "jquery",
@@ -134,4 +139,11 @@ require(dependencies,
         Application.start();
     });
 });
+
+//require(dependencies,
+//    function (Application) {
+//        console.log("Start Application...")
+//        Application.start();
+//    });
+
 

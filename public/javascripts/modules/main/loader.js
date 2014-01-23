@@ -29,18 +29,19 @@ var dependencies = [
     //Base - Forcing base to load here. Have been having issues when trying to load as dependency from other module
     "modules/base/loader",
 
+    //App
+    "modules/templateLoader/templateLoader",
+
 //    "modules/footer/footer",
     "modules/queries/loader",
     "modules/profiles/loader",
     "modules/sidebar/loader",
     "modules/settings/loader",
     "modules/header/loader",
-    "modules/search/loader",
+    "modules/search/loader"
 
 //    "module/main/controller"
 
-    //App
-    "modules/templateLoader/templateLoader"
 
 ];
 

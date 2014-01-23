@@ -1,12 +1,11 @@
-
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
-Application.module("Base", function(){
+Application.module("Base", function () {
     this.prefix = "base";
     this.templatePath = "assets/javascripts/modules/";
     this.views = {};
 
-    this.template = function(str) {
+    this.template = function (str) {
         return this.prefix + '-' + str;
     };
 
@@ -14,6 +13,7 @@ Application.module("Base", function(){
     this.models = {};
     this.collections = {};
 });
+
 
 var dependencies = [
 
@@ -40,13 +40,13 @@ var dependencies = [
 ];
 
 define(dependencies,
-    function(){
+    function () {
 //    console.log(module.config().user)
-    Application.module("Base", function(Base, Application, Backbone, Marionette, $, _){
-        return Base.addInitializer(function(){
-            console.log("Init Base...")
+        Application.module("Base", function (Base, Application, Backbone, Marionette, $, _) {
+            return Base.addInitializer(function () {
+                console.log("Init Base...")
 //            console.log(module.config().user)
-            Marionette.TemplateLoader.loadModuleTemplates(Base, Base.show);
+                Marionette.TemplateLoader.loadModuleTemplates(Base, Base.show);
+            });
         });
     });
-});
