@@ -1,9 +1,9 @@
 require.config({
 
-//    appDir: '../../',
-//    baseUrl: 'javascripts',
+    appDir: '../../',
+    baseUrl: 'javascripts',
 
-    baseUrl: 'assets/javascripts',
+//    baseUrl: 'assets/javascripts',
     paths: {
         //Framework
         jquery: "lib/jquery/jquery.min",
