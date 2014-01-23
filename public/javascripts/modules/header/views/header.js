@@ -14,14 +14,17 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
 
 
     //Views
-    var appLabel = '<%=args.appLabel%>';
+    var appLabelHtml = '<%=args.appLabel%>';
     Header.views.AppLabel = Marionette.ItemView.extend({
         tagName: "a",
+//        attributes: {
+//            href: "#"
+//        },
         className: "brand",
         id: "appLabel",
 
         template: function(serialized_model) {
-            return _.template(appLabel,
+            return _.template(appLabelHtml,
                 {appLabel: serialized_model.appLabel},
                 {variable: 'args'});
         },
@@ -30,7 +33,8 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
             "click #appLabel": "showAppHome"
         },
 
-        showAppHome: function() {
+        showAppHome: function(evt) {
+            evt.preventDefault();
             console.log("Show App home");
         }
 

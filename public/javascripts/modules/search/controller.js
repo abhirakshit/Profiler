@@ -17,13 +17,13 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         Search.controller.showSearchHome();
     };
 
-    Search.homeUrl = "Search";
+    Search.homeUrl = "search";
 
 //    Search.createStreamEvt = "createStream";
 
     Search.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "Search": "showSearchHome"
+            "search": "showSearchHome"
         }
     });
 
@@ -61,7 +61,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
             //Add views
             Search.addPageHeader();
             Search.showSearchSection();
-
+            Search.router.navigate(Search.homeUrl);
         }
 
     });

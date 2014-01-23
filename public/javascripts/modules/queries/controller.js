@@ -13,13 +13,13 @@ Application.module("Queries", function(Queries, Application, Backbone, Marionett
             controller: Queries.controller
         })
 
-        Queries.controller.showQueriesHome();
+//        Queries.controller.showQueriesHome();
     };
 
     Queries.homeUrl = "queries";
     Queries.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "Queries": "showQueriesHome"
+            "queries": "showQueriesHome"
         }
     });
 

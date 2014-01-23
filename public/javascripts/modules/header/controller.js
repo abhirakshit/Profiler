@@ -22,7 +22,7 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
     getAdminDropDownOptions = function() {
         return new Application.Base.collections.Generic([
             new Application.Base.models.Generic({optionId:"profile", optionUrl: "#user/profile", optionText: "Profile", iconClass: ""}),
-            new Application.Base.models.Generic({optionId:"admin", optionUrl: "#admin", optionText: "Admin", iconClass: ""}),
+//            new Application.Base.models.Generic({optionId:"admin", optionUrl: "#admin", optionText: "Admin", iconClass: ""}),
             new Application.Base.models.Generic({optionId:"logout", optionUrl: LOGOUT_URL, optionText: "Logout", iconClass: "icon-off"})
         ])
     }
@@ -49,17 +49,17 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
         //Setup Application label
         var appLabel = new Header.views.AppLabel({
             model: new Backbone.Model({
-                appLabel: "Student Profiler"
+                appLabel: "Career DB"
             })
         });
         Header.layout.appLabel.show(appLabel);
 
-        //Setup nav tabs
-        Header.headerTabCollection = new Header.collections.HeaderTab({
-//            collection: tabCollection
-            collection: getHeaderTabCollection()
-        });
-        Header.layout.navTabs.show(Header.headerTabCollection)
+        //TODO: Add Setup nav tabs
+//        Header.headerTabCollection = new Header.collections.HeaderTab({
+////            collection: tabCollection
+//            collection: getHeaderTabCollection()
+//        });
+//        Header.layout.navTabs.show(Header.headerTabCollection)
 
         //Setup user dropdowns
         var userDropDownCollectionView = new Header.views.UserDropDownCollection({

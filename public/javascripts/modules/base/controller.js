@@ -107,12 +107,16 @@ Application.module("Base", function(Base, Application, Backbone, Marionette, $, 
     Application.vent.on('all', function (evt, model) {
         if (Base.showQueriesHomeEvt == evt){
             Application.Queries.controller.showQueriesHome();
+            Application.Sidebar.activateSidebarTab(Application.Sidebar.NavQueriesId);
         } else if (Base.showProfilesHomeEvt == evt) {
             Application.Profiles.controller.showProfilesHome();
+            Application.Sidebar.activateSidebarTab(Application.Sidebar.NavProfilesId);
         } else if (Base.showSettingsHomeEvt == evt) {
             Application.Settings.controller.showSettingsHome();
+            Application.Sidebar.activateSidebarTab(Application.Sidebar.NavSettingsId);
         } else if (Base.showSearchHomeEvt == evt) {
             Application.Search.controller.showSearchHome();
+            Application.Sidebar.activateSidebarTab(Application.Sidebar.NavSearchId);
         }
 
     });

@@ -33,9 +33,9 @@ var dependencies = [
     "modules/queries/loader",
     "modules/profiles/loader",
     "modules/sidebar/loader",
-    "modules/search/loader",
     "modules/settings/loader",
     "modules/header/loader",
+    "modules/search/loader",
 
 //    "module/main/controller"
 
@@ -49,25 +49,6 @@ var dependencies = [
 // module files, otherwise they may not get loaded
 
 define(dependencies,
-//define([
-//
-//    //Base - Forcing base to load here. Have been having issues when trying to load as dependency from other module
-//    "modules/base/loader",
-//
-////    "modules/footer/footer",
-//    "modules/queries/loader",
-//    "modules/profiles/loader",
-//    "modules/sidebar/loader",
-//    "modules/search/loader",
-//    "modules/settings/loader",
-//    "modules/header/loader",
-//
-////    "module/main/controller"
-//
-//    //App
-//    "modules/templateLoader/templateLoader"
-//
-//],
     function () {
         console.log("Init Main...")
         Application.module("Main", function (Main, Application, Backbone, Marionette, $, _) {

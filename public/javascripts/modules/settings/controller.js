@@ -51,11 +51,49 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
 
     };
 
+
+    Settings.userUrl = "/user";
     Settings.showProfile = function() {
-        var userProfileView = new Settings.views.showProfile({
+
+        var settingsLayout = new Settings.views.Layout();
+        Settings.mainLayout.tabContentRegion.show(settingsLayout);
+
+
+        var userProfileView = new Settings.views.Profile({
             model : Application.Base.loggedUser
-        })
-        Settings.mainLayout.tabContentRegion.show(userProfileView);
+        });
+//        Settings.mainLayout.tabContentRegion.show(userProfileView);
+        settingsLayout.profileRegion.show(userProfileView);
+
+        //Add admin section
+        if (Application.Base.isAdmin()) {
+            var createAdminView = new Settings.views.CreateAdmin({
+                model: new Settings.models.User({
+                    urlRoot: Settings.userUrl
+                })
+            });
+            settingsLayout.adminRegion.show(createAdminView);
+
+            this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
+                var data = Backbone.Syphon.serialize(view);
+                data.roleType = "Admin";
+                console.log(data);
+                view.model.save(data, {
+                    wait: true,
+                    success: function (model) {
+                        $.jGrowl("New Admin created: " + model.get("firstName"), {theme: 'jGrowlSuccess'});
+                        Settings.showProfile();
+                    },
+
+                    error: function (model, response) {
+                        $.jGrowl("Error saving " + model.get("firstName"), {theme: 'jGrowlError'});
+                        console.error("Error Model: " + model.toJSON());
+                        console.error("Error Response: " + response.statusText);
+                        Search.showProfile();
+                    }
+                });
+            })
+        }
 
         Settings.router.navigate(Settings.profileUrl);
     }

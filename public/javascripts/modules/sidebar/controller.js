@@ -8,8 +8,8 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     getCounselorSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
             new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
-            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
-            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Students", icon: "icon-user"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Students", icon: "icon-user"}),
             new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
         ]);
     }
@@ -17,8 +17,8 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     getStudentSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
             new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
-            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
-            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Profile", icon: "icon-user"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Profile", icon: "icon-user"}),
             new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
         ]);
     }
@@ -52,27 +52,27 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
             }
         );
         Application.sidebar.show(Sidebar.sidebarOptionsView);
-        Sidebar.activateSidebarTab(Sidebar.NavQueriesId);
+        Sidebar.activateSidebarTab(Sidebar.NavSearchId);
     };
 
     Sidebar.showQueriesModule = function() {
         Application.vent.trigger(Application.Base.showQueriesHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavQueriesId);
+//        Sidebar.activateSidebarTab(Sidebar.NavQueriesId);
     };
 
     Sidebar.showProfilesModule = function() {
         Application.vent.trigger(Application.Base.showProfilesHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavProfilesId);
+//        Sidebar.activateSidebarTab(Sidebar.NavProfilesId);
     };
 
     Sidebar.showSettingsModule = function() {
         Application.vent.trigger(Application.Base.showSettingsHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavSettingsId);
+//        Sidebar.activateSidebarTab(Sidebar.NavSettingsId);
     };
 
     Sidebar.showSearchModule = function() {
         Application.vent.trigger(Application.Base.showSearchHomeEvt);
-        Sidebar.activateSidebarTab(Sidebar.NavSearchId);
+//        Sidebar.activateSidebarTab(Sidebar.NavSearchId);
     };
 
     Sidebar.activateSidebarTab = function(id) {
