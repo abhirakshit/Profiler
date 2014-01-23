@@ -1,32 +1,35 @@
 require.config({
 
+//    appDir: '../../',
+//    baseUrl: 'javascripts',
+
     baseUrl: 'assets/javascripts',
     paths: {
         //Framework
-        jquery: "lib/jquery/jquery",
-        jqueryUI: "lib/jquery-ui/jquery-ui",
+        jquery: "lib/jquery/jquery.min",
+        jqueryUI: "lib/jquery-ui/jquery-ui.min",
 
         // Use one of the below
 //        jqueryUICombobox: "lib/jquery-ui/jquery-ui-combobox/jquery.ui.combobox",
 //        jqueryUIChosen: "lib/jquery-ui/jquery-ui-chosen/chosen.jquery",
 
 
-        jGrowl: "lib/jquery-jgrowl/jquery.jgrowl",
-        underscore: "lib/underscore/underscore",
-        backbone: "lib/backbone/backbone",
-        marionette: "lib/marionette/backbone.marionette",
-        backboneValidation: "lib/backbone-validation/backbone-validation-amd",
-        backboneSyphon: "lib/backbone-syphon/backbone.syphon",
+        jGrowl: "lib/jquery-jgrowl/jquery.jgrowl.min",
+        underscore: "lib/underscore/underscore-min",
+        backbone: "lib/backbone/backbone-min",
+        marionette: "lib/marionette/backbone.marionette.min",
+        backboneValidation: "lib/backbone-validation/backbone-validation-amd-min",
+        backboneSyphon: "lib/backbone-syphon/backbone.syphon.min",
 //        backboneInlineEditable: "lib/backbone-inline_editable/backbone.inline_editable",
 
         //Utils
         moment: "lib/utils/moment.min",
         dateTimePicker: "lib/utils/bootstrap-datetimepicker.min",
         dataTables: "lib/jquery-dataTables/jquery.dataTables.min",
-        bootstrapEditable: "lib/bootstrap-editable/bootstrap-editable",
+        bootstrapEditable: "lib/bootstrap-editable/bootstrap-editable.min",
         wysihtml5: "lib/bootstrap-editable/wysihtml5/wysihtml5",
-        wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0",
-        bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2",
+        wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.min",
+        bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min",
 
         select2: "lib/select2/select2",
         bootstrap: "lib/bootstrap/bootstrap"
@@ -124,7 +127,7 @@ var dependencies = [
 
 ];
 
-define(dependencies, function (Marionette) {
+require(dependencies, function (Marionette) {
     console.log("Init Application...")
     window.Application = new Marionette.Application();
     Application.addRegions({
