@@ -1,4 +1,6 @@
-define(function(){
+define(
+    ["modules/queries/views/query"],
+    function(){
 Application.module("Queries", function(Queries, Application, Backbone, Marionette, $, _) {
     Queries.onTemplatesLoaded = function() {
         this.show();

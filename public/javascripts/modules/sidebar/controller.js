@@ -1,4 +1,6 @@
-define(function () {
+define(
+    ["modules/sidebar/views/sidebarTab"],
+    function () {
 Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _) {
 
     Sidebar.NavSearchId = "sidebar-nav-search";

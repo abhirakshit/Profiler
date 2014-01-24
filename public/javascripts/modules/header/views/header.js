@@ -1,4 +1,4 @@
-define(function () {
+define(["modules/header/setup"], function () {
 Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
 //    //Layouts

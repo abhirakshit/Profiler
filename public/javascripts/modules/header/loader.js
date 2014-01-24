@@ -24,20 +24,21 @@
 //define(dependencies,
 define([
     // Base
-//    "modules/base/loader",
+    "modules/base/loader"
 
-    "modules/header/setup",
-    "modules/header/views/layouts/layout",
-    "modules/header/views/header",
-    "modules/header/controller"
-
+//    "modules/header/setup",
+//    "modules/header/views/layouts/layout",
+//    "modules/header/views/header",
+//    "modules/header/controller"
 ],
     function(){
     Application.module("Header", function(Header, Application, Backbone, Marionette, $, _){
-        Header.addInitializer(function(){
-            //Load Templates
-            console.log("Init Header...")
-            Marionette.TemplateLoader.loadModuleTemplates(Header, Header.show);
+        require(["modules/header/controller"], function () {
+            Header.addInitializer(function(){
+                //Load Templates
+                console.log("Init Header...")
+                Marionette.TemplateLoader.loadModuleTemplates(Header, Header.show);
+            });
         });
     });
 });

@@ -1,4 +1,6 @@
-define(function () {
+define(
+    ["modules/settings/views/profile"],
+    function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
     Settings.onTemplatesLoaded = function() {
         this.show();
@@ -74,17 +76,8 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
             settingsLayout.adminRegion.show(createAdminView);
 
             this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
-                var model = view.model;
                 var data = Backbone.Syphon.serialize(view);
                 data.roleType = Application.Base.ADMIN_ROLE;
-//                console.log(data);
-                model.set(data);
-                console.log("Valid First name: " + model.isValid("firstName"));
-                console.log("Valid Last name: " + model.isValid("lastName"));
-                console.log("Valid email: " + model.isValid("email"));
-                console.log("Valid password: " + model.isValid("password"));
-                console.log("Valid Cpassword: " + model.isValid("confirmPassword"));
-                console.log("Valid Model: " + model.isValid(true));
 
                 view.model.save(data, {
                     wait: true,

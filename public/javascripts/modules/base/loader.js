@@ -1,33 +1,22 @@
 // define base module elements; other module files may depend
 // on this, but it must not depend on any other module files
+
 define([
-
-    //Libs
-//    "dataTables",
-//    "dateTimePicker",
-//    "backboneValidation",
-//    "backboneSyphon",
-
-    //Models
-
-//    "modules/base/order!setup",
+//// Models
+//    "modules/base/setup",
 //    "modules/base/models/multiSelect",
 //    "modules/base/models/base",
-
-    "modules/base/setup",
-    "modules/base/models/multiSelect",
-    "modules/base/models/base",
-//
-//    //Views
-    "modules/base/views/layouts/layouts",
-    "modules/base/views/tables/tables",
-    "modules/base/views/forms/formElems",
-    "modules/base/views/headers/pageHeader",
-    "modules/base/views/navigation/navTabs",
-    "modules/base/views/validation/validationMessages",
+////
+////    //Views
+//    "modules/base/views/layouts/layouts",
+//    "modules/base/views/tables/tables",
+//    "modules/base/views/forms/formElems",
+//    "modules/base/views/headers/pageHeader",
+//    "modules/base/views/navigation/navTabs",
+//    "modules/base/views/validation/validationMessages",
 //
 //    //Controller
-    "modules/base/controller",
+    "modules/base/controller"
 ],
     function () {
 //    console.log(module.config().user)

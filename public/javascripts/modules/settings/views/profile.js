@@ -1,4 +1,6 @@
-define(function () {
+define(
+    ["modules/settings/setup"],
+    function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
 
     Settings.createAdminEvt = "createAdmin";

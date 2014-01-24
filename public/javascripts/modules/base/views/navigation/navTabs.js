@@ -1,4 +1,4 @@
-define(function () {
+define(["modules/base/setup"], function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
     Base.views.NavTab = Marionette.ItemView.extend({
         template: "base/views/navigation/navTab",

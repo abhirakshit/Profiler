@@ -1,4 +1,6 @@
-define(function(){
+define(
+    ["modules/queries/setup"],
+    function(){
 Application.module("Queries", function (Queries, Application, Backbone, Marionette, $, _) {
 
     Queries.views.StudentQueriesLayout = Marionette.Layout.extend({

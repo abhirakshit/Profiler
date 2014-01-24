@@ -40,7 +40,7 @@ public class UserController extends Controller{
 //		Users user = newUserForm.get();
 		user.save();
 		JSONSerializer serializer = new JSONSerializer();
-		return ok(serializer.serialize(user));
+		return ok(serializer.exclude("password").serialize(user));
 	}
 	
 	public static boolean checkPasswordMatching(String password, String confirmPassword) {
@@ -50,7 +50,7 @@ public class UserController extends Controller{
 	public static Result update(Long id) {
 //		System.err.println("\n$$$$$$$$$$$$$$$$\n" + request().body().asJson());
 		JSONSerializer serializer = new JSONSerializer();
-		return ok(serializer.serialize(Users.findById(id)));
+		return ok(serializer.exclude("password").serialize(Users.findById(id)));
 	}
 	
 	public static Result updatePartial(Long id) {
@@ -64,7 +64,7 @@ public class UserController extends Controller{
 		if (queryJson != null) {
 			return createQuery(user, queryJson, serializer);
 		} else {
-			return ok(serializer.serialize(user.update(reqJson)));
+			return ok(serializer.exclude("password").serialize(user.update(reqJson)));
 		}
 	}
 	

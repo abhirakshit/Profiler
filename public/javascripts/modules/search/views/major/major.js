@@ -1,4 +1,6 @@
-define(function(){
+define(
+    ["modules/search/setup"],
+    function(){
 Application.module("Search", function(Search, Application, Backbone, Marionette, $, _) {
 
     Search.majorUrl = "/major";

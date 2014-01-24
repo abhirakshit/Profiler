@@ -13,8 +13,7 @@ requirejs.config({
     baseUrl: 'assets/javascripts',
 
     paths: {
-        //Framework
-        order: "lib/require/plugins/order",
+        //Build
         jquery: "lib/jquery/jquery.min",
         jqueryUI: "lib/jquery-ui/jquery-ui.min",
         jGrowl: "lib/jquery-jgrowl/jquery.jgrowl.min",
@@ -34,6 +33,28 @@ requirejs.config({
         bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min",
         select2: "lib/select2/select2",
         bootstrap: "lib/bootstrap/bootstrap"
+
+
+        //Development
+//        jquery: "lib/jquery/jquery",
+//        jqueryUI: "lib/jquery-ui/jquery-ui",
+//        jGrowl: "lib/jquery-jgrowl/jquery.jgrowl",
+//        underscore: "lib/underscore/underscore",
+//        backbone: "lib/backbone/backbone",
+//        marionette: "lib/marionette/backbone.marionette",
+//        backboneValidation: "lib/backbone-validation/backbone-validation-amd",
+//        backboneSyphon: "lib/backbone-syphon/backbone.syphon",
+//
+//        //Utils
+//        moment: "lib/utils/moment.min",
+//        dateTimePicker: "lib/utils/bootstrap-datetimepicker.min",
+//        dataTables: "lib/jquery-dataTables/jquery.dataTables",
+//        bootstrapEditable: "lib/bootstrap-editable/bootstrap-editable",
+//        wysihtml5: "lib/bootstrap-editable/wysihtml5/wysihtml5",
+//        wysihtml5_0_3_0: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0",
+//        bootstrapWysihtml: "lib/bootstrap-editable/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2",
+//        select2: "lib/select2/select2",
+//        bootstrap: "lib/bootstrap/bootstrap"
     },
 
     shim: {
@@ -138,9 +159,9 @@ require(dependencies,
             footer: "#footer-region"
         });
 
-        Application.on("initialize:after", function(){
-            console.log("Application has started");
-        });
+//        Application.on("initialize:after", function(){
+//            console.log("Application has started");
+//        });
 
         require(["modules/main/loader"], function () {
             console.log("Start Application...")

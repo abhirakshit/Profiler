@@ -1,4 +1,6 @@
-define(function(){
+define(
+    ["modules/profiles/views/profile/profile"],
+    function(){
 Application.module("Profiles", function(Profiles, Application, Backbone, Marionette, $, _) {
     Profiles.onTemplatesLoaded = function() {
         this.show();

@@ -1,29 +1,38 @@
-
-//var dependencies = [
+//define([
+//    "modules/sidebar/setup",
 //    "modules/sidebar/views/sidebarTab",
-//    "modules/sidebar/controller",
+//    "modules/sidebar/controller"
 //
-//    //Base
-//    "modules/base/loader"
-//];
+////    //Base
+////    "modules/base/loader"
+//],
 //
-//require(dependencies,
-define([
-    "modules/sidebar/setup",
-    "modules/sidebar/views/sidebarTab",
-    "modules/sidebar/controller"
+//    function(){
+//    Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _){
+//        Sidebar.addInitializer(function(){
+//            //Load Templates
+//            console.log("Load Sidebar...")
+//            Marionette.TemplateLoader.loadModuleTemplates(Sidebar, Sidebar.show);
+//        });
+//    });
+//});
+//
 
-//    //Base
-//    "modules/base/loader"
+
+
+define([
+// Base
+    "modules/base/loader"
 ],
 
     function(){
-    Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _){
-        Sidebar.addInitializer(function(){
-            //Load Templates
-            console.log("Load Sidebar...")
-            Marionette.TemplateLoader.loadModuleTemplates(Sidebar, Sidebar.show);
+        Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionette, $, _){
+            require(["modules/sidebar/controller"], function(){
+                Sidebar.addInitializer(function(){
+                    //Load Templates
+                    console.log("Load Sidebar...")
+                    Marionette.TemplateLoader.loadModuleTemplates(Sidebar, Sidebar.show);
+                });
+            });
         });
     });
-});
-

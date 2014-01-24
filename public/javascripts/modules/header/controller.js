@@ -1,17 +1,18 @@
-define(function () {
+define(
+    ["modules/header/views/layouts/layout",
+    "modules/header/views/header"],
+    function () {
 Application.module("Header", function(Header, Application, Backbone, Marionette, $, _) {
 
+//    Header.addInitializer(function(){
+//        //Load Templates
+//        console.log("Init Header...")
+//        Marionette.TemplateLoader.loadModuleTemplates(Header, Header.show);
+//    });
+
+
+
     var Base = Application.module("Base");
-//    //Models
-//    Header.GenericModel = Backbone.Model.extend();
-//    Header.GenericCollection = Backbone.Collection.extend({
-//        model: Header.GenericModel
-//    })
-
-//    var tabCollection = new Header.GenericCollection([
-//        new Header.GenericModel({tabLabel:"Search", tabUrl: "#search"})
-//    ])
-
     var LOGOUT_URL = "logout"
 
     getUserDropDownOptions = function() {

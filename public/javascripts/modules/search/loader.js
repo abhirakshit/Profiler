@@ -29,24 +29,18 @@
 //define(dependencies,
 define([
 
-    "modules/search/setup",
-    "modules/search/views/base/base",
-    "modules/search/views/base/search",
-    "modules/search/views/specialization/specialization",
-    "modules/search/views/stream/stream",
-    "modules/search/views/major/major",
-    "modules/search/views/navigation/navigation",
-    "modules/search/views/layouts/layout",
-    "modules/search/controller"
-
+    // Base
+    "modules/base/loader"
 ],
     function(){
     Application.module("Search", function(Search, Application, Backbone, Marionette, $, _){
-        Search.addInitializer(function(){
-            //Load Templates
-            console.log("Load Search...")
-            Marionette.TemplateLoader.loadModuleTemplates(Search, Search.show);
-//            Application.Search.show();
+        require(["modules/search/controller"], function(){
+            Search.addInitializer(function(){
+                //Load Templates
+                console.log("Load Search...")
+                Marionette.TemplateLoader.loadModuleTemplates(Search, Search.show);
+    //            Application.Search.show();
+            });
         });
     });
 });

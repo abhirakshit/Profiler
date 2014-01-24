@@ -1,4 +1,4 @@
-define(function () {
+define(["modules/templateLoader/templateLoader"], function () {
     Application.module("Base", function (Base) {
         this.prefix = "base";
         this.templatePath = "assets/javascripts/modules/";

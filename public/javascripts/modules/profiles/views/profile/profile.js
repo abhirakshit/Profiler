@@ -1,4 +1,6 @@
-define(function(){
+define(
+    ["modules/profiles/setup"],
+    function(){
 Application.module("Profiles", function(Profiles, Application, Backbone, Marionette, $, _) {
 
     Profiles.views.StudentProfileLayout = Marionette.Layout.extend({

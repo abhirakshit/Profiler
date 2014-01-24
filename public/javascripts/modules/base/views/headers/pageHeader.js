@@ -1,4 +1,4 @@
-define(function () {
+define(["modules/base/setup"], function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
 
     var headerHtml = '<h1 class="page-title"><%=args.header%></h1>'

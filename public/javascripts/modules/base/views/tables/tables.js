@@ -1,4 +1,4 @@
-define(function () {
+define(["modules/base/setup"], function () {
 Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
     Base.views.TableLayout = Marionette.Layout.extend({
         template: "base/views/tables/tableLayout",

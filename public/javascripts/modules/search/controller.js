@@ -1,4 +1,12 @@
-define(function(){
+define(
+    [   "modules/search/views/base/base",
+        "modules/search/views/base/search",
+        "modules/search/views/specialization/specialization",
+        "modules/search/views/stream/stream",
+        "modules/search/views/major/major",
+        "modules/search/views/navigation/navigation",
+        "modules/search/views/layouts/layout"],
+    function(){
 Application.module("Search", function(Search, Application, Backbone, Marionette, $, _) {
 
     Search.onTemplatesLoaded = function() {
