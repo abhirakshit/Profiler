@@ -53,7 +53,7 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
     };
 
 
-    Settings.userUrl = "/user";
+//    Settings.userUrl = "/user";
     Settings.showProfile = function() {
 
         var settingsLayout = new Settings.views.Layout();
@@ -69,19 +69,27 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
         //Add admin section
         if (Application.Base.isAdmin()) {
             var createAdminView = new Settings.views.CreateAdmin({
-                model: new Settings.models.User({
-                    urlRoot: Settings.userUrl
-                })
+                model: new Settings.models.NewUser()
             });
             settingsLayout.adminRegion.show(createAdminView);
 
             this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
+                var model = view.model;
                 var data = Backbone.Syphon.serialize(view);
-                data.roleType = "Admin";
-                console.log(data);
+                data.roleType = "admin";
+//                console.log(data);
+                model.set(data);
+                console.log("Valid First name: " + model.isValid("firstName"));
+                console.log("Valid Last name: " + model.isValid("lastName"));
+                console.log("Valid email: " + model.isValid("email"));
+                console.log("Valid password: " + model.isValid("password"));
+                console.log("Valid Cpassword: " + model.isValid("confirmPassword"));
+                console.log("Valid Model: " + model.isValid(true));
+
                 view.model.save(data, {
                     wait: true,
                     success: function (model) {
+                        console.log("Got success!!!")
                         $.jGrowl("New Admin created: " + model.get("firstName"), {theme: 'jGrowlSuccess'});
                         Settings.showProfile();
                     },
@@ -90,7 +98,7 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
                         $.jGrowl("Error saving " + model.get("firstName"), {theme: 'jGrowlError'});
                         console.error("Error Model: " + model.toJSON());
                         console.error("Error Response: " + response.statusText);
-                        Search.showProfile();
+                        Settings.showProfile();
                     }
                 });
             })

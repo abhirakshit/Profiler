@@ -1,15 +1,15 @@
 define(function () {
     Application.module("Base", function (Base) {
-        Base.prefix = "base";
-        Base.templatePath = "assets/javascripts/modules/";
-        Base.views = {};
+        this.prefix = "base";
+        this.templatePath = "assets/javascripts/modules/";
+        this.views = {};
 
-        Base.template = function (str) {
+        this.template = function (str) {
             return this.prefix + '-' + str;
         };
 
         // This has been added to only keep class naming consistent with views.
-        Base.models = {};
-        Base.collections = {};
+        this.models = {};
+        this.collections = {};
     });
 });

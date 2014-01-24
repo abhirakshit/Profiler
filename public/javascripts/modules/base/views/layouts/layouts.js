@@ -1,4 +1,4 @@
-define([], function () {
+define(function () {
     Application.module("Base",function (Base, Application, Backbone, Marionette, $, _) {
     // Layouts
         Base.views.MainLayout = Marionette.Layout.extend({

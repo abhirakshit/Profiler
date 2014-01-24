@@ -65,11 +65,6 @@ define([
     "modules/queries/loader",
     "modules/profiles/loader"
 
-//    "module/main/controller"
-
-    //App
-
-
 ],
     function () {
         console.log("Init Main...")

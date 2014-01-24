@@ -10,7 +10,6 @@ POST    /signup                     controllers.Application.doSignup()
 GET     /logout                     controllers.Application.logout()
 
 # User
-#GET     /user                       controllers.UserController.getLoggedUser()
 POST	/user						controllers.UserController.create()
 GET		/user/:userId				controllers.UserController.show(userId: Long)
 PUT		/user/:userId				controllers.UserController.update(userId: Long)

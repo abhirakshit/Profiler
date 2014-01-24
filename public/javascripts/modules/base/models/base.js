@@ -28,16 +28,11 @@ Application.module("Base", function (Base, Application, Backbone, Marionette, $,
 
     Base.models.User = Backbone.Model.extend({
         urlRoot: '/user'
-
 //        validation: {
 //            firstName: {required: true},
 //            email: {required: true, pattern: 'email'},
-//            ownerId: function(value){
-//
-//            },
-//            institutionId: function(value) {
-//
-//            }
+//            password: {required: true},
+//            confirmPassword: {equalTo: 'password'}
 //        }
     });
 });

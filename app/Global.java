@@ -12,8 +12,10 @@ public class Global extends GlobalSettings {
 		// Create Admin user if not present
 		if (Users.findByEmail("admin@admin.com") == null) {
 			Users.createAdmin("Admin", "", "admin@admin.com", "admin");
+		}
+
+		if (Users.findByEmail("shirish.g@mnemoniceducation.com") == null) {
 			Users.createAdmin("Shirish", "Gupta", "shirish.g@mnemoniceducation.com", "shirishG");
-			Users.createSuperAdmin("Super", "Admin", "sa@sa.com", "sa");
 		}
 	}
 }

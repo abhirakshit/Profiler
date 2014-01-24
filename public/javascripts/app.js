@@ -14,6 +14,7 @@ requirejs.config({
 
     paths: {
         //Framework
+        order: "lib/require/plugins/order",
         jquery: "lib/jquery/jquery.min",
         jqueryUI: "lib/jquery-ui/jquery-ui.min",
         jGrowl: "lib/jquery-jgrowl/jquery.jgrowl.min",

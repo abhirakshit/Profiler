@@ -2,17 +2,15 @@ define(function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
 
     Settings.createAdminEvt = "createAdmin";
-
-    //Models
-    Settings.models.User = Application.Base.models.Generic.extend({
+    Settings.models.NewUser = Application.Base.models.Generic.extend({
+        urlRoot: '/user',
         validation: {
             firstName: {required: true},
-            lastName: {required: true},
-            email: {required: true, pattern: "email"},
+            email: {required: true, pattern: 'email'},
             password: {required: true},
             confirmPassword: {equalTo: 'password'}
         }
-    })
+    });
 
     Settings.views.Layout = Marionette.Layout.extend({
         template: "settings/views/layout",
@@ -43,6 +41,7 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
 
         onRender: function() {
             Backbone.Validation.bind(this);
+            console.dir(this.model)
         },
 
         createAdmin: function(evt) {
