@@ -76,7 +76,7 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
             this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
                 var model = view.model;
                 var data = Backbone.Syphon.serialize(view);
-                data.roleType = "admin";
+                data.roleType = Application.Base.ADMIN_ROLE;
 //                console.log(data);
                 model.set(data);
                 console.log("Valid First name: " + model.isValid("firstName"));
