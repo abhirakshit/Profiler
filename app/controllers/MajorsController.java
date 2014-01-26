@@ -1,5 +1,7 @@
 package controllers;
 
+import net.sf.ehcache.hibernate.HibernateUtil;
+
 import org.codehaus.jackson.JsonNode;
 
 import models.Colleges;
@@ -8,6 +10,7 @@ import models.Occupations;
 import models.Specializations;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http.Session;
 import play.mvc.Result;
 import core.CustomForm;
 import flexjson.JSONSerializer;
@@ -36,9 +39,12 @@ public class MajorsController extends Controller{
 	}
 	
 	public static Result updatePartial(Long id) {
-		Majors major = Majors.findById(id);
+//		Majors major = Majors.findById(id);
+		Majors major = Majors.findEagerlyById(id);
+		
 		JSONSerializer serializer = new JSONSerializer();
 
+		
 		if (major == null)
 			return badRequest("No major found for id: " + id);
 		JsonNode json = request().body().asJson();
@@ -62,7 +68,8 @@ public class MajorsController extends Controller{
 		Colleges college = Colleges.findById(collegeId);
 		
 		major.addCollege(college);
-		major.update();
+		//major.update();
+		major.save();
 		return ok(serializer.include(Consts.SPECIALIZATIONS).include(Consts.OCCUPATIONS).
 				include(Consts.COLLEGES).serialize(major));
 	}

@@ -162,12 +162,6 @@ create table users (
 ;
 
 
-create table colleges_majors (
-  colleges_id                    bigint not null,
-  majors_id                      bigint not null,
-  constraint pk_colleges_majors primary key (colleges_id, majors_id))
-;
-
 create table degrees_streams (
   degrees_id                     bigint not null,
   streams_id                     bigint not null,
@@ -184,12 +178,6 @@ create table majors_occupations (
   majors_id                      bigint not null,
   occupations_id                 bigint not null,
   constraint pk_majors_occupations primary key (majors_id, occupations_id))
-;
-
-create table occupations_majors (
-  occupations_id                 bigint not null,
-  majors_id                      bigint not null,
-  constraint pk_occupations_majors primary key (occupations_id, majors_id))
 ;
 
 create table streams_degrees (
@@ -238,10 +226,6 @@ create index ix_users_school_7 on users (school_id);
 
 
 
-alter table colleges_majors add constraint fk_colleges_majors_colleges_01 foreign key (colleges_id) references colleges (id);
-
-alter table colleges_majors add constraint fk_colleges_majors_majors_02 foreign key (majors_id) references majors (id);
-
 alter table degrees_streams add constraint fk_degrees_streams_degrees_01 foreign key (degrees_id) references degrees (id);
 
 alter table degrees_streams add constraint fk_degrees_streams_streams_02 foreign key (streams_id) references streams (id);
@@ -254,10 +238,6 @@ alter table majors_occupations add constraint fk_majors_occupations_majors_01 fo
 
 alter table majors_occupations add constraint fk_majors_occupations_occupat_02 foreign key (occupations_id) references occupations (id);
 
-alter table occupations_majors add constraint fk_occupations_majors_occupat_01 foreign key (occupations_id) references occupations (id);
-
-alter table occupations_majors add constraint fk_occupations_majors_majors_02 foreign key (majors_id) references majors (id);
-
 alter table streams_degrees add constraint fk_streams_degrees_streams_01 foreign key (streams_id) references streams (id);
 
 alter table streams_degrees add constraint fk_streams_degrees_degrees_02 foreign key (degrees_id) references degrees (id);
@@ -266,7 +246,7 @@ alter table streams_degrees add constraint fk_streams_degrees_degrees_02 foreign
 
 drop table if exists colleges cascade;
 
-drop table if exists colleges_majors cascade;
+drop table if exists majors_colleges cascade;
 
 drop table if exists comments cascade;
 
@@ -278,13 +258,9 @@ drop table if exists departments cascade;
 
 drop table if exists majors cascade;
 
-drop table if exists majors_colleges cascade;
-
 drop table if exists majors_occupations cascade;
 
 drop table if exists occupations cascade;
-
-drop table if exists occupations_majors cascade;
 
 drop table if exists queries cascade;
 

@@ -72,7 +72,7 @@ public class Application extends Controller {
         		//Create User
         		Users.create(completedForm.get());
         		session("email", completedForm.get().email);
-        		return index();
+        		return redirect("/index");
         	}
         }
 

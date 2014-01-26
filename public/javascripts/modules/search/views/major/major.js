@@ -97,11 +97,14 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         tagName: "li"
     });
 
-    var collegeHtml = "<%=args.title%>";
+    var collegeHtml = "<%=args.title%> - <a href='<%=args.website%>' target='_blank'><%=args.website%></a>";
     Search.views.College = Marionette.ItemView.extend({
         template: function(serialized_model){
 //            console.log(serialized_model.title);
-            return _.template(collegeHtml, {title: serialized_model.title}, {variable: 'args'})
+            return _.template(collegeHtml, {
+                title: serialized_model.title,
+                website: serialized_model.website
+            }, {variable: 'args'})
         },
         tagName: "li"
     });

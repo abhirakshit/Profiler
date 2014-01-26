@@ -28,10 +28,11 @@ public class SearchController extends Controller{
 		}
 		
 		public static Result updateStreamPartial(Long id) {
-			Streams stream = Streams.findById(id);
+//			Streams stream = Streams.findById(id);
+			Streams stream = Streams.findEagerlyById(id);
 			JSONSerializer serializer = new JSONSerializer();
 
-			if (stream == null)
+			if (stream == null) 
 				return badRequest("No such id for stream: " + id);
 			JsonNode json = request().body().asJson();
 			if (json.has(Consts.DEGREES))

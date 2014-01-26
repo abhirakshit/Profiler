@@ -41,6 +41,8 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             basicInfoRegion: "#basicInfo",
             skillsRegion: "#skills",
             degreesRegion: "#degrees",
+
+            //Admin section
             addMajorToStreamRegion: "#addMajorToStream",
             newDegreeRegion: "#newDegree",
             newMajorRegion: "#newMajor"
@@ -108,9 +110,10 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         }
     });
 
-    var degreeHeadingHtml = "<%=args.heading_degree%>";
+    var degreeHeadingHtml = "<%=args.heading_degree%><hr>";
     Search.views.StreamDegreeHeading = Marionette.ItemView.extend({
-        tagName: "h4",
+        tagName: "div",
+        className: "sectionHeader",
         template: function (serialized_model) {
             return _.template(degreeHeadingHtml, {heading_degree: serialized_model.heading_degree}, {variable: 'args'})
         }

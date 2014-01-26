@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import controllers.Consts;
+
 @Entity
 public class Majors extends InfoTables {
 
@@ -56,6 +58,15 @@ public class Majors extends InfoTables {
 	public static Majors findById(Long id) {
 		return find.ref(id);
 	}
+	
+	public static Majors findEagerlyById(Long id) {
+		return find
+				.fetch(Consts.SPECIALIZATIONS)
+				.fetch(Consts.COLLEGES)
+				.fetch(Consts.OCCUPATIONS)
+				.where().eq("id", id).findUnique();
+	}
+	
 
 	public void setStream(Streams stream) {
 		this.stream = stream;

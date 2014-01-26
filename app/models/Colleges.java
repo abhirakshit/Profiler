@@ -24,10 +24,10 @@ public class Colleges extends Institutions {
 	@ManyToOne(fetch = FetchType.LAZY)
 	public Universities university;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "colleges")
 	public Set<Majors> majors = new HashSet<Majors>();
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "college")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "college")
 	public Set<Departments> departments = new HashSet<Departments>();
 	
 	public static final Finder<Long, Colleges> find = new Finder<Long, Colleges>(Long.class, Colleges.class);

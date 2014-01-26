@@ -11,6 +11,7 @@ public class Consts {
 	public static final String DEGREES = "degrees";
 	
 	public static final String MAJOR = "major";
+	public static final String MAJORS = "majors";
 	public static final String SPECIALIZATIONS = "specializations";
 	public static final String OCCUPATIONS = "occupations";
 	public static final String COLLEGES = "colleges";

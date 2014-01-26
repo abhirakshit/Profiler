@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.JsonNode;
 
+import controllers.Consts;
+
 @Entity
 public class Streams extends InfoTables {
 
@@ -43,6 +45,13 @@ public class Streams extends InfoTables {
 	
 	public static Streams findById(Long id) {
 		return find.ref(id);
+	}
+	
+	public static Streams findEagerlyById(Long id) {
+		return find
+				.fetch(Consts.MAJORS)
+				.fetch(Consts.DEGREES)
+				.where().eq("id", id).findUnique();
 	}
 
 	public static Streams create(JsonNode reqJson) {

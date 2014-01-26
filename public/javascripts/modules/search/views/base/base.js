@@ -34,12 +34,15 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
         onRender: function () {
             var fieldId = "basicInfoEditor";
-            Search.setupWYSIWIGEditor(this, fieldId, this.model.toJSON().basicInfo, "Add info...", fieldId);
+            var modelId = "basicInfo";
+            Search.setupWYSIWIGEditor(this, fieldId, this.model.toJSON().basicInfo, "Add info...", modelId);
         }
 
     });
 
-    var genericWYSIWYGHtml = "<h4 id='<%=args.headingId%>'><%=args.headingTitle%></h4><div id='<%=args.editorId%>'></div>"
+//    var genericWYSIWYGHtml = "<h4 id='<%=args.headingId%>'><%=args.headingTitle%></h4>" +
+    var genericWYSIWYGHtml = "<div class='sectionHeader' id='<%=args.headingId%>'><%=args.headingTitle%><hr></div>" +
+        "<div id='<%=args.editorId%>'></div>"
     Search.views.GenericWYSIWYGView = Marionette.ItemView.extend({
         template: function(serialized_model){
             return _.template(genericWYSIWYGHtml, {

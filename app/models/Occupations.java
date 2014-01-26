@@ -18,7 +18,7 @@ public class Occupations extends InfoTables {
 	private static final long serialVersionUID = 1L;
 
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "occupations")
 	public Set<Majors> majors = new HashSet<Majors>();
 	
 	public static final Finder<Long, Occupations> find = new Finder<Long, Occupations>(Long.class, Occupations.class);
