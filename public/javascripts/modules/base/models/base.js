@@ -1,6 +1,7 @@
 define(["modules/base/setup"], function () {
 Application.module("Base", function (Base, Application, Backbone, Marionette, $, _) {
 
+    Base.userUrl = '/user';
     Base.models.Generic = Backbone.Model.extend({
         initialize: function(attributes, options) {
             if (options && options.urlRoot)
@@ -27,7 +28,8 @@ Application.module("Base", function (Base, Application, Backbone, Marionette, $,
 
 
     Base.models.User = Backbone.Model.extend({
-        urlRoot: '/user'
+//        urlRoot: '/user'
+        urlRoot: Base.userUrl
 //        validation: {
 //            firstName: {required: true},
 //            email: {required: true, pattern: 'email'},

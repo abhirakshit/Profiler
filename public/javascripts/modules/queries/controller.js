@@ -69,7 +69,7 @@ Application.module("Queries", function(Queries, Application, Backbone, Marionett
             model : user
         });
 
-        this.listenTo(addQueryView, "createNewQuery", function (view){
+        this.listenTo(addQueryView, Queries.createNewQueryEvt, function (view){
             // Make sure counselor exists for the user
             var queryText = view.addQueryEditor.val();
             if (queryText) {

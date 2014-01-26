@@ -3,7 +3,6 @@ package controllers;
 import models.Colleges;
 import models.Schools;
 import models.Universities;
-import models.Users;
 
 import org.codehaus.jackson.JsonNode;
 

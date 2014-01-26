@@ -1,8 +1,11 @@
 package controllers;
 
+import models.Majors;
 import models.Users;
 
 import org.codehaus.jackson.JsonNode;
+
+import core.CustomForm;
 
 import play.data.Form;
 import play.mvc.Controller;
@@ -27,7 +30,7 @@ public class UserController extends Controller{
 	static Form<Users> userForm = Form.form(Users.class);
 	public static Result create() {
 		JsonNode reqJson = request().body().asJson();
-		System.err.println("User Json: " + reqJson);
+//		System.err.println("User Json: " + reqJson);
 		if (!checkPasswordMatching(reqJson.get(PASSWORD).asText(), reqJson.get(CONFIRM_PASSWORD).asText())) 
 			return badRequest("Error in form data");
 
@@ -44,15 +47,32 @@ public class UserController extends Controller{
 	}
 	
 	public static boolean checkPasswordMatching(String password, String confirmPassword) {
+		if (password.isEmpty() || confirmPassword.isEmpty())
+			return false;
 		return password.equals(confirmPassword);
 	}
 
 	public static Result update(Long id) {
-//		System.err.println("\n$$$$$$$$$$$$$$$$\n" + request().body().asJson());
 		JSONSerializer serializer = new JSONSerializer();
 		return ok(serializer.exclude("password").serialize(Users.findById(id)));
 	}
 	
+//	public static Result updatePartial(Long id) {
+//		JsonNode reqJson = request().body().asJson();
+//		System.err.println("\n###############\n" + reqJson);
+//		Users user = Users.findById(id);
+//		
+//		//Check and create query
+//		JSONSerializer serializer = new JSONSerializer();
+//		JsonNode queryJson = reqJson.get(QueryController.QUERY_TEXT);
+//		if (queryJson != null) {
+//			return createQuery(user, queryJson, serializer);
+//		} else {
+//			return ok(serializer.exclude("password").serialize(user.update(reqJson)));
+//		}
+//	}
+	
+//	CustomForm<Users> userForm = CustomForm.form(Users.class);
 	public static Result updatePartial(Long id) {
 		JsonNode reqJson = request().body().asJson();
 		System.err.println("\n###############\n" + reqJson);
@@ -60,14 +80,28 @@ public class UserController extends Controller{
 		
 		//Check and create query
 		JSONSerializer serializer = new JSONSerializer();
-		JsonNode queryJson = reqJson.get(QueryController.QUERY_TEXT);
-		if (queryJson != null) {
-			return createQuery(user, queryJson, serializer);
-		} else {
-			return ok(serializer.exclude("password").serialize(user.update(reqJson)));
+//		JsonNode queryJson = reqJson.get(Consts.QUERY_TEXT);
+		if (reqJson.has(Consts.QUERY_TEXT)) {
+			return createQuery(user, reqJson.get(Consts.QUERY_TEXT), serializer);
+		} else if (reqJson.has(PASSWORD) && reqJson.has(CONFIRM_PASSWORD)) {
+			return updatePassword(user, reqJson, serializer);
 		}
+//		if (queryJson != null) {
+//			return createQuery(user, queryJson, serializer);
+//		} 
+		
+		return ok(serializer.exclude("password").serialize(user.update(reqJson)));
 	}
 	
+	private static Result updatePassword(Users user, JsonNode reqJson,
+		JSONSerializer serializer) {
+		String newPassword = reqJson.get(PASSWORD).asText();
+		if (!checkPasswordMatching(newPassword, reqJson.get(CONFIRM_PASSWORD).asText())) 
+			return badRequest("Passwords do not match!");
+		user.updatePassword(newPassword);
+		return ok(serializer.include("institution").include("queries").exclude("password").serialize(user));
+	}
+
 	public static Result createQuery(Users user, JsonNode queryJson, JSONSerializer serializer) {
 		if (user.ownerId == null) 
 			return badRequest("Counselor information needed before queries can be created!!");

@@ -3,6 +3,8 @@ define(
     function(){
 Application.module("Queries", function (Queries, Application, Backbone, Marionette, $, _) {
 
+    Queries.createNewQueryEvt = "createNewQuery";
+
     Queries.views.StudentQueriesLayout = Marionette.Layout.extend({
         template: "queries/views/student/layout",
 
@@ -16,20 +18,20 @@ Application.module("Queries", function (Queries, Application, Backbone, Marionet
         template: "queries/views/student/addQuery",
 
         events: {
-            "click #createNewQueryBtn": "createNewQuery",
+            "click #createNewQueryBtn": Queries.createNewQueryEvt,
             "click #cancelNewQueryBtn": "cancelNewQuery",
             "click #addQueryBtnContainer": "toggleCreateQueryEditor"
         },
 
-        serializeData: function(){
-            this.data = this.model.toJSON();
-            return this.data;
-        },
+//        serializeData: function(){
+//            this.data = this.model.toJSON();
+//            return this.data;
+//        },
 
         createNewQuery: function (event) {
             event.preventDefault();
             //TODO Check for save clicked on empty box
-            this.trigger("createNewQuery", this);
+            this.trigger(Queries.createNewQueryEvt, this);
             this.toggleCreateQueryEditor(event);
         },
 

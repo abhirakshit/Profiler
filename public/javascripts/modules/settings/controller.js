@@ -1,5 +1,5 @@
 define(
-    ["modules/settings/views/profile"],
+    ["modules/settings/views/settings"],
     function () {
 Application.module("Settings", function(Settings, Application, Backbone, Marionette, $, _) {
     Settings.onTemplatesLoaded = function() {
@@ -54,7 +54,6 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
 
     };
 
-
 //    Settings.userUrl = "/user";
     Settings.showProfile = function() {
 
@@ -62,53 +61,70 @@ Application.module("Settings", function(Settings, Application, Backbone, Marione
         Settings.mainLayout.tabContentRegion.show(settingsLayout);
 
 
-        var userProfileView = new Settings.views.Profile({
+        var userInfoView = new Settings.views.UserInfo({
             model : Application.Base.loggedUser
         });
-//        Settings.mainLayout.tabContentRegion.show(userProfileView);
-        settingsLayout.profileRegion.show(userProfileView);
+        settingsLayout.profileRegion.show(userInfoView);
+
+        var changePasswordView = new Settings.views.ChangePassword({
+            model : new Settings.models.NewPassword()
+        });
+        settingsLayout.changePasswordRegion.show(changePasswordView);
+
+        this.listenTo(changePasswordView, Settings.changePasswordEvt, function(view){
+            var data = Backbone.Syphon.serialize(view);
+
+            console.log(data);
+            Application.Base.loggedUser.save(data, {
+                wait: true,
+                patch: true,
+                success: function (model) {
+                    $.jGrowl("Password Changed!!!", {theme: 'jGrowlSuccess'});
+                },
+
+                error: function (model, response) {
+                    $.jGrowl("Error changing password", {theme: 'jGrowlError'});
+                    console.error("Error Model: " + model.toJSON());
+                    console.error("Error Response: " + response.statusText);
+                }
+            });
+        });
 
         //Add admin section
         if (Application.Base.isAdmin()) {
-            var createAdminView = new Settings.views.CreateAdmin({
-                model: new Settings.models.NewUser()
-            });
-            settingsLayout.adminRegion.show(createAdminView);
-
-            this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
-                var data = Backbone.Syphon.serialize(view);
-                data.roleType = Application.Base.ADMIN_ROLE;
-
-                view.model.save(data, {
-                    wait: true,
-                    success: function (model) {
-                        console.log("Got success!!!")
-                        $.jGrowl("New Admin created: " + model.get("firstName"), {theme: 'jGrowlSuccess'});
-                        Settings.showProfile();
-                    },
-
-                    error: function (model, response) {
-                        $.jGrowl("Error saving " + model.get("firstName"), {theme: 'jGrowlError'});
-                        console.error("Error Model: " + model.toJSON());
-                        console.error("Error Response: " + response.statusText);
-                        Settings.showProfile();
-                    }
-                });
-            })
+            Settings.addAdminSection(settingsLayout)
         }
 
         Settings.router.navigate(Settings.profileUrl);
+    };
+
+    Settings.addAdminSection = function(settingsLayout) {
+        var createAdminView = new Settings.views.CreateAdmin({
+            model: new Settings.models.NewUser()
+        });
+        settingsLayout.adminRegion.show(createAdminView);
+
+        this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
+            var data = Backbone.Syphon.serialize(view);
+            data.roleType = Application.Base.ADMIN_ROLE;
+
+            view.model.save(data, {
+                wait: true,
+                success: function (model) {
+                    console.log("Got success!!!")
+                    $.jGrowl("New Admin created: " + model.get("firstName"), {theme: 'jGrowlSuccess'});
+                    Settings.showProfile();
+                },
+
+                error: function (model, response) {
+                    $.jGrowl("Error saving " + model.get("firstName"), {theme: 'jGrowlError'});
+                    console.error("Error Model: " + model.toJSON());
+                    console.error("Error Response: " + response.statusText);
+                    Settings.showProfile();
+                }
+            });
+        });
     }
 
-
-
-//    Settings.showProfile = function() {
-//        var profile = new Settings.views.showProfile({
-//            model: Application.Base.loggedUser
-//        });
-//        Settings.mainLayout.tabContentRegion.show(profile);
-//
-//        Settings.router.navigate(Settings.profileUrl);
-//    };
 });
 });

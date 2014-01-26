@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Institutions;
 import models.Queries;
 import models.Users;
 
@@ -14,7 +13,7 @@ import flexjson.JSONSerializer;
 @Security.Authenticated(Secured.class)
 public class QueryController extends Controller{
 
-	public static String QUERY_TEXT = "queryText";
+//	public static String QUERY_TEXT = "queryText";
 	public static Result show(Long id) {
 		JSONSerializer serializer = new JSONSerializer();
 		return ok(serializer.serialize(Queries.findById(id)));
@@ -22,7 +21,7 @@ public class QueryController extends Controller{
 	
 	public static Result create() {
 		JsonNode reqJson = request().body().asJson();
-		JsonNode queryJson = reqJson.get(QUERY_TEXT);
+		JsonNode queryJson = reqJson.get(Consts.QUERY_TEXT);
 		if (queryJson == null || queryJson.asText() == null || queryJson.asText().isEmpty())
 			return badRequest("Incorrect input");
 

@@ -144,6 +144,11 @@ public class Users extends Base {
 		return user;
 	}
 	
+	public void updatePassword(String newPassword) {
+		this.password = Utils.getEncryptedPassword(newPassword);
+		update();
+	}
+	
 	public Users update(JsonNode data) {
 		Iterator<String> fields = data.getFieldNames();
 		while (fields.hasNext()) {

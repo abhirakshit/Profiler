@@ -20,8 +20,6 @@ define([// Models
             Base.SUPER_ADMIN_ROLE = "superAdmin";
 
 //    Base.allUsers_Url = "/user/all";
-//    Base.userUrl = "/user";
-            Base.getLoggedInUser = "/user";
             Base.getAllCounselorUrl = "/users/counselors";
             Base.getAllScoolsUrl = "/schools/all";
 
@@ -49,7 +47,7 @@ define([// Models
             updateLoggedUser = function () {
                 //Get local user
 //        console.log("User Id: " + Base.loggedUserId);
-//        var options = {urlRoot: Base.getLoggedInUser};
+//        var options = {urlRoot: Base.userUrl};
 //        Base.loggedUser = new Base.models.Generic([], options);
                 Base.loggedUser = new Base.models.User({id: Base.loggedUserId});
                 Base.loggedUser.fetch({async: false});
