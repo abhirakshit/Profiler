@@ -2,6 +2,7 @@ package controllers;
 
 import org.codehaus.jackson.JsonNode;
 
+import models.Colleges;
 import models.Majors;
 import models.Occupations;
 import models.Specializations;
@@ -45,6 +46,8 @@ public class MajorsController extends Controller{
 			return addSpecialization(json, major, serializer);
 		if (json.has(Consts.ADD_OCCUPATION))
 			return addOccupation(json, major, serializer);
+		if (json.has(Consts.ADD_COLLEGE))
+			return addCollege(json, major, serializer);
 		
 		CustomForm<Majors> majorForm = CustomForm.form(Majors.class);
 		majorForm.bindFromRequest(major);
@@ -53,10 +56,20 @@ public class MajorsController extends Controller{
 				include(Consts.COLLEGES).serialize(major));
 	}
 	
+	private static Result addCollege(JsonNode json, Majors major,
+			JSONSerializer serializer) {
+		Long collegeId = json.get(Consts.ADD_COLLEGE).asLong();
+		Colleges college = Colleges.findById(collegeId);
+		
+		major.addCollege(college);
+		major.update();
+		return ok(serializer.include(Consts.SPECIALIZATIONS).include(Consts.OCCUPATIONS).
+				include(Consts.COLLEGES).serialize(major));
+	}
+
 	private static Result addOccupation(JsonNode json, Majors major,
 			JSONSerializer serializer) {
 		Long occupId = json.get(Consts.ADD_OCCUPATION).asLong();
-		System.err.println("Occup: " + occupId);
 		
 		Occupations occupation = Occupations.findById(occupId);
 		

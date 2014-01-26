@@ -3,9 +3,11 @@ package controllers;
 import models.Colleges;
 import models.Schools;
 import models.Universities;
+import models.Users;
 
 import org.codehaus.jackson.JsonNode;
 
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -61,16 +63,18 @@ public class InstitutionController extends Controller{
 			return ok(serializer.serialize(Colleges.findById(id)));
 		}
 		
+		static Form<Colleges> collegeForm = Form.form(Colleges.class);
 		public static Result createCollege() {
 
-			//Only for populating directly
-//			Map<String, String[]> reqMap = request().body().asFormUrlEncoded();
-//			Institutions inst = Institutions.create(reqMap.get("name")[0], reqMap.get("address")[0]);
+			Form<Colleges> form = collegeForm.bindFromRequest();
+			if (form.hasErrors()) {
+				return badRequest(form.errorsAsJson());
+			}
+//			JsonNode reqJson = request().body().asJson();
+//			Colleges college = Colleges.create(reqJson);
 			
-			
-			JsonNode reqJson = request().body().asJson();
-			Colleges college = Colleges.create(reqJson);
-			
+			Colleges college = form.get();
+			college.save();
 			JSONSerializer serializer = new JSONSerializer();
 			return ok(serializer.serialize(college));
 		}

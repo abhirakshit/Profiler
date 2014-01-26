@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.JsonNode;
 
@@ -25,6 +26,9 @@ public class Colleges extends Institutions {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public Set<Majors> majors = new HashSet<Majors>();
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "college")
+	public Set<Departments> departments = new HashSet<Departments>();
 	
 	public static final Finder<Long, Colleges> find = new Finder<Long, Colleges>(Long.class, Colleges.class);
 	
@@ -52,5 +56,13 @@ public class Colleges extends Institutions {
 
 	public static Colleges findById(Long id) {
 		return find.ref(id);
+	}
+
+
+	public void addMajor(Majors major) {
+		if (!majors.contains(major)) {
+			majors.add(major);
+			major.addCollege(this);
+		}
 	}
 }

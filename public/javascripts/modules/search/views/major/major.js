@@ -7,12 +7,31 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     Search.allMajorsUrl = "/majors";
     Search.occupationUrl = "/occupation";
     Search.allOccupationsUrl = "/occupations";
+    Search.collegeUrl = "/college";
+    Search.allCollegesUrl = "/colleges";
 
     Search.addSpecializationEvt = "addSpecialization";
     Search.addOccupationEvt = "addOccupation"
+    Search.addCollegeEvt = "addCollege"
     Search.createOccupationEvt = "createOccupation"
+    Search.createCollegeEvt = "createCollege"
 
 
+    //Models
+    Search.models.College =  Application.Base.models.Generic.extend({
+        urlRoot: Search.collegeUrl,
+        validation: {
+            title: {required: true},
+            website: {pattern: 'url'}
+        }
+    });
+
+    Search.models.Occupation =  Application.Base.models.Generic.extend({
+        urlRoot: Search.occupationUrl,
+        validation: {
+            title: {required: true}
+        }
+    });
 
 //    //Layout
     Search.views.MajorContentLayout = Marionette.Layout.extend({
@@ -78,6 +97,15 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         tagName: "li"
     });
 
+    var collegeHtml = "<%=args.title%>";
+    Search.views.College = Marionette.ItemView.extend({
+        template: function(serialized_model){
+//            console.log(serialized_model.title);
+            return _.template(collegeHtml, {title: serialized_model.title}, {variable: 'args'})
+        },
+        tagName: "li"
+    });
+
     Search.views.OccupationComposite = Marionette.CompositeView.extend({
         template: "search/views/major/occupationsView",
         itemView: Search.views.Occupation,
@@ -87,7 +115,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
             if (Application.Base.isAdmin()) {
                 var that = this
                 var emptyText = "Add Occupation";
-                this.$el.find("#addOccupations").editable({
+                this.$el.find("#addOccupation").editable({
                     source: that.options.selectOptionsList,
 //                value: initialValue,
                     emptytext: emptyText,
@@ -98,6 +126,35 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
                     },
                     success: function(response, id) {
                         that.trigger(Search.addOccupationEvt, id);
+
+                    }
+                });
+
+            }
+        }
+    });
+
+
+    Search.views.CollegeComposite = Marionette.CompositeView.extend({
+        template: "search/views/major/collegesView",
+        itemView: Search.views.College,
+        itemViewContainer: "ul",
+
+        onRender: function(){
+            if (Application.Base.isAdmin()) {
+                var that = this
+                var emptyText = "Add College";
+                this.$el.find("#addCollege").editable({
+                    source: that.options.selectOptionsList,
+//                value: initialValue,
+                    emptytext: emptyText,
+                    type: "select2",
+                    select2: {
+                        placeholder: emptyText,
+                        allowClear: true
+                    },
+                    success: function(response, id) {
+                        that.trigger(Search.addCollegeEvt, id);
 
                     }
                 });
@@ -120,6 +177,23 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         createOccupation: function (event) {
             event.preventDefault();
             this.trigger(Search.createOccupationEvt, this);
+        }
+    });
+
+    Search.views.AddNewCollege = Marionette.ItemView.extend({
+        template: "search/views/major/newCollegeView",
+
+        events: {
+            "click #createCollege": Search.createCollegeEvt
+        },
+
+        onRender: function () {
+            Backbone.Validation.bind(this);
+        },
+
+        createCollege: function (event) {
+            event.preventDefault();
+            this.trigger(Search.createCollegeEvt, this);
         }
     });
 
@@ -214,13 +288,46 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         });
         majorContentLayout.salaryRegion.show(salaryView);
 
-        //TODO Occupations and Colleges
         Search.addOccupationsSection(majorContentLayout, major);
+
+        Search.addCollegesSection(majorContentLayout, major);
 
         if (Application.Base.isAdmin()){
             Search.addAdminSection(majorContentLayout, major)
         }
     };
+
+
+    Search.addCollegesSection = function(layout, major) {
+        var allColleges = new Application.Base.collections.Generic({
+            url: Search.allCollegesUrl
+        });
+
+        allColleges.fetch({async:false});
+
+        //TODO
+        var collegesView = new Search.views.CollegeComposite({
+            model: major,
+            collection: new Application.Base.collections.Generic(major.get("colleges")),
+            selectOptionsList: Search.getIdToTitleArrayMap(allColleges.toJSON())
+        })
+
+        layout.collegeUnivRegion.show(collegesView);
+        this.listenTo(collegesView, Search.addCollegeEvt, function(id){
+            major.save("addCollege", id, {
+                wait: true,
+                patch: true,
+                success: function(newMajor){
+                    Search.showMajorPage(newMajor)
+                },
+
+                error: function(x, response) {
+                    Search.showMajorPage(major)
+                }
+            });
+        });
+    }
+
 
     Search.addOccupationsSection = function(layout, major) {
         var allOccupations = new Application.Base.collections.Generic({
@@ -229,20 +336,19 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
 
         allOccupations.fetch({async:false});
 
-        var occupView = new Search.views.OccupationComposite({
+        var occupationView = new Search.views.OccupationComposite({
             model: major,
             collection: new Application.Base.collections.Generic(major.get("occupations")),
             selectOptionsList: Search.getIdToTitleArrayMap(allOccupations.toJSON())
-        })
+        });
 
-        layout.occupationsRegion.show(occupView);
-        this.listenTo(occupView, Search.addOccupationEvt, function(id){
+        layout.occupationsRegion.show(occupationView);
+        this.listenTo(occupationView, Search.addOccupationEvt, function(id){
             console.log("Add occup: " + id);
             major.save("addOccupation", id, {
                 wait: true,
                 patch: true,
                 success: function(newMajor){
-                    console.log("Saved on server!!")
                     Search.showMajorPage(newMajor)
                 },
 
@@ -252,7 +358,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
                 }
             });
         });
-    }
+    };
 
     Search.addAdminSection = function(layout, major) {
         //Add Specialization
@@ -285,13 +391,12 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         Search.createNewOccupation(layout, major);
 
         //Colleges
+        Search.createNewCollege(layout, major);
     };
 
     Search.createNewOccupation = function(layout, major) {
         var newOccupationView = new Search.views.AddNewOccupation({
-            model: new Application.Base.models.Generic({
-                urlRoot: Search.occupationUrl
-            })
+            model: new Search.models.Occupation()
         });
 
         layout.newOccupationRegion.show(newOccupationView);
@@ -309,6 +414,34 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
 
                 error: function (model, response) {
                     $.jGrowl("Error saving " + model.get("title"), {theme: 'jGrowlError'});
+                    console.error("Error Model: " + model.toJSON());
+                    console.error("Error Response: " + response.statusText);
+                    Search.showMajorPage(major);
+                }
+            });
+        })
+
+    };
+
+    Search.createNewCollege = function(layout, major) {
+        var newCollegeView = new Search.views.AddNewCollege({
+            model: new Search.models.College()
+        });
+
+        layout.newCollegeRegion.show(newCollegeView);
+
+        this.listenTo(newCollegeView, Search.createCollegeEvt, function(view){
+            var data = Backbone.Syphon.serialize(view);
+            console.log(data);
+            view.model.save(data, {
+                wait: true,
+                success: function (model) {
+                    $.jGrowl("New college created: " + model.get("title"), {theme: 'jGrowlSuccess'});
+                    Search.showMajorPage(major);
+                },
+
+                error: function (model, response) {
+                    $.jGrowl("Error saving college: " + data.title, {theme: 'jGrowlError'});
                     console.error("Error Model: " + model.toJSON());
                     console.error("Error Response: " + response.statusText);
                     Search.showMajorPage(major);

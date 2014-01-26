@@ -3,6 +3,8 @@ package controllers;
 public class Consts {
 	
 	public static final String ADD_OCCUPATION = "addOccupation";
+	public static final String ADD_COLLEGE = "addCollege";
+	
 	public static final String BACHELORS = "bachelors";
 	public static final String MASTERS = "masters";
 	public static final String DOCTORATE = "doctorate";

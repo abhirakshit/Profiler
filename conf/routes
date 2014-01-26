@@ -33,7 +33,7 @@ POST    /college					controllers.InstitutionController.createCollege()
 GET     /college/:instId			controllers.InstitutionController.showCollege(instId: Long)
 PUT     /college/:instId			controllers.InstitutionController.updateCollege(instId: Long)
 DELETE  /college/:instId			controllers.InstitutionController.deleteCollege(instId: Long)
-GET		/colleges/all				controllers.InstitutionController.getAllColleges()
+GET		/colleges					controllers.InstitutionController.getAllColleges()
 
 # Universities
 POST    /university					controllers.InstitutionController.createUniversity()

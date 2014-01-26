@@ -75,4 +75,11 @@ public class Majors extends InfoTables {
 		}
 	}
 
+	public void addCollege(Colleges college) {
+		if (!colleges.contains(college)) {
+			colleges.add(college);
+			college.addMajor(this);
+		}
+	}
+
 }

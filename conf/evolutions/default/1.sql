@@ -37,6 +37,17 @@ create table degrees (
   constraint pk_degrees primary key (id))
 ;
 
+create table departments (
+  id                        bigint not null,
+  created_on                timestamp,
+  modified_on               timestamp,
+  title                     varchar(255),
+  basic_info                text,
+  college_id                bigint,
+  constraint uq_departments_title unique (title),
+  constraint pk_departments primary key (id))
+;
+
 create table majors (
   id                        bigint not null,
   created_on                timestamp,
@@ -192,6 +203,8 @@ create sequence comments_seq;
 
 create sequence degrees_seq;
 
+create sequence departments_seq;
+
 create sequence majors_seq;
 
 create sequence occupations_seq;
@@ -212,14 +225,16 @@ alter table colleges add constraint fk_colleges_university_1 foreign key (univer
 create index ix_colleges_university_1 on colleges (university_id);
 alter table comments add constraint fk_comments_query_2 foreign key (query_id) references queries (id);
 create index ix_comments_query_2 on comments (query_id);
-alter table majors add constraint fk_majors_stream_3 foreign key (stream_id) references streams (id);
-create index ix_majors_stream_3 on majors (stream_id);
-alter table queries add constraint fk_queries_creator_4 foreign key (creator_id) references users (id);
-create index ix_queries_creator_4 on queries (creator_id);
-alter table specializations add constraint fk_specializations_major_5 foreign key (major_id) references majors (id);
-create index ix_specializations_major_5 on specializations (major_id);
-alter table users add constraint fk_users_school_6 foreign key (school_id) references schools (id);
-create index ix_users_school_6 on users (school_id);
+alter table departments add constraint fk_departments_college_3 foreign key (college_id) references colleges (id);
+create index ix_departments_college_3 on departments (college_id);
+alter table majors add constraint fk_majors_stream_4 foreign key (stream_id) references streams (id);
+create index ix_majors_stream_4 on majors (stream_id);
+alter table queries add constraint fk_queries_creator_5 foreign key (creator_id) references users (id);
+create index ix_queries_creator_5 on queries (creator_id);
+alter table specializations add constraint fk_specializations_major_6 foreign key (major_id) references majors (id);
+create index ix_specializations_major_6 on specializations (major_id);
+alter table users add constraint fk_users_school_7 foreign key (school_id) references schools (id);
+create index ix_users_school_7 on users (school_id);
 
 
 
@@ -259,6 +274,8 @@ drop table if exists degrees cascade;
 
 drop table if exists degrees_streams cascade;
 
+drop table if exists departments cascade;
+
 drop table if exists majors cascade;
 
 drop table if exists majors_colleges cascade;
@@ -288,6 +305,8 @@ drop sequence if exists colleges_seq;
 drop sequence if exists comments_seq;
 
 drop sequence if exists degrees_seq;
+
+drop sequence if exists departments_seq;
 
 drop sequence if exists majors_seq;
 
