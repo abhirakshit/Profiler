@@ -197,7 +197,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     });
 
 
-    var addMajorToStreamHtml = "<hr><h3>Admin Section</h3><legend>AddMajorToStream</legend><span id='addMajor'></span>"
+    var addMajorToStreamHtml = "<h3>Admin Section</h3><legend>AddMajorToStream</legend><span id='addMajor'></span>"
     Search.views.AddMajorToStream = Marionette.ItemView.extend({
         template: function (serialized_model) {
             return _.template(addMajorToStreamHtml, {}, {variable: 'args'})

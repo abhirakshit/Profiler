@@ -14,7 +14,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
         regions: {
             streamContentRegion: "#streamContent",
-            addNewStreamRegion: "#addNewStream"
+            adminRegion: "#adminSection"
         }
     })
 

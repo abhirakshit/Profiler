@@ -129,7 +129,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
 
         // Admin Section -- add new Stream
         if (Application.Base.isAdmin())
-            streamContentLayout.addNewStreamRegion.show(Search.getCreateStreamView());
+            streamContentLayout.adminRegion.show(Search.getCreateStreamView());
     };
 
     Search.getCreateStreamView = function(){
