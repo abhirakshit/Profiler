@@ -156,7 +156,7 @@ require(dependencies,
             headerRegion: "#header-region",
             sidebar: "#sidebar-region",
             pageContent: "#page-content-region",
-            footer: "#footer-region"
+            footerRegion: "#footer-region"
         });
 
 //        Application.on("initialize:after", function(){

@@ -3,8 +3,7 @@ define([
     "modules/sidebar/loader",
     "modules/search/loader",
     "modules/settings/loader",
-//
-////    "modules/footer/footer",
+    "modules/footer/loader",
     "modules/queries/loader",
     "modules/profiles/loader"
 
