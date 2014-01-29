@@ -1,11 +1,15 @@
 
+html {
+    /*Always show vertical scroll-bar so as not to jump content when it appears or disappears*/
+    overflow-y: scroll
+}
 .sectionHeader {
     font-size: 1.5em;
     font-weight: 700;
     padding: 5px 0;
 }
 
-h2 hr, .sectionHeader hr {
+h4 hr,h2 hr, .sectionHeader hr {
     margin: 5px 0;
     height: 8px;
     border: 0;

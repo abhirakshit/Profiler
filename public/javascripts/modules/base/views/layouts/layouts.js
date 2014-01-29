@@ -15,7 +15,7 @@ define(["modules/base/setup"], function () {
             template: "base/views/layouts/headerLayout",
 
             regions: {
-                pageHeader: "#page-header",
+                pageHeader: "#header",
                 addEnquiryBtn: "#add-enquiry-btn"
             }
         });

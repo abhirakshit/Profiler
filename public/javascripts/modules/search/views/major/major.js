@@ -72,7 +72,8 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     });
 
     Search.views.AddSpecialization = Marionette.ItemView.extend({
-       template: "search/views/major/addSpecialization",
+        template: "search/views/major/addSpecialization",
+        className: "well",
         events: {
             "click #addSpecialization" : Search.addSpecializationEvt
         },
@@ -117,7 +118,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         onRender: function(){
             if (Application.Base.isAdmin()) {
                 var that = this
-                var emptyText = "Add Occupation";
+                var emptyText = "Add Occupation - (Create new below if needed)";
                 this.$el.find("#addOccupation").editable({
                     source: that.options.selectOptionsList,
 //                value: initialValue,
@@ -146,7 +147,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         onRender: function(){
             if (Application.Base.isAdmin()) {
                 var that = this
-                var emptyText = "Add College";
+                var emptyText = "Add College - (Create new below if needed)";
                 this.$el.find("#addCollege").editable({
                     source: that.options.selectOptionsList,
 //                value: initialValue,

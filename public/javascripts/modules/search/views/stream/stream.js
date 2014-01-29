@@ -135,7 +135,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             this.$el.find("#" + checkListSpanId).editable({
                 type: "checklist",
                 source: that.options.checklistSource,
-                emptytext: "Add degrees...",
+                emptytext: "Add degrees (Create new below...)",
                 value: that.options.value,
                 success: function (response, value) {
                     console.log(value.concat(that.options.addOnIdArr));
@@ -207,7 +207,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             var that = this;
             this.$el.find('#addMajor' ).editable({
                 source: Search.getIdToTitleArrayMap(Search.allMajorsCollection.toJSON()),
-                emptytext: "Add Major to stream",
+                emptytext: "Add Major to stream (Create new below...)",
                 type: "select2",
                 select2: {
                     placeholder: 'Add Major',

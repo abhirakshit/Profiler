@@ -1,16 +1,9 @@
 requirejs.config({
 
     /**
-     * Heroku Setup
-     */
-//    appDir: "../",
-//    baseUrl: "javascripts",
-//    dir: "../../public-build",
-
-    /**
      * Local Setup
      */
-    baseUrl: 'assets/javascripts',
+//    baseUrl: 'assets/javascripts',
 
     paths: {
         //Build
@@ -92,11 +85,14 @@ requirejs.config({
         jGrowl: {
             deps: ["jquery"]
         },
-//
-//        bootstrap: {
-//            deps: ["jquery"]
-//        },
 
+        jqueryUI: {
+            deps: ["jquery"]
+        },
+
+        bootstrap: {
+            deps: ["jquery"]
+        },
 
         // Inline Editing
         bootstrapEditable: {
@@ -120,8 +116,6 @@ requirejs.config({
         }
     }
 
-//    modules: [
-//    ]
 });
 
 var dependencies = [
@@ -159,9 +153,9 @@ require(dependencies,
             footerRegion: "#footer-region"
         });
 
-//        Application.on("initialize:after", function(){
-//            console.log("Application has started");
-//        });
+        Application.on("initialize:after", function(){
+            console.log("Application has started");
+        });
 
         require(["modules/main/loader"], function () {
             console.log("Start Application...")
