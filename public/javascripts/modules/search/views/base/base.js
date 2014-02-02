@@ -44,6 +44,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     var genericWYSIWYGHtml = "<div class='sectionHeader' id='<%=args.headingId%>'><%=args.headingTitle%><hr></div>" +
         "<div id='<%=args.editorId%>'></div>"
     Search.views.GenericWYSIWYGView = Marionette.ItemView.extend({
+        className: 'wysihtml5',
         template: function(serialized_model){
             return _.template(genericWYSIWYGHtml, {
                 headingId: serialized_model.headingId,

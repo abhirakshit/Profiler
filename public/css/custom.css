@@ -3,6 +3,17 @@ html {
     /*Always show vertical scroll-bar so as not to jump content when it appears or disappears*/
     overflow-y: scroll
 }
+
+.wysihtml5 {
+    text-align: justify;
+}
+
+div.wysihtml5 img {
+    height: 200px;
+    float: right;
+    margin: 10px 0px 10px 10px;
+}
+
 .sectionHeader {
     font-size: 1.5em;
     font-weight: 700;
