@@ -297,6 +297,9 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
         Search.allMajorsCollection = new Application.Base.collections.Generic([], {
             url: Search.allMajorsUrl
+//            comparator : function (major) {
+//                return major.get("title").toLowerCase();
+//            }
         });
         Search.allMajorsCollection.fetch({async: false});
 
@@ -395,7 +398,12 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         Search.searchLayout.searchContent.show(streamContentLayout);
 
         //Major Links
+//        var streamMajorsCollection = new Application.Base.collections.Generic(stream.get('majors'));
+//        streamMajorsCollection = streamMajorsCollection.sortBy(function(major) {
+//            return major.get("title").toLowerCase();
+//        });
         var majorLinksComposite = new Search.views.SearchLinkComposite({
+//            collection: streamMajorsCollection
             collection: new Application.Base.collections.Generic(stream.get('majors'))
         })
         streamContentLayout.majorsCompositeRegion.show(majorLinksComposite);

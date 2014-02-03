@@ -125,8 +125,11 @@ form.autoPopulatePillContainer {
 }
 
 .streamLink {
-    margin-right: 10px;
+    margin: 5px 5px 5px 0;
+    padding: 6px;
     font-size: 1.3em;
+    display: inline-block;
+    word-wrap: normal;
 }
 
 .streamLinkComposite {
