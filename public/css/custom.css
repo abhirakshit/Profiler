@@ -126,7 +126,7 @@ form.autoPopulatePillContainer {
 
 .streamLink {
     margin: 5px 5px 5px 0;
-    padding: 6px;
+    padding: 3px 3px 8px 3px;
     font-size: 1.3em;
     display: inline-block;
     word-wrap: normal;

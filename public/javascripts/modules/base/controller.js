@@ -4,6 +4,7 @@ define([// Models
     "modules/base/models/base",
 //
 //    //Views
+    "modules/base/views/loadingMessage/loadingMessage",
     "modules/base/views/layouts/layouts",
     "modules/base/views/tables/tables",
     "modules/base/views/forms/formElems",

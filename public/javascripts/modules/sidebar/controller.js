@@ -7,22 +7,29 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     Sidebar.NavQueriesId = "sidebar-nav-queries";
     Sidebar.NavProfilesId = "sidebar-nav-profiles";
     Sidebar.NavSettingsId = "sidebar-nav-settings";
+    Sidebar.NavForumId = "sidebar-nav-forum";
+
+    Application.Base.ForumUrl = "http://cforum.herokuapp.com/"
 
     getCounselorSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
+            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Home", icon: "icon-home"}),
 //            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
 //            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Students", icon: "icon-user"}),
-            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
+            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"}),
+            new Application.Base.models.Generic({id: Sidebar.NavForumId, name:"Forum", icon: "icon-globe"})
         ]);
     }
 
     getStudentSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([
-            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
+//            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Search", icon: "icon-search"}),
+            new Application.Base.models.Generic({id: Sidebar.NavSearchId, name:"Home", icon: "icon-home"}),
 //            new Application.Base.models.Generic({id: Sidebar.NavQueriesId, name:"Queries", icon: "icon-file"}),
 //            new Application.Base.models.Generic({id: Sidebar.NavProfilesId, name:"Profile", icon: "icon-user"}),
-            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"})
+            new Application.Base.models.Generic({id: Sidebar.NavSettingsId, name:"Settings", icon: "icon-cog"}),
+            new Application.Base.models.Generic({id: Sidebar.NavForumId, name:"Forum", icon: "icon-globe"})
         ]);
     }
 
@@ -51,6 +58,8 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
                     Sidebar.showSettingsModule();
                 } else if (Sidebar.NavSearchId == tabId) {
                     Sidebar.showSearchModule();
+                } else if (Sidebar.NavForumId == tabId) {
+                    window.open(Application.Base.ForumUrl,'_blank');
                 }
             }
         );

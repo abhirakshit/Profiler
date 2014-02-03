@@ -85,13 +85,14 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
 
         //Show header
         var pgHeader = new Application.Base.views.PageHeader({
+//            model: new Backbone.Model({header: "Search"})
             model: new Backbone.Model({header: "Search"})
         });
         headerLayoutView.pageHeader.show(pgHeader);
     };
 
     Search.showSearchSection = function() {
-        Search.searchLayout = new Search.views.mainLayout();
+        Search.searchLayout = new Search.views.MainLayout();
         Search.mainLayout.tabContentRegion.show(Search.searchLayout);
 
         // Search Navigation
