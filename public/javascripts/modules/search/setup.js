@@ -1,5 +1,5 @@
 define(function(){
-    Application.module("Search", function(){
+    Application.module("Search", function(Search){
         this.prefix = "search";
         this.templatePath = "assets/javascripts/modules/";
         this.views = {};
@@ -8,8 +8,8 @@ define(function(){
         };
 
         // This has been added to only keep class naming consistent with views.
-        this.models = {};
-        this.collections = {};
+        Search.models = {};
+        Search.collections = {};
     });
 
 });

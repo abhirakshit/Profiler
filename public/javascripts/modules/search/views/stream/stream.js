@@ -28,10 +28,18 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         }
     })
 
-    Search.collections.AllStreamsCollection = Backbone.Collection.extend({
+    Search.collections.SortedCollection = Application.Base.collections.Generic.extend({
+        comparator: function( collection ){
+            return( collection.get( 'title' ) );
+        }
+    });
+
+//    Search.collections.AllStreamsCollection = Backbone.Collection.extend({
+    Search.collections.AllStreamsCollection = Search.collections.SortedCollection.extend({
         url: Search.allStreamsUrl,
         model: Search.models.Stream
     })
+
 
     //Layouts
     Search.views.StreamContentLayout = Marionette.Layout.extend({
@@ -312,31 +320,31 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         }
     };
 
-    Search.forceUpdateAllAdminCollections = function() {
-        if (!Search.allBachelorsDegreeCollection) {}
-        Search.allBachelorsDegreeCollection = new Application.Base.collections.Generic([], {
-            url: Search.allBachelorsUrl
-        });
-        Search.allBachelorsDegreeCollection.fetch({async: false});
-
-        Search.allMastersDegreeCollection = new Application.Base.collections.Generic([], {
-            url: Search.allMastersUrl
-        });
-        Search.allMastersDegreeCollection.fetch({async: false});
-
-        Search.allDoctorateDegreeCollection = new Application.Base.collections.Generic([], {
-            url: Search.allDoctorateUrl
-        });
-        Search.allDoctorateDegreeCollection.fetch({async: false});
-
-        Search.allMajorsCollection = new Application.Base.collections.Generic([], {
-            url: Search.allMajorsUrl
-//            comparator : function (major) {
-//                return major.get("title").toLowerCase();
-//            }
-        });
-        Search.allMajorsCollection.fetch({async: false});
-    };
+//    Search.forceUpdateAllAdminCollections = function() {
+//        if (!Search.allBachelorsDegreeCollection) {}
+//        Search.allBachelorsDegreeCollection = new Application.Base.collections.Generic([], {
+//            url: Search.allBachelorsUrl
+//        });
+//        Search.allBachelorsDegreeCollection.fetch({async: false});
+//
+//        Search.allMastersDegreeCollection = new Application.Base.collections.Generic([], {
+//            url: Search.allMastersUrl
+//        });
+//        Search.allMastersDegreeCollection.fetch({async: false});
+//
+//        Search.allDoctorateDegreeCollection = new Application.Base.collections.Generic([], {
+//            url: Search.allDoctorateUrl
+//        });
+//        Search.allDoctorateDegreeCollection.fetch({async: false});
+//
+//        Search.allMajorsCollection = new Application.Base.collections.Generic([], {
+//            url: Search.allMajorsUrl
+////            comparator : function (major) {
+////                return major.get("title").toLowerCase();
+////            }
+//        });
+//        Search.allMajorsCollection.fetch({async: false});
+//    };
 
     Search.getDegreeChecklistView = function(degreesLayout, stream, degreeSectionHeader, degreeSectionId, allDegreeCollection, valueIdArr, addOnIdArr) {
         var degreeView = new Search.views.Degree({
@@ -403,7 +411,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             model: new Application.Base.models.Generic({
                 selectSpanId: "majorSelect"
             }),
-            selectOptionsList: Search.getIdToTitleArrayMap(stream.attributes.majors),
+            selectOptionsList: Search.getIdToTitleArrayMap(stream.get('majors')),
             emptyText: "Select Major...",
             selectEvt: Search.majorSelectEvt
 
@@ -414,6 +422,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         });
         return majorSelect;
     };
+
 
     Search.showStreamPage = function(streamId) {
         Search.populateAllAdminCollections();
@@ -431,13 +440,8 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         Search.searchLayout.searchContent.show(streamContentLayout);
 
         //Major Links
-//        var streamMajorsCollection = new Application.Base.collections.Generic(stream.get('majors'));
-//        streamMajorsCollection = streamMajorsCollection.sortBy(function(major) {
-//            return major.get("title").toLowerCase();
-//        });
         var majorLinksComposite = new Search.views.SearchLinkComposite({
-//            collection: streamMajorsCollection
-            collection: new Application.Base.collections.Generic(stream.get('majors'))
+            collection: new Search.collections.SortedCollection(stream.get('majors'))
         })
         streamContentLayout.majorsCompositeRegion.show(majorLinksComposite);
         this.listenTo(majorLinksComposite, Search.selectedLinkEvt, function(majorId){
