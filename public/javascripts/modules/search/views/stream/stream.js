@@ -38,6 +38,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         template: "search/views/stream/layout",
 
         regions: {
+            majorsCompositeRegion: "#majorsComposite",
             basicInfoRegion: "#basicInfo",
             skillsRegion: "#skills",
             degreesRegion: "#degrees",
@@ -62,39 +63,6 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
 
 //    //ItemViews
-//    Search.views.BasicInfoView = Marionette.ItemView.extend({
-//        template: "search/views/stream/basicInfo",
-//
-//
-//        onRender: function () {
-//            var that = this;
-//            var fieldId = "basicInfo";
-//            this.$el.find("#" + fieldId).editable({
-//                type: "wysihtml5",
-//                emptytext: "Add info...",
-//                value: that.model.toJSON().basicInfo,
-//                success: function (response, value) {
-////                    console.log(value);
-//                    that.model.save(fieldId, value, {
-//                        wait: true,
-//                        patch: true,
-//                        success: function (newModel) {
-//                            console.log("Saved on server!!")
-//                            console.dir(newModel)
-//                        },
-//
-//                        error: function (x, response) {
-//                            console.dir(response);
-//                            console.log("Error on server!! -- " + response);
-//                            return response;
-//                        }
-//                    })
-//                }
-//            })
-//        }
-//
-//    });
-
     Search.views.SkillsView = Marionette.ItemView.extend({
         template: "search/views/stream/skills",
 
@@ -406,30 +374,37 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         });
         Search.searchSelectNavbar.majorSelectRegion.show(majorSelect);
         this.listenTo(majorSelect, Search.majorSelectEvt, function(majorId){
-            console.log(majorId);
             Search.showMajorPageById(majorId);
         });
+        return majorSelect;
     };
 
     Search.showStreamPage = function(streamId) {
         Search.populateAllCollections();
         var stream = new Application.Base.models.Generic({
             url: Search.streamUrl + "/" + streamId
-//            url: "/stream/" + streamId
         });
         stream.fetch({async: false});
 
-//        var streamDegreesCollection = new Application.Base.collections.Generic({
-//            collection: stream.attributes.degrees
-//        });
-
         // AddMajorSelect
-        Search.addMajorSelect(stream);
+        var majorSelect = Search.addMajorSelect(stream);
 
 
         // Show stream page content
         var streamContentLayout = new Search.views.StreamContentLayout();
         Search.searchLayout.searchContent.show(streamContentLayout);
+
+        //Major Links
+        var majorLinksComposite = new Search.views.SearchLinkComposite({
+            collection: new Application.Base.collections.Generic(stream.get('majors'))
+        })
+        streamContentLayout.majorsCompositeRegion.show(majorLinksComposite);
+        this.listenTo(majorLinksComposite, Search.selectedLinkEvt, function(majorId){
+            majorSelect.setValue(majorId);
+
+            //TODO This should be handled in the setValue
+            Search.showMajorPageById(majorId);
+        });
 
         //Basic Info
         var basicInfoView = new Search.views.BasicInfoView({

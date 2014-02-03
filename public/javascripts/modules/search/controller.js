@@ -94,7 +94,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         Search.searchLayout = new Search.views.mainLayout();
         Search.mainLayout.tabContentRegion.show(Search.searchLayout);
 
-        // Search Naviagtion
+        // Search Navigation
         Search.searchSelectNavbar = new Search.views.SearchSelectNavBar();
         Search.searchLayout.searchNavigation.show(Search.searchSelectNavbar);
         Search.addStreamSelect();
@@ -117,19 +117,31 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         });
 
         //Search Content
-        var streamContentLayout = new Search.views.SearchContentLayout();
-        Search.searchLayout.searchContent.show(streamContentLayout);
+        var searchContentLayout = new Search.views.SearchContentLayout();
+        Search.searchLayout.searchContent.show(searchContentLayout);
 
-        var streamContent = new Search.views.SearchContent({
+
+        var searchLinkComposite = new Search.views.SearchLinkComposite({
+            collection: Search.allStreamsCollection
+        })
+        searchContentLayout.streamLinksRegion.show(searchLinkComposite);
+        this.listenTo(searchLinkComposite, Search.selectedLinkEvt, function(streamId){
+            streamSelect.setValue(streamId);
+
+            //TODO This should be handled in the setValue
+            Search.showStreamPage(streamId);
+        });
+
+        var searchContent = new Search.views.SearchContent({
             model: new Application.Base.models.Generic({
                 contentText: "Start your search above"
             })
         });
-        streamContentLayout.streamContentRegion.show(streamContent);
+        searchContentLayout.streamContentRegion.show(searchContent);
 
         // Admin Section -- add new Stream
         if (Application.Base.isAdmin())
-            streamContentLayout.adminRegion.show(Search.getCreateStreamView());
+            searchContentLayout.adminRegion.show(Search.getCreateStreamView());
     };
 
     Search.getCreateStreamView = function(){

@@ -1,7 +1,17 @@
 
 html {
     /*Always show vertical scroll-bar so as not to jump content when it appears or disappears*/
-    overflow-y: scroll
+    overflow-y: scroll !important;
+}
+
+.navbar .beta {
+    font-size: 0.5em;
+    padding-left: 2px;
+}
+
+.beta {
+    font-size: 0.3em;
+    padding-left: 5px;
 }
 
 .wysihtml5 {
@@ -12,6 +22,12 @@ div.wysihtml5 img {
     height: 200px;
     float: right;
     margin: 10px 0px 10px 10px;
+}
+
+.bulletHeader {
+    font-size: 1.2em;
+    /*font-weight: 600;*/
+    /*padding: 5px 0;*/
 }
 
 .sectionHeader {
@@ -106,6 +122,15 @@ form.autoPopulatePillContainer {
 
 .comment-container {
     margin-bottom: 10px;
+}
+
+.streamLink {
+    margin-right: 10px;
+    font-size: 1.3em;
+}
+
+.streamLinkComposite {
+    margin: 20px 0;
 }
 
 /*jGrowl theme*/

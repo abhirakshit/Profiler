@@ -11,10 +11,10 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     Search.allCollegesUrl = "/colleges";
 
     Search.addSpecializationEvt = "addSpecialization";
-    Search.addOccupationEvt = "addOccupation"
-    Search.addCollegeEvt = "addCollege"
-    Search.createOccupationEvt = "createOccupation"
-    Search.createCollegeEvt = "createCollege"
+    Search.addOccupationEvt = "addOccupation";
+    Search.addCollegeEvt = "addCollege";
+    Search.createOccupationEvt = "createOccupation";
+    Search.createCollegeEvt = "createCollege";
 
 
     //Models
@@ -38,6 +38,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         template:  "search/views/major/layout",
 
         regions: {
+            specializationCompositeRegion: "#specializationComposite",
             basicInfoRegion: "#basicInfo",
             schoolPrepRegion: "#schoolPrep",
             collegeAdmissionRegion: "#collegeAdmission",
@@ -58,7 +59,6 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     var specializationHtml = "<%=args.title%>";
     Search.views.Specialization = Marionette.ItemView.extend({
         template: function(serialized_model){
-//            console.log(serialized_model.title);
             return _.template(specializationHtml, {title: serialized_model.title}, {variable: 'args'})
         },
         tagName: "li"

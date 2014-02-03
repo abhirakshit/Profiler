@@ -31,9 +31,12 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
             this.trigger('removed', this.model);
         },
 
+        editableTag: null,
         onRender: function() {
+            this.editableTag = this.$el.find('#' + this.model.attributes.selectSpanId);
             var that = this;
-            this.$el.find('#' + that.model.attributes.selectSpanId).editable({
+//            this.$el.find('#' + that.model.attributes.selectSpanId).editable({
+            this.editableTag.editable({
                 source: that.options.selectOptionsList,
 //                value: initialValue,
                 emptytext: that.options.emptyText,
@@ -46,10 +49,15 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
                     that.trigger(that.options.selectEvt, id);
                 }
             });
+            this.editableTag.editable('option', 'disabled', false);
+        },
 
-
-            this.$el.find('#' + that.model.attributes.selectSpanId).editable('option', 'disabled', false);
+        setValue: function(id) {
+            this.editableTag.editable("setValue", id);
+            //TODO Why is this not working?
+//            this.editableTag.editable.success(null, id);
         }
+
     });
 
     Search.views.SearchSelectNavBar = Marionette.Layout.extend({

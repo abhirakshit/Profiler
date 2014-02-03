@@ -13,18 +13,58 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         template: "search/views/base/searchLayout",
 
         regions: {
+            streamLinksRegion: "#streamlinks",
             streamContentRegion: "#streamContent",
             adminRegion: "#adminSection"
         }
-    })
+    });
 
     //ItemViews
     Search.createStreamEvt = "createStream";
+    Search.selectedLinkEvt = "selectedLink";
+
+
+    var streamLinkHtml = '<%=args.linkText%>';
+    Search.views.SearchLink = Marionette.ItemView.extend({
+        template: function (serialized_model) {
+            return _.template(streamLinkHtml, {linkText: serialized_model.title}, {variable: 'args'})
+        },
+
+        tagName: "a",
+        className: "label label-info streamLink",
+
+        events: {
+            "click": "clicked"
+        },
+
+        clicked: function(evt) {
+            evt.preventDefault();
+            this.trigger(Search.selectedLinkEvt, this);
+        }
+
+    });
+
+    Search.views.SearchLinkComposite = Marionette.CompositeView.extend({
+        template: function () {
+            return _.template('')
+        },
+        itemView: Search.views.SearchLink,
+        className: "streamLinkComposite",
+
+        initialize: function(){
+            var that = this;
+            this.on("itemview:" + Search.selectedLinkEvt, function(childView){
+                console.log("Show Module: " + childView.model.get("title"));
+                that.trigger(Search.selectedLinkEvt, childView.model.get('id'));
+            });
+        }
+    });
+
     Search.views.AddNewStream = Marionette.ItemView.extend({
         template: "search/views/base/addNew",
 
         events: {
-            "click #createStream": "createStream"
+            "click #createStream": Search.createStreamEvt
         },
 
         onRender: function () {
@@ -35,14 +75,10 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             event.preventDefault();
             this.trigger(Search.createStreamEvt, this);
         }
-    })
+    });
 
-    var searchContentHtml = '<p><%=args.contentText%></p>'
     Search.views.SearchContent = Marionette.ItemView.extend({
-        template: function (serialized_model) {
-            return _.template(searchContentHtml, {contentText: serialized_model.contentText}, {variable: 'args'})
-        },
-
+        template: "search/views/base/landingPage",
         tagName: "span"
     })
 

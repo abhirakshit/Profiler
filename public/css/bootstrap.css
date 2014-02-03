@@ -966,7 +966,7 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: 20px;
+  height: 25px;
   padding: 4px 6px;
   margin-bottom: 9px;
   font-size: 14px;
@@ -1551,9 +1551,12 @@ select:focus:required:invalid:focus {
   *margin-left: 0;
   font-size: 14px;
   vertical-align: top;
-  -webkit-border-radius: 0 3px 3px 0;
-     -moz-border-radius: 0 3px 3px 0;
-          border-radius: 0 3px 3px 0;
+  -webkit-border-radius: 3px 3px 3px 3px;
+     -moz-border-radius: 3px 3px 3px 3px;
+          border-radius: 3px 3px 3px 3px;
+    /*-webkit-border-radius: 0 3px 3px 0;*/
+     /*-moz-border-radius: 0 3px 3px 0;*/
+          /*border-radius: 0 3px 3px 0;*/
 }
 
 .input-append input:focus,
@@ -5726,12 +5729,12 @@ a.badge:hover {
 }
 
 .hero-unit {
-  padding: 60px;
+  padding: 50px;
   margin-bottom: 30px;
   background-color: #eeeeee;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
 }
 
 .hero-unit h1 {

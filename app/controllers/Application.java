@@ -37,6 +37,7 @@ public class Application extends Controller {
     		return ok(views.html.index.render(serializer.serialize(getLocalUser().id.toString())));
     	}
         return ok(views.html.login.render(loginForm));
+        //return ok(views.html.login_new.render(loginForm));
     }
     
     public static Users getLocalUser() {

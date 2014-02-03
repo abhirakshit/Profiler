@@ -1,278 +1,321 @@
 @(loginForm: Form[form.LoginForm])
 <html>
-    <head>
-        <title>@Messages("app.title")</title>
+<head>
+    <title>@Messages("app.title")</title>
 
-	    <!-- Le meta -->
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta name="description" content='@Messages("app.title")'>
-	    <meta name="author" content="Emvento Technologies">
-
-
-        <!-- Le scripts -->
-        <script src="@routes.Assets.at("javascripts/lib/jquery/jquery.js")"></script>
-        <script src="@routes.Assets.at("javascripts/lib/jquery-validate/jquery.validate.min.js")"></script>
-
-        <link href="@routes.Assets.at("css/bootstrap.css")" rel="stylesheet">
-		<link href="@routes.Assets.at("css/bootstrap-responsive.css")" rel="stylesheet">
-		<link href="@routes.Assets.at("css/custom.css")" rel="stylesheet">
-		<link href="@routes.Assets.at("css/layout.css")" rel="stylesheet">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("img/favicon.png")">
+    <!-- Le meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content='@Messages("app.title")'>
+    <meta name="author" content="Emvento Technologies">
 
 
-        <script type="text/javascript">
-                $(document).ready(function() {
+    <!-- Le scripts -->
+    <script src='@routes.Assets.at("javascripts/lib/jquery/jquery.js")'></script>
+    <script src = '@routes.Assets.at("javascripts / lib / jquery - validate / jquery.validate.min.js")' ></script>
 
-                    // Show Signup/Login Forms
-                    $("#signupBtn").show();
-                    $("#loginBtn").hide();
+    <link href='@routes.Assets.at("css/bootstrap.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/bootstrap-responsive.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/layout.css")' rel="stylesheet">
+    <link href='@routes.Assets.at("css/custom.css")' rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("img/favicon.png")'>
 
-                    $("#signup").hide();
-                    $("#login").show();
 
-                    $("#signupBtn").click(function() {
-                        $("#signupBtn").hide();
-                        $("#loginBtn").show();
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-                        $("#signup").show();
-                        $("#login").hide();
-                    });
+            // Show Signup/Login Forms
+            $("#signupBtn").show();
+            $("#loginBtn").hide();
 
-                    $("#loginBtn").click(function() {
-                        $("#signupBtn").show();
-                        $("#loginBtn").hide();
+            $("#signup").hide();
+            $("#login").show();
 
-                        $("#signup").hide();
-                        $("#login").show();
-                    });
+            $("#signupBtn").click(function () {
+                $("#signupBtn").hide();
+                $("#loginBtn").show();
 
-                    //Validate Froms
-                    $('#loginForm').validate({ // initialize the plugin
-                        rules: {
-                            email: {
-                                required: true,
-                                email: true
-                            },
-                            password: {
-                                required: true
-                            }
-                        },
+                $("#signup").show();
+                $("#login").hide();
+            });
 
-                        messages: {
-                            email: {
-                                required: "Please enter email"
-                            },
-                            password: {
-                                required: "Please enter password"
-                            }
-                        }
-                    });
+            $("#signUpLink").click(function () {
+                $("#signupBtn").hide();
+                $("#loginBtn").show();
 
-                    $('#signupForm').validate({ // initialize the plugin
-                        rules: {
-                            firstName: {
-                                required: true
-                            },
-                            lastName: {
-                                required: true
-                            },
-                            email: {
-                                required: true,
-                                email: true
-                            },
-                            passwd: {
-                                required: true
-                            },
-                            confirmPasswd: {
-                                required: true,
-                                equalTo: "#passwd"
-                            }
-                        },
+                $("#signup").show();
+                $("#login").hide();
+            });
 
-                        messages: {
+            $("#loginBtn").click(function () {
+                $("#signupBtn").show();
+                $("#loginBtn").hide();
 
-                            firstName: {
-                                required: "Please enter first name"
-                            },
-                            lastName: {
-                                required: "Please enter last name"
-                            },
-                            email: {
-                                required: "Please enter email"
-                            },
-                            passwd: {
-                                required: "Please enter password"
-                            },
-                            confirmPasswd: {
-                                required: "Please confirm password",
-                                equalTo: "Passwords don't match"
-                            }
-                        }
-                    });
+                $("#signup").hide();
+                $("#login").show();
+            });
 
-                });
-        </script>
-    
-    </head>
-    
-    
-    <body>
-	    <div id="header-region" class="navbar navbar-fixed-top navbar-inner">
-            <div class="container">
-	    	    <a class="brand" href="@routes.Application.index()">@Messages("app.title")</a>
+            //Validate Froms
+            $('#loginForm').validate({ // initialize the plugin
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true
+                    }
+                },
 
+                messages: {
+                    email: {
+                        required: "Please enter email"
+                    },
+                    password: {
+                        required: "Please enter password"
+                    }
+                }
+            });
+
+            $('#signupForm').validate({ // initialize the plugin
+                rules: {
+                    firstName: {
+                        required: true
+                    },
+                    lastName: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    passwd: {
+                        required: true
+                    },
+                    confirmPasswd: {
+                        required: true,
+                        equalTo: "#passwd"
+                    }
+                },
+
+                messages: {
+
+                    firstName: {
+                        required: "Please enter first name"
+                    },
+                    lastName: {
+                        required: "Please enter last name"
+                    },
+                    email: {
+                        required: "Please enter email"
+                    },
+                    passwd: {
+                        required: "Please enter password"
+                    },
+                    confirmPasswd: {
+                        required: "Please confirm password",
+                        equalTo: "Passwords don't match"
+                    }
+                }
+            });
+
+        });
+    </script>
+
+</head>
+
+
+<body>
+<!--<div id="header-region" class="navbar navbar-fixed-top navbar-inner">-->
+<!--<div class="container">-->
+<!--<span class="brand">@Messages("app.title")<span class="beta">beta</span>-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="content" style="padding-top: 40px">
+    <div class="container">
+        <!-- Main content -->
+        @if(flash.contains(Application.FLASH_ERROR_KEY)) {
+        <div class="alert alert-error">
+            @flash().get(Application.FLASH_ERROR_KEY)
+        </div>
+        }
+        @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
+        <div class="alert alert-success">
+            @flash().get(Application.FLASH_MESSAGE_KEY)
+        </div>
+        }
+        <div>
+            <div class="hero-unit">
+                <div class="row-fluid">
+                    <div class="span9">
+                        <h1>@Messages("app.title")<span class="beta">beta</span></h1>
+                        <h4 style="padding-left: 5px">Fast-Track your career search</h4>
+                    </div>
+
+                    <div class="span3" style="padding-top: 25px">
+                        <p>
+                            <button id="signupBtn" class="btn btn-large btn-primary" type="button">
+                                @Messages("signup.now")
+                            </button>
+                            <button id="loginBtn" class="btn btn-large btn-primary" type="button">
+                                @Messages("login.title")
+                            </button>
+                        </p>
+                    </div>
+                </div>
             </div>
-	    </div>
-	    
-	    <div id="content">
-		    <div class="container">
-		        <!-- Main content -->
-                @if(flash.contains(Application.FLASH_ERROR_KEY)) {
-                    <div class="alert alert-error">
-                        @flash().get(Application.FLASH_ERROR_KEY)
+
+            <!-- Example row of columns -->
+            <div class="row-fluid">
+                <div class="span7" style="padding: 10px">
+                    <!--<h2>Fast-Track your career search</h2>-->
+                    <h3>Seek your path from this reservoir of career opportunities</h3>
+                    <!--<p>An easy and free way to get all the information you need to make the best choices about your career</p>-->
+                    <p>From a world of career choices CareerDB helps you identify the best fit. It matches your
+                        interests, skills, talents and aspirations
+                        to your dreams.
+                        <!--Career DB has opened the world of career choices to help you identify the path that’s best fit for you. It aims at simplifying the daunting task of matching your interests, skills, talents, experiences and aspirations with the ‘Career’ just meant for you.-->
+                        <!--So, are you ready to take this decision of the lifetime? Then, take no chances and plan your career, the right way.-->
+                    </p>
+
+                    <p>So, are you ready to take this decision of a lifetime? <a id="signUpLink" href="#">Plan your career now</a></p>
+
+
+                </div>
+
+
+                <div class="span5" id="login-signup-form">
+                    <div id="login">
+                        <form id="loginForm" class="form-horizontal" action="@routes.Application.doLogin()"
+                              method="post">
+                            <legend>Login</legend>
+                            <div class="control-group">
+                                <label class="control-label">Email</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="text" id="email" name="email" placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Password</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="password" id="password" name="password" placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"></label>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">@Messages("login.title")</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                }
-                @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
-                    <div class="alert alert-success">
-                        @flash().get(Application.FLASH_MESSAGE_KEY)
+
+                    <div id="signup">
+                        <form id="signupForm" class="form-horizontal" action="@routes.Application.doSignup()"
+                              method="post">
+                            <legend>Sign Up</legend>
+                            <div class="control-group">
+                                <label class="control-label">First Name</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="text" class="input-xlarge" id="firstName" name="firstName"
+                                               placeholder="First Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <label class="control-label">Last Name</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="text" class="input-xlarge" id="lastName" name="lastName"
+                                               placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Email</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="text" class="input-xlarge" id="email" name="email"
+                                               placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Password</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="Password" id="passwd" class="input-xlarge" name="passwd"
+                                               placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Confirm Password</label>
+
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <input type="Password" id="confirmPasswd" class="input-xlarge"
+                                               name="confirmPasswd" placeholder="Re-enter Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Role</label>
+
+                                <div class="controls">
+                                    <!--<div class="input-prepend">-->
+                                    <div>
+                                        <!--<input type="Password" id="confirmPassword" class="input-xlarge" name="confirmPassword" placeholder="Re-enter Password">-->
+                                        <input type="radio" name="roleType" value="student" checked>&nbsp;Student<br>
+                                        <input type="radio" name="roleType" value="counselor">&nbsp;Counselor
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label"></label>
+
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success">@Messages("signup.now")</button>
+                                </div>
+
+                            </div>
+
+                        </form>
                     </div>
-                }
-		        <div>
-					  <div class="hero-unit">
-                          <div class="row-fluid">
-                              <div class="span9">
-				                  <h1>@Messages("app.title")</h1>
-                              </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                              <div class="span3" style="padding-top: 25px">
-                                  <p>
-                                      <button id="signupBtn" class="btn btn-large btn-primary" type="button">@Messages("signup.now")</button>
-                                      <button id="loginBtn" class="btn btn-large btn-primary" type="button">@Messages("login.title")</button>
-                                  </p>
-                              </div>
-                          </div>
-				      </div>
-				
-				      <!-- Example row of columns -->
-				      <div class="row-fluid">
-				        <div class="span7">
-				          <h2>Fast-Track your career search</h2>
-				           <p>An easy and free way to get all the information you need to make the best choices about your career</p>
-				        </div>
+<div id="footer-region" class="container">
+    <hr>
+    <footer>
+        <p>&copy; 2014 Emvento Technologies</p>
+
+        <p>
+            <small>Styles by <a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Twitter
+                Bootstrap</a> &middot; </small>
+        </p>
+    </footer>
+</div>
 
 
-
-				        <div class="span5" id="login-signup-form">
-				          <div id="login">
-					   		<form id="loginForm" class="form-horizontal" action="@routes.Application.doLogin()" method="post">
-                                <legend>Login</legend>
-								<div class="control-group">
-                                    <label class="control-label">Email</label>
-                                    <div class="controls">
-                                        <div class="input-prepend">
-									        <input type="text" id="email" name="email" placeholder="Email">
-                                        </div>
-                                    </div>
-								</div>
-								<div class="control-group">
-                                    <label class="control-label">Password</label>
-                                    <div class="controls">
-                                        <div class="input-prepend">
-									        <input type="password" id="password" name="password" placeholder="Password">
-                                        </div>
-                                    </div>
-								</div>
-                                <div class="control-group">
-                                    <label class="control-label"></label>
-                                    <div class="controls">
-									    <button type="submit" class="btn btn-success">@Messages("login.title")</button>
-                                    </div>
-								</div>
-							</form>
-				          </div>
-
-                          <div id="signup">
-                              <form id="signupForm" class="form-horizontal" action="@routes.Application.doSignup()" method="post">
-                                  <legend>Sign Up</legend>
-                                  <div class="control-group">
-                                      <label class="control-label">First Name</label>
-                                      <div class="controls">
-                                          <div class="input-prepend">
-                                              <input type="text" class="input-xlarge" id="firstName" name="firstName" placeholder="First Name">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="control-group ">
-                                      <label class="control-label">Last Name</label>
-                                      <div class="controls">
-                                          <div class="input-prepend">
-                                              <input type="text" class="input-xlarge" id="lastName" name="lastName" placeholder="Last Name">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="control-group">
-                                      <label class="control-label">Email</label>
-                                      <div class="controls">
-                                          <div class="input-prepend">
-                                              <input type="text" class="input-xlarge" id="email" name="email" placeholder="Email">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="control-group">
-                                      <label class="control-label">Password</label>
-                                      <div class="controls">
-                                          <div class="input-prepend">
-                                              <input type="Password" id="passwd" class="input-xlarge" name="passwd" placeholder="Password">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="control-group">
-                                      <label class="control-label">Confirm Password</label>
-                                      <div class="controls">
-                                          <div class="input-prepend">
-                                              <input type="Password" id="confirmPasswd" class="input-xlarge" name="confirmPasswd" placeholder="Re-enter Password">
-                                          </div>
-                                      </div>
-                                  </div>
-
-                                  <div class="control-group">
-                                      <label class="control-label">Role</label>
-                                      <div class="controls">
-                                          <!--<div class="input-prepend">-->
-                                          <div>
-                                              <!--<input type="Password" id="confirmPassword" class="input-xlarge" name="confirmPassword" placeholder="Re-enter Password">-->
-                                              <input type="radio" name="roleType" value="student" checked>&nbsp;Student<br>
-                                              <input type="radio" name="roleType" value="counselor">&nbsp;Counselor
-                                          </div>
-                                      </div>
-                                  </div>
-
-                                  <div class="control-group">
-                                      <label class="control-label"></label>
-                                      <div class="controls">
-                                          <button type="submit" class="btn btn-success" >@Messages("signup.now")</button>
-                                      </div>
-
-                                  </div>
-
-                              </form>
-                          </div>
-				        </div>
-				      </div>    
-		        </div>
-		    </div> 
-		</div>
-		
-		<div id="footer-region" class="container">
-		  <hr>
-	      <footer>
-	        <p>&copy; 2014 Emvento Technologies</p>
-	        <p>
-	        <small>Styles by <a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Twitter Bootstrap</a> &middot; </small></p>
-	      </footer>
-		</div>
-	    
-
-    </body>
+</body>
 </html>

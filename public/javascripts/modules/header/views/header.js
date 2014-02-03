@@ -15,7 +15,7 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
 
 
     //Views
-    var appLabelHtml = '<%=args.appLabel%>';
+    var appLabelHtml = '<%=args.appLabel%><span class="beta">beta</span>';
     Header.views.AppLabel = Marionette.ItemView.extend({
         tagName: "a",
 //        attributes: {
