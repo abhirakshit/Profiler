@@ -279,7 +279,41 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         Search.createNewMajor(layout);
     };
 
-    Search.populateAllCollections = function() {
+    Search.populateAllAdminCollections = function() {
+        if (!Search.allBachelorsDegreeCollection) {
+            Search.allBachelorsDegreeCollection = new Application.Base.collections.Generic([], {
+                url: Search.allBachelorsUrl
+            });
+            Search.allBachelorsDegreeCollection.fetch({async: false});
+        }
+
+        if (!Search.allMastersDegreeCollection) {
+            Search.allMastersDegreeCollection = new Application.Base.collections.Generic([], {
+                url: Search.allMastersUrl
+            });
+            Search.allMastersDegreeCollection.fetch({async: false});
+        }
+
+        if (!Search.allDoctorateDegreeCollection) {
+            Search.allDoctorateDegreeCollection = new Application.Base.collections.Generic([], {
+                url: Search.allDoctorateUrl
+            });
+            Search.allDoctorateDegreeCollection.fetch({async: false});
+        }
+
+        if (!Search.allMajorsCollection) {
+            Search.allMajorsCollection = new Application.Base.collections.Generic([], {
+                url: Search.allMajorsUrl
+    //            comparator : function (major) {
+    //                return major.get("title").toLowerCase();
+    //            }
+            });
+            Search.allMajorsCollection.fetch({async: false});
+        }
+    };
+
+    Search.forceUpdateAllAdminCollections = function() {
+        if (!Search.allBachelorsDegreeCollection) {}
         Search.allBachelorsDegreeCollection = new Application.Base.collections.Generic([], {
             url: Search.allBachelorsUrl
         });
@@ -302,7 +336,6 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 //            }
         });
         Search.allMajorsCollection.fetch({async: false});
-
     };
 
     Search.getDegreeChecklistView = function(degreesLayout, stream, degreeSectionHeader, degreeSectionId, allDegreeCollection, valueIdArr, addOnIdArr) {
@@ -383,7 +416,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     };
 
     Search.showStreamPage = function(streamId) {
-        Search.populateAllCollections();
+        Search.populateAllAdminCollections();
         var stream = new Application.Base.models.Generic({
             url: Search.streamUrl + "/" + streamId
         });
@@ -435,6 +468,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
          * Admin Section to add new Degrees and Majors
          */
         if (Application.Base.isAdmin() || Application.Base.isSuperAdmin())
+//            Search.populateAllAdminCollections();
             Search.addStreamAdminSection(streamContentLayout, stream);
     };
 
