@@ -14,7 +14,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
     Search.DOCTORATE = "doctorate";
     Search.DEGREES = "degrees";
 
-    Search.homeUrl = "search";
+    Search.homeNav = "search";
 
     Search.onTemplatesLoaded = function() {
         this.show();
@@ -36,7 +36,9 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
 
     Search.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "search": "showSearchHome"
+            "search": "showSearchHome",
+            "search/:id": "showStreamPage",
+            "search/:searchId/:majorId": "showMajorPage"
         }
     });
 
@@ -65,13 +67,33 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         },
 
         showSearchHome: function() {
-            Search.mainLayout = new Application.Base.views.MainLayout();
-            this.region.show(Search.mainLayout);
-
             //Add views
+            Search.setupLayout();
             Search.addPageHeader();
-            Search.showSearchSection();
-            Search.router.navigate(Search.homeUrl);
+            Search.addStreamSelect();
+            Search.addSearchContent();
+//            Search.showSearchSection();
+//            Search.router.navigate(Search.homeNav);
+        },
+
+        showStreamPage: function(streamId) {
+//            Search.showStreamPage(streamId);
+            Search.setupLayout();
+            Search.addPageHeader();
+            Search.addStreamSelect();
+            Search.setStreamValue(streamId);
+            Search.showStreamPage(streamId);
+//            Search.setStreamAndShowStreamPage(streamId);
+        },
+
+        showMajorPage: function(streamId, majorId) {
+//            Search.setupLayout();
+//            Search.addPageHeader();
+//            Search.addStreamSelect();
+//            Search.setStreamValue(streamId);
+//            Search.showStreamPage(streamId);
+            this.showStreamPage(streamId);
+            Search.setMajorAndShowMajorPage(majorId);
         }
 
     });
@@ -92,46 +114,56 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         headerLayoutView.pageHeader.show(pgHeader);
     };
 
-    Search.showSearchSection = function() {
+    Search.setupLayout = function() {
+        Search.mainLayout = new Application.Base.views.MainLayout();
+        Search.controller.region.show(Search.mainLayout);
+
         Search.searchLayout = new Search.views.MainLayout();
         Search.mainLayout.tabContentRegion.show(Search.searchLayout);
 
         // Search Navigation
         Search.searchSelectNavbar = new Search.views.SearchSelectNavBar();
         Search.searchLayout.searchNavigation.show(Search.searchSelectNavbar);
-        Search.addStreamSelect();
     };
 
-    Search.addStreamSelect = function() {
-        var streamSelect = new Search.views.SearchSelect({
-            model: new Application.Base.models.Generic({
-                selectSpanId: "streamSelect",
-                isStream: true
-            }),
-            selectOptionsList: Search.getIdToTitleArrayMap(Search.allStreamsCollection.toJSON()),
-            emptyText: "Select Stream...",
-            selectEvt: Search.streamSelectEvt
-        });
+//    Search.showSearchSection = function() {
+//        Search.setupLayout();
+//        Search.addStreamSelect();
+//        Search.addSearchContent();
+//    };
 
-        Search.searchSelectNavbar.streamSelectRegion.show(streamSelect);
-        this.listenTo(streamSelect, Search.streamSelectEvt, function(streamId){
-            Search.showStreamPage(streamId);
-        });
+    Search.setStreamValue = function(streamId) {
+        Search.streamSelect.setValue(streamId);
+    };
 
+//    Search.setStreamAndShowStreamPage = function(streamId) {
+//        Search.streamSelect.setValue(streamId);
+//
+//        //TODO This should be handled in the setValue
+//        Search.showStreamPage(streamId);
+//    }
+
+    Search.addSearchContent = function() {
+        Search.router.navigate(Search.homeNav);
         //Search Content
         var searchContentLayout = new Search.views.SearchContentLayout();
         Search.searchLayout.searchContent.show(searchContentLayout);
 
 
         var searchLinkComposite = new Search.views.SearchLinkComposite({
-            collection: Search.allStreamsCollection
+            collection: Search.allStreamsCollection,
+            model: new Application.Base.models.Generic({
+                headingText: "Streams",
+                contentId: "streams"
+            })
         })
         searchContentLayout.streamLinksRegion.show(searchLinkComposite);
         this.listenTo(searchLinkComposite, Search.selectedLinkEvt, function(streamId){
-            streamSelect.setValue(streamId);
-
-            //TODO This should be handled in the setValue
-            Search.showStreamPage(streamId);
+            Search.setStreamAndShowStreamPage(streamId);
+//            Search.streamSelect.setValue(streamId);
+//
+//            //TODO This should be handled in the setValue
+//            Search.showStreamPage(streamId);
         });
 
         var searchContent = new Search.views.SearchContent({
@@ -144,6 +176,23 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         // Admin Section -- add new Stream
         if (Application.Base.isAdmin())
             searchContentLayout.adminRegion.show(Search.getCreateStreamView());
+    };
+
+    Search.addStreamSelect = function() {
+        Search.streamSelect = new Search.views.SearchSelect({
+            model: new Application.Base.models.Generic({
+                selectSpanId: "streamSelect",
+                isStream: true
+            }),
+            selectOptionsList: Search.getIdToTitleArrayMap(Search.allStreamsCollection.toJSON()),
+            emptyText: "Select Stream...",
+            selectEvt: Search.streamSelectEvt
+        });
+
+        Search.searchSelectNavbar.streamSelectRegion.show(Search.streamSelect);
+        this.listenTo(Search.streamSelect, Search.streamSelectEvt, function(streamId){
+            Search.showStreamPage(streamId);
+        });
     };
 
     Search.getCreateStreamView = function(){

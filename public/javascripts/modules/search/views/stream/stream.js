@@ -407,7 +407,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     };
 
     Search.addMajorSelect = function(stream) {
-        var majorSelect = new Search.views.SearchSelect({
+        Search.majorSelect = new Search.views.SearchSelect({
             model: new Application.Base.models.Generic({
                 selectSpanId: "majorSelect"
             }),
@@ -416,15 +416,22 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
             selectEvt: Search.majorSelectEvt
 
         });
-        Search.searchSelectNavbar.majorSelectRegion.show(majorSelect);
-        this.listenTo(majorSelect, Search.majorSelectEvt, function(majorId){
+        Search.searchSelectNavbar.majorSelectRegion.show(Search.majorSelect);
+        this.listenTo(Search.majorSelect, Search.majorSelectEvt, function(majorId){
             Search.showMajorPageById(majorId);
         });
-        return majorSelect;
+//        return Search.majorSelect;
     };
 
+    Search.setMajorAndShowMajorPage = function(majorId) {
+        Search.majorSelect.setValue(majorId);
+
+        //TODO This should be handled in the setValue
+        Search.showMajorPageById(majorId);
+    }
 
     Search.showStreamPage = function(streamId) {
+        Search.router.navigate(Search.homeNav + "/" + streamId);
         Search.populateAllAdminCollections();
         var stream = new Application.Base.models.Generic({
             url: Search.streamUrl + "/" + streamId
@@ -432,7 +439,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         stream.fetch({async: false});
 
         // AddMajorSelect
-        var majorSelect = Search.addMajorSelect(stream);
+        Search.addMajorSelect(stream);
 
 
         // Show stream page content
@@ -441,14 +448,19 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
         //Major Links
         var majorLinksComposite = new Search.views.SearchLinkComposite({
-            collection: new Search.collections.SortedCollection(stream.get('majors'))
+            collection: new Search.collections.SortedCollection(stream.get('majors')),
+            model: new Application.Base.models.Generic({
+                headingText: "Majors",
+                contentId: "majors"
+            })
         })
         streamContentLayout.majorsCompositeRegion.show(majorLinksComposite);
         this.listenTo(majorLinksComposite, Search.selectedLinkEvt, function(majorId){
-            majorSelect.setValue(majorId);
-
-            //TODO This should be handled in the setValue
-            Search.showMajorPageById(majorId);
+            Search.setMajorAndShowMajorPage(majorId);
+//            Search.majorSelect.setValue(majorId);
+//
+//            //TODO This should be handled in the setValue
+//            Search.showMajorPageById(majorId);
         });
 
         //Basic Info

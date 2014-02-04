@@ -19,7 +19,7 @@ Application.module("Queries", function(Queries, Application, Backbone, Marionett
 //        Queries.controller.showQueriesHome();
     };
 
-    Queries.homeUrl = "queries";
+    Queries.homeNav = "queries";
     Queries.Router = Marionette.AppRouter.extend({
         appRoutes: {
             "queries": "showQueriesHome"
@@ -133,7 +133,7 @@ Application.module("Queries", function(Queries, Application, Backbone, Marionett
         var user = Application.Base.loggedUser;
         Queries.showAddQueryBtn(studQueryLayoutView, user);
         Queries.showMyQueries(studQueryLayoutView, user);
-        Queries.router.navigate(Queries.homeUrl);
+        Queries.router.navigate(Queries.homeNav);
     }
 
     Queries.setTableHeaderView = function(headerText) {

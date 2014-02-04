@@ -223,6 +223,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         });
         major.fetch({async: false});
         Search.showMajorPage(major);
+        Search.router.navigate(Search.homeNav + "/" + major.get('stream').id + "/" + majorId);
     };
 
     Search.showMajorPage = function(major) {

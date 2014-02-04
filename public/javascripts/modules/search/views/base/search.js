@@ -24,14 +24,14 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     Search.selectedLinkEvt = "selectedLink";
 
 
-    var streamLinkHtml = '<%=args.linkText%>';
+    var streamLinkHtml = '<a><%=args.linkText%></a>';
     Search.views.SearchLink = Marionette.ItemView.extend({
         template: function (serialized_model) {
             return _.template(streamLinkHtml, {linkText: serialized_model.title}, {variable: 'args'})
         },
 
-        tagName: "a",
-        className: "label label-info streamLink",
+        tagName: "li",
+//        className: "label label-info streamLink",
 
         events: {
             "click": "clicked"
@@ -45,11 +45,13 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     });
 
     Search.views.SearchLinkComposite = Marionette.CompositeView.extend({
-        template: function () {
-            return _.template('')
-        },
+        template: "search/views/base/section",
+//        template: function () {
+//            return _.template('')
+//        },
         itemView: Search.views.SearchLink,
         className: "streamLinkComposite",
+        itemViewContainer: "ul",
 
         initialize: function(){
             var that = this;
