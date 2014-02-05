@@ -91,7 +91,6 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         },
         itemView: Search.views.StreamLink,
         className: "row-fluid streamLinkComposite",
-//        className: "row-fluid",
 //        itemViewContainer: "ul",
 
         initialize: function(){

@@ -14,7 +14,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
                 return _.template(defaultSelectTemplateHtml, {selectSpanId: serialized_model.selectSpanId},{variable: 'args'});
         },
         tagName: "span",
-//        className: "autoPopulatePills label label-default",
+        className: "searchSelect",
 
         events: {
             "click #remove": "removeItem"
