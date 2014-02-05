@@ -150,7 +150,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         Search.searchLayout.searchContent.show(searchContentLayout);
 
 
-        var searchLinkComposite = new Search.views.SearchLinkComposite({
+        var searchLinkComposite = new Search.views.StreamLinkComposite({
             collection: Search.allStreamsCollection,
             model: new Application.Base.models.Generic({
                 headingText: "Streams",
@@ -159,11 +159,9 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         })
         searchContentLayout.streamLinksRegion.show(searchLinkComposite);
         this.listenTo(searchLinkComposite, Search.selectedLinkEvt, function(streamId){
-            Search.setStreamAndShowStreamPage(streamId);
-//            Search.streamSelect.setValue(streamId);
-//
+            Search.setStreamValue(streamId);
 //            //TODO This should be handled in the setValue
-//            Search.showStreamPage(streamId);
+            Search.showStreamPage(streamId);
         });
 
         var searchContent = new Search.views.SearchContent({

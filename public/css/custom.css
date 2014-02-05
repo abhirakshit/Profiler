@@ -124,17 +124,31 @@ form.autoPopulatePillContainer {
     margin-bottom: 10px;
 }
 
+/*.streamLink {*/
+    /*margin: 5px 5px 5px 0;*/
+    /*padding: 3px 3px 8px 3px;*/
+    /*font-size: 1em;*/
+    /*display: inline-block;*/
+    /*word-wrap: normal;*/
+/*}*/
 .streamLink {
-    margin: 5px 5px 5px 0;
-    padding: 3px 3px 8px 3px;
-    font-size: 1em;
-    display: inline-block;
-    word-wrap: normal;
+    border: solid 1px #AA4E4E;
+    text-align: center;
+    font-size: 1.8em;
+    height: 60px;
+    background: #AA4E4E;
+    color: #FFF;
+    padding-top: 15px;
 }
 
 .streamLinkComposite {
     margin: 20px 0;
 }
+
+.searchNav {
+    color: #F90;
+}
+
 
 /*jGrowl theme*/
 

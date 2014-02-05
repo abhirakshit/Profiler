@@ -24,10 +24,10 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
     Search.selectedLinkEvt = "selectedLink";
 
 
-    var streamLinkHtml = '<a><%=args.linkText%></a>';
+    var searchLinkHtml = '<a><%=args.linkText%></a>';
     Search.views.SearchLink = Marionette.ItemView.extend({
         template: function (serialized_model) {
-            return _.template(streamLinkHtml, {linkText: serialized_model.title}, {variable: 'args'})
+            return _.template(searchLinkHtml, {linkText: serialized_model.title}, {variable: 'args'})
         },
 
         tagName: "li",
@@ -56,7 +56,48 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         initialize: function(){
             var that = this;
             this.on("itemview:" + Search.selectedLinkEvt, function(childView){
-                console.log("Show Module: " + childView.model.get("title"));
+//                console.log("Show Module: " + childView.model.get("title"));
+                that.trigger(Search.selectedLinkEvt, childView.model.get('id'));
+            });
+        }
+    });
+
+
+    var streamLinkHtml = '<%=args.linkText%>';
+    Search.views.StreamLink = Marionette.ItemView.extend({
+        template: function (serialized_model) {
+            return _.template(streamLinkHtml, {linkText: serialized_model.title}, {variable: 'args'})
+        },
+
+        tagName: "span",
+//        className: "label label-info streamLink",
+        className: "span3 streamLink",
+
+        events: {
+            "click": "clicked"
+        },
+
+        clicked: function(evt) {
+            evt.preventDefault();
+            this.trigger(Search.selectedLinkEvt, this);
+        }
+
+    });
+
+    Search.views.StreamLinkComposite = Marionette.CompositeView.extend({
+//        template: "search/views/base/section",
+        template: function () {
+            return _.template('')
+        },
+        itemView: Search.views.StreamLink,
+        className: "row-fluid streamLinkComposite",
+//        className: "row-fluid",
+//        itemViewContainer: "ul",
+
+        initialize: function(){
+            var that = this;
+            this.on("itemview:" + Search.selectedLinkEvt, function(childView){
+//                console.log("Show Module: " + childView.model.get("title"));
                 that.trigger(Search.selectedLinkEvt, childView.model.get('id'));
             });
         }
