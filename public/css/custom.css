@@ -132,15 +132,31 @@ form.autoPopulatePillContainer {
     /*word-wrap: normal;*/
 /*}*/
 .streamLink {
-    border: solid 1px #AA4E4E;
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
     font-size: 1.8em;
     height: 60px;
-    background: #AA4E4E;
+    /*background: #AA4E4E;*/
     color: #FFF;
     padding-top: 15px;
+}
+
+.streamLink.biology {
+    border: solid 1px #bd4848;
+    background: #bd4848;
+}
+.streamLink.commerce {
+    border: solid 1px #728231;
+    background: #728231;
+}
+.streamLink.engineering {
+    border: solid 1px #3e3eb3;
+    background: #3e3eb3;
+}
+.streamLink.arts {
+    border: solid 1px #8c4380;
+    background: #8c4380;
 }
 
 .streamLinkComposite {

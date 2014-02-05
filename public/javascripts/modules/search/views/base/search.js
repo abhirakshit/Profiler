@@ -70,8 +70,11 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         },
 
         tagName: "span",
-//        className: "label label-info streamLink",
-        className: "span3 streamLink",
+//        className: "span3 streamLink",
+
+        initialize: function(options) {
+            this.$el.prop("class", "span3 streamlink " + options.colorClass);
+        },
 
         events: {
             "click": "clicked"
@@ -84,6 +87,12 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
     });
 
+    var colorArr = [
+        "biology",
+        "commerce",
+        "engineering",
+        "arts"
+    ]
     Search.views.StreamLinkComposite = Marionette.CompositeView.extend({
 //        template: "search/views/base/section",
         template: function () {
@@ -91,8 +100,9 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         },
         itemView: Search.views.StreamLink,
         className: "row-fluid streamLinkComposite",
-//        itemViewContainer: "ul",
-
+        itemViewOptions: function (model, index) {
+            return { colorClass: colorArr[index] };
+        },
         initialize: function(){
             var that = this;
             this.on("itemview:" + Search.selectedLinkEvt, function(childView){
