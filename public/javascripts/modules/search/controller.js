@@ -109,7 +109,7 @@ Application.module("Search", function(Search, Application, Backbone, Marionette,
         //Show header
         var pgHeader = new Application.Base.views.PageHeader({
 //            model: new Backbone.Model({header: "Search"})
-            model: new Backbone.Model({header: "Search"})
+            model: new Backbone.Model({header: "CareerDB"})
         });
         headerLayoutView.pageHeader.show(pgHeader);
     };

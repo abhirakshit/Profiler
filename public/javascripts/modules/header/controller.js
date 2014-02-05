@@ -52,7 +52,7 @@ Application.module("Header", function(Header, Application, Backbone, Marionette,
         //Setup Application label
         var appLabel = new Header.views.AppLabel({
             model: new Backbone.Model({
-                appLabel: "CareerDB"
+                appLabel: "Counsela"
             })
         });
         Header.layout.appLabel.show(appLabel);

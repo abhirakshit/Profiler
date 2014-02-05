@@ -9,7 +9,7 @@ Application.module("Sidebar", function(Sidebar, Application, Backbone, Marionett
     Sidebar.NavSettingsId = "sidebar-nav-settings";
     Sidebar.NavForumId = "sidebar-nav-forum";
 
-    Application.Base.ForumUrl = "http://cforum.herokuapp.com/"
+    Application.Base.ForumUrl = "http://counsela.org/"
 
     getCounselorSideBarOptionCollection = function() {
         return new Application.Base.collections.Generic([

@@ -29,6 +29,7 @@
 body {
     /*font: 13px/1.7em 'Open Sans', arial, sans-serif;*/
     font: 13px/1.7em 'Freight Sans', 'lucida grande',tahoma,verdana,arial,sans-serif;
+    /*font: 13px/1.7em Raleway,Helvetica,Arial,sans-serif;*/
 
     background: url(../img/body-bg.png) repeat 0 0;
 }
@@ -36,6 +37,7 @@ body {
 p {
     /*font: 13px/1.7em 'Open Sans', arial, sans-serif;*/
     font: 13px/1.7em 'Freight Sans', 'lucida grande',tahoma,verdana,arial,sans-serif;
+    /*font: 13px/1.7em Raleway,Helvetica,Arial,sans-serif;*/
 }
 
 h1 {
@@ -68,6 +70,7 @@ hr {
 input {
     /*font: 13px/1.7em 'Open Sans', arial, sans-serif;*/
     font: 13px/1.7em 'Freight Sans', 'lucida grande',tahoma,verdana,arial,sans-serif;
+    /*font: 13px/1.7em Raleway,Helvetica,Arial,sans-serif;*/
 }
 
 
