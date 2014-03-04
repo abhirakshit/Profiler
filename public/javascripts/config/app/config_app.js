@@ -1,5 +1,5 @@
 define([
-    "modules/entities/user"
+//    "modules/entities/user"
 ],
     function () {
         Application.module("Config", function (Config, Application, Backbone, Marionette, $, _) {

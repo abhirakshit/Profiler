@@ -1,24 +1,25 @@
 define([
     "config/app/consts",
-    "config/app/config_app",
     "config/app/utils",
-    "modules/controllers/base_controller",
-
     "modules/entities/base/_utilities",
     "modules/entities/base/models",
     "modules/entities/base/collections",
+    "modules/entities/user",
 
     "modules/views/_view",
     "modules/views/collectionview",
     "modules/views/compositeview",
     "modules/views/itemview",
-    "modules/views/layout"
+    "modules/views/layout",
+
+    "modules/controllers/base_controller",
+
+    "config/app/config_app"
 ], function(){
     Application.module("Main", function(Main, Application, Backbone, Marionette) {
         console.log("Load Main Dependencies");
         Application.ForumUrl = "http://counsela.org/";
         Application.Config.setUpXEditableConfig();
-
 
         if (Application.request(Application.IS_USER_ADMIN)) {
             Application.USER_IS_ADMIN = true;
