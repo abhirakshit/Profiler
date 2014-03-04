@@ -76,8 +76,14 @@ public class SearchController extends Controller{
 		}
 		
 		public static Result getAllStreams() {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			JSONSerializer serializer = new JSONSerializer();
-			return ok(serializer.serialize(Streams.findAll()));
+			return ok(serializer.include("majors").include("degrees").serialize(Streams.findAll()));
 		}
 		
 		public static Result getAllMajors(Long id) {
