@@ -24,7 +24,7 @@ define([], function(){
 
             getAllSchools: function() {
                 if (!Entities.allSchools){
-                    Entities.allSchools = new Entities.SortedCollection();
+                    Entities.allSchools = new Entities.TitleSortedCollection();
                     Entities.allSchools.url = Entities.allSchoolsUrl;
                     Entities.allSchools.fetch();
                 }

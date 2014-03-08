@@ -3,22 +3,21 @@ define([
 ], function () {
     Application.module("Profile", function (Profile, Application, Backbone, Marionette, $, _) {
 
-        Profile.views.StudentProfileLayout = Application.Views.Layout.extend({
-            template: "profile/student/student_layout",
-//            className: "span8",
 
+
+        Profile.views.StudentProfileLayout = Application.Views.Layout.extend({
+            template: "profile/student/templates/student_layout",
             regions: {
                 institutionRegion: "#institution",
                 careerRegion: "#career",
                 academicRegion: "#academic",
                 personalRegion: "#personal"
             }
-
         });
 
 
         Profile.views.InstitutionalView = Application.Views.ItemView.extend({
-            template: "profile/student/institutional_view",
+            template: "profile/student/templates/institutional_view",
 
             onRender: function() {
                 Backbone.Validation.bind(this);
@@ -32,13 +31,7 @@ define([
         });
 
         Profile.views.CareerView = Application.Views.ItemView.extend({
-//            model: Application.Base.models.User,
-            template: "profile/student/career_view",
-
-//            serializeData: function(){
-//                this.data = this.model.toJSON();
-//                return this.data;
-//            },
+            template: "profile/student/templates/career_view",
 
             onRender: function() {
                 Backbone.Validation.bind(this);
@@ -46,25 +39,14 @@ define([
             },
 
             setupCareerView: function() {
-                var countrySource = [
-                    {id: 'uk', text: 'United Kingdom'},
-                    {id: 'cn', text: 'Canada'},
-                    {id: 'au', text: 'Australia'},
-                    {id: 'nz', text: 'New Zealand'},
-                    {id: 'us', text: 'United States'},
-                    {id: 'in', text: 'India'},
-                    {id: 'ru', text: 'Russia'}
-                ];
-
-                Profile.setupSelect2EditableBox(this.$el, this.model, "countryInterested", countrySource, "Select Country", this.model.get('countryInterested'));
+                Profile.setupSelect2EditableBox(this.$el, this.model, "countryInterested", this.options.allCountriesMap, "Select Country", this.model.get('countryInterested'));
                 Profile.setupSelect2EditableBox(this.$el, this.model, "fieldInterested", this.options.allStreamsMap, "Select Field", this.model.get('fieldInterested'));
                 Profile.setupSelect2EditableBox(this.$el, this.model, "programInterested", this.options.allOccupationsMap, "Select Program", this.model.get('programInterested'));
-
             }
         });
 
         Profile.views.AcademicView = Application.Views.ItemView.extend({
-            template: "profile/student/academic_view",
+            template: "profile/student/templates/academic_view",
 
             onRender: function() {
                 Backbone.Validation.bind(this);

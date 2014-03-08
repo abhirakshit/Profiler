@@ -14,7 +14,7 @@ define([], function(){
         var API = {
             getAllColleges: function(update) {
                 if (!Entities.allColleges || update){
-                    Entities.allColleges = new Entities.SortedCollection();
+                    Entities.allColleges = new Entities.TitleSortedCollection();
                     Entities.allColleges.url = Entities.allCollegesUrl;
                     Entities.allColleges.fetch();
                 }

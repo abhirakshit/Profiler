@@ -112,6 +112,7 @@ define([
                             success: function (newModel) {
                                 $.jGrowl("New major added: " + newModel.get("title"), {theme: 'jGrowlSuccess'});
                                 console.log("Saved on server!!")
+                                that.trigger(Application.UPDATE_VIEW, that);
                             },
 
                             error: function (x, response) {
@@ -187,7 +188,7 @@ define([
 
             initialize: function(){
                 var that = this;
-                this.on(Application.CHILDVIEW + ":" + Stream.selectedLinkEvt, function(childView){
+                this.on(Application.CHILD_VIEW + ":" + Stream.selectedLinkEvt, function(childView){
                     that.trigger(Stream.selectedLinkEvt, childView.model.get('id'));
                 });
             }

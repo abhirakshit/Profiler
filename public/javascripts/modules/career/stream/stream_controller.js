@@ -28,7 +28,8 @@ define([
                     this.showDegreesSection(stream, allBachelors, allMasters, allDoctorate);
 
                     this.showMajorsSection(stream);
-                        if (Application.USER_IS_ADMIN)
+
+                    if (Application.USER_IS_ADMIN)
                         this.showAdminSection(stream, allMajors);
                 });
 
@@ -42,7 +43,7 @@ define([
             showMajorsSection: function(stream) {
                 var that = this;
                 var majorLinksComposite = new Stream.views.MajorLinkComposite({
-                    collection: new Application.Entities.SortedCollection(stream.get('majors')),
+                    collection: new Application.Entities.TitleSortedCollection(stream.get('majors')),
                     model: new Application.Entities.Model({
                         headingText: "Majors",
                         contentId: "majors"
@@ -56,16 +57,16 @@ define([
 
             showAdminSection: function(stream, allMajors) {
                 this.addMajorToStream(stream, allMajors);
-                this.createNewDegree(stream);
-                this.createNewMajor(stream);
+                this.createNewDegree(stream, allMajors);
+                this.createNewMajor(stream, allMajors);
             },
 
-            createNewMajor: function(stream) {
+            createNewMajor: function(stream, allMajors) {
                 var that = this;
-                var newMajor = new Application.Entities.Model();
-                newMajor.urlRoot = Application.Entities.majorUrl;
+//                var newMajor = new Application.Entities.Model();
+//                newMajor.urlRoot = Application.Entities.majorUrl;
                 var newMajorView = new Stream.views.AddNewMajor({
-                    model: newMajor
+                    model: Application.request(Application.MAJOR_GET)
                 });
                 this.layout.newMajorRegion.show(newMajorView);
 
@@ -73,25 +74,29 @@ define([
                     var data = Backbone.Syphon.serialize(view);
 
                     console.log(data);
-                    view.model.unset("urlRoot", { silent: true });
+//                    view.model.unset("urlRoot", { silent: true });
                     view.model.save(data, {
                         wait: true,
                         success: function (model) {
                             $.jGrowl("New degree created: " + model.get("title"), {theme: 'jGrowlSuccess'});
-                            that.showAdminSection(stream);
+                            var updatedMajors = Application.request(Application.MAJORS_GET, true);
+                            //refresh occupationsSection
+                            Application.execute(Application.WHEN_FETCHED, updatedMajors, function(){
+                                that.showAdminSection(stream, updatedMajors);
+                            });
                         },
 
                         error: function (model, response) {
                             $.jGrowl("Error saving " + model.get("title") + " degree!", {theme: 'jGrowlError'});
                             console.error("Error Model: " + model.toJSON());
                             console.error("Error Response: " + response.statusText);
-                            that.showAdminSection(stream);
+                            that.showAdminSection(stream, allMajors);
                         }
                     });
                 })
             },
 
-            createNewDegree: function(stream) {
+            createNewDegree: function(stream, allMajors) {
                 var that = this;
                 var newDegree = new Application.Entities.Model();
                 newDegree.urlRoot = Application.Entities.degreeUrl;
@@ -110,14 +115,14 @@ define([
                         success: function (model) {
                             $.jGrowl("New degree created: " + model.get("title"), {theme: 'jGrowlSuccess'});
                             that.showDegreesSection(stream);
-                            that.showAdminSection(stream);
+                            that.showAdminSection(stream, allMajors);
                         },
 
                         error: function (model, response) {
                             $.jGrowl("Error saving " + model.get("title") + " degree!", {theme: 'jGrowlError'});
                             console.error("Error Model: " + model.toJSON());
                             console.error("Error Response: " + response.statusText);
-                            that.showAdminSection(stream);
+                            that.showAdminSection(stream, allMajors);
                         }
                     });
                 })
@@ -129,7 +134,11 @@ define([
                     model: stream,
                     source: allMajors.getIdToTitleArrayMap()
                 });
-                that.layout.addMajorToStreamRegion.show(aMToStreamView);
+                this.layout.addMajorToStreamRegion.show(aMToStreamView);
+
+                this.listenTo(aMToStreamView, Application.UPDATE_VIEW, function(view) {
+                    Application.execute(Application.STREAM_SHOW, that.region, stream.get('id'));
+                })
             },
 
             showBasicInfo: function(stream) {

@@ -13,7 +13,7 @@ define([], function(){
         var API = {
             getAllOccupations: function(update) {
                 if (!Entities.allOccupations || update){
-                    Entities.allOccupations = new Entities.SortedCollection();
+                    Entities.allOccupations = new Entities.TitleSortedCollection();
                     Entities.allOccupations.url = Entities.allOccupationsUrl;
                     Entities.allOccupations.fetch();
                 }

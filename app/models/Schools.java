@@ -28,7 +28,8 @@ public class Schools extends Institutions {
 	}
 
 	public static Schools create(JsonNode reqJson) {
-		final Schools newInst = new Schools(reqJson.get("title").asText(), reqJson.get("address").asText());
+		final Schools newInst = new Schools(reqJson.get("title").asText(), reqJson.get("website").asText());
+//		final Schools newInst = new Schools(reqJson.get("title").asText());
 		newInst.save();
 		return newInst;
 	}

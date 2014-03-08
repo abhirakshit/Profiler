@@ -12,6 +12,17 @@ define([
             }
         });
 
+        Settings.views.Admin_Layout = Application.Views.Layout.extend({
+            template: "settings/templates/admin_layout",
+
+            regions : {
+                addAdminRegion: "#addAdmin",
+                addSchoolRegion: "#addSchool",
+                addCountryRegion: "#addCountry"
+            }
+        });
+
+
         Settings.views.UserInfo = Application.Views.ItemView.extend({
             template: "settings/templates/userInfo"
         });
@@ -50,16 +61,73 @@ define([
             template: "settings/templates/create_admin",
 
             events: {
-                "click #createAdmin": "createAdmin"
+                "click #createAdmin": "createAdmin",
+                "click #cancelBtn": "toggleViewVisibility",
+                "click #createAdminBtn": "toggleViewVisibility"
             },
 
             onRender: function() {
                 Backbone.Validation.bind(this);
             },
 
+            toggleViewVisibility: function(event) {
+                event.preventDefault();
+                this.$el.find("#createAdminContainer").fadeToggle();
+            },
+
             createAdmin: function(evt) {
                 evt.preventDefault();
                 this.trigger(Settings.createAdminEvt, this);
+            }
+
+        });
+
+        Settings.views.CreateSchool = Application.Views.ItemView.extend({
+            template: "settings/templates/create_school",
+
+            events: {
+                "click #createSchool": "createSchool",
+                "click #cancelBtn": "toggleViewVisibility",
+                "click #createSchoolBtn": "toggleViewVisibility"
+            },
+
+            onRender: function() {
+                Backbone.Validation.bind(this);
+            },
+
+            toggleViewVisibility: function(event) {
+                event.preventDefault();
+                this.$el.find("#createSchoolContainer").fadeToggle();
+            },
+
+            createSchool: function(evt) {
+                evt.preventDefault();
+                this.trigger(Settings.createSchoolEvt, this);
+            }
+
+        })
+
+        Settings.views.CreateCountry = Application.Views.ItemView.extend({
+            template: "settings/templates/create_country",
+
+            events: {
+                "click #createCountry": "createCountry",
+                "click #cancelBtn": "toggleViewVisibility",
+                "click #createCountryBtn": "toggleViewVisibility"
+            },
+
+            onRender: function() {
+                Backbone.Validation.bind(this);
+            },
+
+            toggleViewVisibility: function(event) {
+                event.preventDefault();
+                this.$el.find("#createCountryContainer").fadeToggle();
+            },
+
+            createCountry: function(evt) {
+                evt.preventDefault();
+                this.trigger(Settings.createCountryEvt, this);
             }
 
         })

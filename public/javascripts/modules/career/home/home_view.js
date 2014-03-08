@@ -3,7 +3,7 @@ define([
 ], function(){
     Application.module("Career.Home", function(Home, Application, Backbone, Marionette, $, _) {
         Home.views.Layout = Application.Views.Layout.extend({
-            template: "career/home/home_layout",
+            template: "career/home/templates/home_layout",
 
             regions: {
                 streamLinksRegion: "#streamlinks",
@@ -56,22 +56,22 @@ define([
 
             initialize: function(){
                 var that = this;
-                this.on(Application.CHILDVIEW + ":" + Application.STREAM_LINK_SELECT, function(childView){
+                this.on(Application.CHILD_VIEW + ":" + Application.STREAM_LINK_SELECT, function(childView){
                     that.trigger(Application.STREAM_LINK_SELECT, childView.model.get('id'));
                 });
             }
         });
 
         Home.views.PageContent = Application.Views.ItemView.extend({
-            template: "career/home/landing_page",
+            template: "career/home/templates/landing_page",
             tagName: "span"
         });
 
         Home.views.AddNewStream = Application.Views.ItemView.extend({
-            template: "career/home/add_stream",
+            template: "career/home/templates/add_stream",
 
             events: {
-                "click #createStream": Application.STREAM_CREATE
+                "click #createStream": "createStream"
             },
 
             onRender: function () {

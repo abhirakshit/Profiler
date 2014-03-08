@@ -26,16 +26,6 @@ create table comments (
   constraint pk_comments primary key (id))
 ;
 
-create table countries (
-  id                        bigint not null,
-  created_on                timestamp,
-  modified_on               timestamp,
-  title                     varchar(255),
-  basic_info                text,
-  constraint uq_countries_title unique (title),
-  constraint pk_countries primary key (id))
-;
-
 create table degrees (
   id                        bigint not null,
   created_on                timestamp,
@@ -199,8 +189,6 @@ create sequence colleges_seq;
 
 create sequence comments_seq;
 
-create sequence countries_seq;
-
 create sequence degrees_seq;
 
 create sequence departments_seq;
@@ -262,8 +250,6 @@ drop table if exists majors_colleges cascade;
 
 drop table if exists comments cascade;
 
-drop table if exists countries cascade;
-
 drop table if exists degrees cascade;
 
 drop table if exists degrees_streams cascade;
@@ -293,8 +279,6 @@ drop table if exists users cascade;
 drop sequence if exists colleges_seq;
 
 drop sequence if exists comments_seq;
-
-drop sequence if exists countries_seq;
 
 drop sequence if exists degrees_seq;
 

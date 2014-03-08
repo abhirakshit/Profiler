@@ -262,5 +262,9 @@ public class Users extends Base {
 		return find.where().eq("roleType", Application.COUNSELOR)
 				.findList();
 	}
+	
+	public static List<Users> findAssignedStudentsById(Long id) {
+		return find.where().eq("ownerId", id).findList();
+	}
 
 }

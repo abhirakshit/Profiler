@@ -12,8 +12,6 @@ define([
 
         Application.commands.setHandler(Application.CAREER_CONTENT_SHOW, function(region){
             API.list(region);
-//            var parent = Home.parent;
-//            Application.Routers[parent.prefix].navigate(parent.rootRoute);
         });
     });
 });

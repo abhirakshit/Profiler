@@ -16,6 +16,7 @@ public class Consts {
 	public static final String OCCUPATIONS = "occupations";
 	public static final String COLLEGES = "colleges";
 	public static final String SPEC_TITLE = "spec-title";
+	public static final String TITLE = "title";
 	
 	public static final String QUERY_TEXT = "queryText";
 	

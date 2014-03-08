@@ -11,6 +11,8 @@ define([
     "modules/views/compositeview",
     "modules/views/itemview",
     "modules/views/layout",
+    "modules/views/utils/utils",
+    "modules/views/validation/validationMessages",
 
     "modules/controllers/base_controller",
 

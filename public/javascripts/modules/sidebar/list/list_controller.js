@@ -32,7 +32,7 @@ define([
             getCounselorSideBarOptionCollection: function () {
                 return new Application.Entities.Collection([
                     new Application.Entities.Model({id: Application.CAREER_SHOW, name: "Home", icon: "icon-home"}),
-//                    new Application.Entities.Model({id: Application.PROFILE_SHOW, name:"Profile", icon: "icon-user"}),
+                    new Application.Entities.Model({id: Application.PROFILE_SHOW, name:"Profiles", icon: "icon-user"}),
                     new Application.Entities.Model({id: Application.SETTINGS_SHOW, name: "Settings", icon: "icon-cog"}),
                     new Application.Entities.Model({id: Application.FORUM_SHOW, name: "Forum", icon: "icon-globe"})
                 ]);
@@ -40,8 +40,8 @@ define([
 
             getStudentSideBarOptionCollection: function () {
                 return new Application.Entities.Collection([
-//                    new Application.Entities.Model({id: Application.PROFILE_SHOW, name:"Profile", icon: "icon-user"}),
                     new Application.Entities.Model({id: Application.CAREER_SHOW, name: "Home", icon: "icon-home"}),
+                    new Application.Entities.Model({id: Application.PROFILE_SHOW, name:"Profile", icon: "icon-user"}),
                     new Application.Entities.Model({id: Application.SETTINGS_SHOW, name: "Settings", icon: "icon-cog"}),
                     new Application.Entities.Model({id: Application.FORUM_SHOW, name: "Forum", icon: "icon-globe"})
                 ]);

@@ -144,7 +144,7 @@ define([
                 var that = this;
                 var collegesView = new Major.views.CollegeComposite({
                     model: major,
-                    collection: new Application.Entities.SortedCollection(major.get("colleges")),
+                    collection: new Application.Entities.TitleSortedCollection(major.get("colleges")),
                     selectOptionsList: allColleges.getIdToTitleArrayMap()
                 });
 
@@ -169,7 +169,7 @@ define([
                 var that = this;
                 var occupationView = new Major.views.OccupationComposite({
                     model: major,
-                    collection: new Application.Entities.SortedCollection(major.get("occupations")),
+                    collection: new Application.Entities.TitleSortedCollection(major.get("occupations")),
                     selectOptionsList: allOccupations.getIdToTitleArrayMap()
                 });
 
@@ -219,7 +219,7 @@ define([
             showSpecialization: function(major) {
                 var specializationView = new Major.views.SpecializationComposite({
                     model: major,
-                    collection: new Application.Entities.SortedCollection(major.get("specializations"))
+                    collection: new Application.Entities.TitleSortedCollection(major.get("specializations"))
                 });
                 this.layout.specializationRegion.show(specializationView);
             },

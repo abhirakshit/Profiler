@@ -29,6 +29,7 @@ public class InstitutionController extends Controller{
 		
 		
 		JsonNode reqJson = request().body().asJson();
+		System.err.println(reqJson);
 		Schools school = Schools.create(reqJson);
 		
 		JSONSerializer serializer = new JSONSerializer();

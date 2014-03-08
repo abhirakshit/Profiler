@@ -1,12 +1,15 @@
 define([
     "modules/settings/settings_view",
-    "modules/entities/user"
-//    "modules/settings/user/user_app"
+    "modules/entities/user",
+    "modules/entities/school",
+    "modules/entities/country"
 ], function () {
     Application.module("Settings", function (Settings, Application, Backbone, Marionette, $, _) {
 
         Settings.changePasswordEvt = "changePassword";
         Settings.createAdminEvt = "createAdmin";
+        Settings.createSchoolEvt = "createSchool";
+        Settings.createCountryEvt = "createCountry";
 
         Settings.Controller = Application.Controllers.Base.extend({
             initialize: function () {
@@ -28,10 +31,64 @@ define([
             },
 
             showAdminSection: function(user) {
-                var createAdminView = new Settings.views.CreateAdmin({
-                    model: Application.request(Application.GET_USER)
+                this.adminLayout = new Settings.views.Admin_Layout();
+                this.layout.adminRegion.show(this.adminLayout);
+                this.showAddAdminView();
+                this.showAddSchoolView();
+                this.showAddCountryView();
+            },
+
+            showAddCountryView: function() {
+                var createCountryView = new Settings.views.CreateCountry({
+                    model: Application.request(Application.COUNTRY_GET)
                 });
-                this.layout.adminRegion.show(createAdminView);
+                this.adminLayout.addCountryRegion.show(createCountryView);
+
+                this.listenTo(createCountryView, Settings.createCountryEvt, function(view){
+                    var data = Backbone.Syphon.serialize(view);
+                    view.model.save(data, {
+                        wait: true,
+                        success: function (model) {
+                            $.jGrowl("New Country added: " + model.get("title"), {theme: 'jGrowlSuccess'});
+                        },
+
+                        error: function (model, response) {
+                            $.jGrowl("Error saving " + model.get("title"), {theme: 'jGrowlError'});
+                            console.error("Error Model: " + model.toJSON());
+                            console.error("Error Response: " + response.statusText);
+                        }
+                    });
+                });
+            },
+
+            showAddSchoolView: function() {
+                var createSchoolView = new Settings.views.CreateSchool({
+                    model: Application.request(Application.SCHOOL_GET)
+                });
+                this.adminLayout.addSchoolRegion.show(createSchoolView);
+
+                this.listenTo(createSchoolView, Settings.createSchoolEvt, function(view){
+                    var data = Backbone.Syphon.serialize(view);
+                    view.model.save(data, {
+                        wait: true,
+                        success: function (model) {
+                            $.jGrowl("New School added: " + model.get("title"), {theme: 'jGrowlSuccess'});
+                        },
+
+                        error: function (model, response) {
+                            $.jGrowl("Error saving " + model.get("title"), {theme: 'jGrowlError'});
+                            console.error("Error Model: " + model.toJSON());
+                            console.error("Error Response: " + response.statusText);
+                        }
+                    });
+                });
+            },
+
+            showAddAdminView: function() {
+                var createAdminView = new Settings.views.CreateAdmin({
+                    model: Application.request(Application.USER_GET)
+                });
+                this.adminLayout.addAdminRegion.show(createAdminView);
 
                 this.listenTo(createAdminView, Settings.createAdminEvt, function(view){
                     var data = Backbone.Syphon.serialize(view);

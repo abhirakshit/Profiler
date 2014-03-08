@@ -45,7 +45,11 @@ define([
                         wait: true,
                         success: function (model) {
                             $.jGrowl("New stream created: " + model.get("title"), {theme: 'jGrowlSuccess'});
-                            Application.commands.execute(Application.CAREER_SHOW);
+                            var allStreams = Application.request(Application.STREAMS_GET, true);
+                            //refresh occupationsSection
+                            Application.execute(Application.WHEN_FETCHED, allStreams, function(){
+                                Application.commands.execute(Application.CAREER_SHOW);
+                            })
                         },
 
                         error: function (model, response) {

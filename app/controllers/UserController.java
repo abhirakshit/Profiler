@@ -27,6 +27,12 @@ public class UserController extends Controller{
 		return ok(serializer.include("institution").include("queries").exclude("password").serialize(Users.findById(id)));
 	}
 	
+	public static Result showStudents(Long id) {
+		JSONSerializer serializer = new JSONSerializer();
+		return ok(serializer.include("institution").include("queries").
+				exclude("password").serialize(Users.findAssignedStudentsById(id)));
+	}
+	
 	static Form<Users> userForm = Form.form(Users.class);
 	public static Result create() {
 		JsonNode reqJson = request().body().asJson();
@@ -57,22 +63,6 @@ public class UserController extends Controller{
 		return ok(serializer.exclude("password").serialize(Users.findById(id)));
 	}
 	
-//	public static Result updatePartial(Long id) {
-//		JsonNode reqJson = request().body().asJson();
-//		System.err.println("\n###############\n" + reqJson);
-//		Users user = Users.findById(id);
-//		
-//		//Check and create query
-//		JSONSerializer serializer = new JSONSerializer();
-//		JsonNode queryJson = reqJson.get(QueryController.QUERY_TEXT);
-//		if (queryJson != null) {
-//			return createQuery(user, queryJson, serializer);
-//		} else {
-//			return ok(serializer.exclude("password").serialize(user.update(reqJson)));
-//		}
-//	}
-	
-//	CustomForm<Users> userForm = CustomForm.form(Users.class);
 	public static Result updatePartial(Long id) {
 		JsonNode reqJson = request().body().asJson();
 		System.err.println("\n###############\n" + reqJson);
@@ -80,17 +70,18 @@ public class UserController extends Controller{
 		
 		//Check and create query
 		JSONSerializer serializer = new JSONSerializer();
-//		JsonNode queryJson = reqJson.get(Consts.QUERY_TEXT);
 		if (reqJson.has(Consts.QUERY_TEXT)) {
 			return createQuery(user, reqJson.get(Consts.QUERY_TEXT), serializer);
 		} else if (reqJson.has(PASSWORD) && reqJson.has(CONFIRM_PASSWORD)) {
 			return updatePassword(user, reqJson, serializer);
 		}
-//		if (queryJson != null) {
-//			return createQuery(user, queryJson, serializer);
-//		} 
 		
-		return ok(serializer.exclude("password").serialize(user.update(reqJson)));
+		CustomForm<Users> userForm = CustomForm.form(Users.class);
+		userForm.bindFromRequest(user);
+		user.update();
+		return ok(serializer.exclude("password").serialize(user));
+		
+//		return ok(serializer.exclude("password").serialize(user.update(reqJson)));
 	}
 	
 	private static Result updatePassword(Users user, JsonNode reqJson,

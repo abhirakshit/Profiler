@@ -4,19 +4,32 @@ define([], function(){
         Entities.majorUrl = "/major";
         Entities.allMajorsUrl = "/majors";
 
+        Entities.Major = Entities.Model.extend({
+            urlRoot: Entities.majorUrl,
+            validation: {
+                title: {required: true}
+            }
+        });
+
+        Entities.MajorsCollection = Entities.TitleSortedCollection.extend({
+            url: Entities.allMajorsUrl
+        });
+
         var API = {
-            getAllMajors: function() {
-                if (!Entities.allMajors){
-                    Entities.allMajors = new Entities.SortedCollection();
-                    Entities.allMajors.url = Entities.allMajorsUrl;
+            getAllMajors: function(update) {
+                if (!Entities.allMajors || update){
+                    Entities.allMajors = new Entities.MajorsCollection();
+//                    Entities.allMajors.url = Entities.allMajorsUrl;
                     Entities.allMajors.fetch();
                 }
                 return Entities.allMajors;
             },
 
             getMajor: function(majorId) {
-                var major = new Entities.Model();
-                major.urlRoot = Entities.majorUrl;
+                if (!majorId)
+                    return new Entities.Major
+                var major = new Entities.Major();
+//                major.urlRoot = Entities.majorUrl;
                 major.id = majorId;
                 major.fetch();
 
@@ -25,8 +38,8 @@ define([], function(){
 
         };
 
-        Application.reqres.setHandler(Application.MAJORS_GET, function(){
-            return API.getAllMajors();
+        Application.reqres.setHandler(Application.MAJORS_GET, function(update){
+            return API.getAllMajors(update);
         });
 
         Application.reqres.setHandler(Application.MAJOR_GET, function(majorId){

@@ -1,7 +1,7 @@
 define([], function(){
     Application.module("Entities", function(Entities, Application, Backbone, Marionette, $, _) {
         Entities.url = "/stream";
-        Entities.all_Url = "/streams/all";
+        Entities.allStreamsUrl = "/streams";
 
         Entities.Stream = Entities.Model.extend({
             urlRoot: Entities.url,
@@ -11,28 +11,24 @@ define([], function(){
             }
         });
 
-        Entities.SortedCollection = Entities.Collection.extend({
-            comparator: function( collection ){
-                return( collection.get( 'title' ) );
-            }
-        });
+//        Entities.TitleSortedCollection = Entities.Collection.extend({
+//            comparator: function( collection ){
+//                return( collection.get( 'title' ) );
+//            }
+//        });
 
-        Entities.AllStreamsCollection = Entities.SortedCollection.extend({
-            url: Entities.all_Url,
+        Entities.AllStreamsCollection = Entities.TitleSortedCollection.extend({
+            url: Entities.allStreamsUrl,
             model: Entities.Stream
         });
 
         var API = {
-            getStreams: function() {
-                if (!Entities.allStreams){
-                    this.updateDegrees();
+            getAllStreams: function(update) {
+                if (!Entities.allStreams || update){
+                    Entities.allStreams = new Entities.AllStreamsCollection();
+                    Entities.allStreams.fetch();
                 }
                 return Entities.allStreams;
-            },
-
-            updateDegrees: function() {
-                Entities.allStreams = new Entities.AllStreamsCollection();
-                Entities.allStreams.fetch();
             },
 
             getStream: function(streamId) {
@@ -55,8 +51,8 @@ define([], function(){
             }
         };
 
-        Application.reqres.setHandler(Application.STREAMS_GET, function(){
-            return API.getStreams();
+        Application.reqres.setHandler(Application.STREAMS_GET, function(update){
+            return API.getAllStreams(update);
         });
 
         Application.reqres.setHandler(Application.STREAM_GET, function(streamId){

@@ -3,9 +3,6 @@ define([], function(){
         Entities.Collection = Backbone.Collection.extend({
             getIdToTitleArrayMap: function() {
                 return this.getIdToTextMap("title");
-//                return _.map(this.models, function(model){
-//                    return {id: model.get("id"), text: model.get("title")}
-//                });
             },
 
             getValueToTitleArrayMap: function() {
@@ -20,6 +17,12 @@ define([], function(){
                 });
             }
 
+        });
+
+        Entities.TitleSortedCollection = Entities.Collection.extend({
+            comparator: function( collection ){
+                return( collection.get( 'title' ) );
+            }
         });
 
     });

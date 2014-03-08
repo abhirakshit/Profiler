@@ -1,7 +1,11 @@
-define([], function(){
+define([
+    "modules/entities/base/models",
+    "modules/entities/base/collections"
+], function(){
     Application.module("Entities", function(Entities, Application, Backbone, Marionette, $, _) {
 
         Entities.userUrl = '/user';
+        Entities.allUsersUrl = '/users';
         Entities.allCounselorsUrl = "/users/counselors";
 
         Entities.loggedUserId = window.userId.replace(/&quot;/g, '');
@@ -24,8 +28,14 @@ define([], function(){
         });
 
         Entities.UsersCollection = Entities.Collection.extend({
-            model: Entities.User
+            model: Entities.User,
+            url: Entities.allUsersUrl
         });
+
+//        Entities.StudentsAssignedCollection = Entities.Collection.extend({
+//            model: Entities.User,
+//            url: Entities.allUsersUrl
+//        });
 
         var API = {
 
@@ -37,6 +47,19 @@ define([], function(){
                 user.id = userId;
                 user.fetch();
                 return user;
+            },
+
+            getStudentsAssigned: function(userId) {
+                if(!userId) {
+                    userId = Entities.loggedUser.get('id');
+                }
+
+                var studentsAssigned = new Entities.UsersCollection();
+                studentsAssigned.url = function() {
+                    return Entities.userUrl + "/" + userId + "/students";
+                };
+                studentsAssigned.fetch();
+                return studentsAssigned;
             },
 
             getAllCounselors: function() {
@@ -97,7 +120,7 @@ define([], function(){
             return API.getLoggedUser();
         });
 
-        Application.reqres.setHandler(Application.GET_USER, function(userId){
+        Application.reqres.setHandler(Application.USER_GET, function(userId){
             return API.getUser(userId);
         });
 
@@ -123,6 +146,10 @@ define([], function(){
 
         Application.reqres.setHandler(Application.COUNSELORS_GET, function(){
             return API.getAllCounselors();
+        });
+
+        Application.reqres.setHandler(Application.STUDENTS_ASSIGNED_GET, function(userId){
+            return API.getStudentsAssigned(userId);
         });
 
         Application.reqres.setHandler(Application.LOGOUT, function(){

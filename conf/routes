@@ -15,10 +15,19 @@ GET		/user/:userId				controllers.UserController.show(userId: Long)
 PUT		/user/:userId				controllers.UserController.update(userId: Long)
 PATCH	/user/:userId				controllers.UserController.updatePartial(userId: Long)
 DELETE	/user/:userId				controllers.UserController.delete(userId: Long)
+GET		/user/:userId/students		controllers.UserController.showStudents(userId: Long)
 
 GET     /users/all                  controllers.UserController.getAllUsers()
 GET     /users/students             controllers.UserController.getAllStudents()
 GET     /users/counselors           controllers.UserController.getAllCounselors()
+
+# Countries
+POST    /country					controllers.CountryController.create()
+GET     /country/:countryId			controllers.CountryController.show(countryId: Long)
+PUT     /country/:countryId			controllers.CountryController.update(countryId: Long)
+DELETE  /country/:countryId			controllers.CountryController.delete(countryId: Long)
+
+GET		/countries					controllers.CountryController.getAll()
 
 # Schools
 POST    /school						controllers.InstitutionController.createSchool()
@@ -26,7 +35,7 @@ GET     /school/:instId				controllers.InstitutionController.showSchool(instId: 
 PUT     /school/:instId				controllers.InstitutionController.updateSchool(instId: Long)
 DELETE  /school/:instId				controllers.InstitutionController.deleteSchool(instId: Long)
 
-GET		/schools/all				controllers.InstitutionController.getAllSchools()
+GET		/schools					controllers.InstitutionController.getAllSchools()
 
 # Colleges
 POST    /college					controllers.InstitutionController.createCollege()
@@ -57,7 +66,7 @@ PATCH	/stream/:streamId						controllers.SearchController.updateStreamPartial(st
 DELETE  /stream/:streamId						controllers.SearchController.deleteStream(streamId: Long)
 GET		/stream/:streamId/majors				controllers.SearchController.getAllMajors(streamId: Long)
 
-GET		/streams/all							controllers.SearchController.getAllStreams()
+GET		/streams								controllers.SearchController.getAllStreams()
 
 # Major
 POST    /major								controllers.MajorsController.create()

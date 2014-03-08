@@ -1,12 +1,15 @@
 define([], function(){
     Application.module("Entities", function(Entities, Application, Backbone, Marionette, $, _) {
 
-        Entities.getAllCounselorUrl = "/users/counselors";
-        Entities.allSchoolsUrl = "/schools/all";
+        Entities.allSchoolsUrl = "/schools";
         Entities.schoolUrl = "/school";
 
         Entities.School = Entities.Model.extend({
-            urlRoot: Entities.schoolUrl
+            urlRoot: Entities.schoolUrl,
+            validation: {
+                title: {required: true},
+                website: {required: false, pattern: 'url'}
+            }
         });
 
         Entities.SchoolCollection = Entities.Collection.extend({
@@ -16,17 +19,17 @@ define([], function(){
         var API = {
             getSchool: function(schoolId) {
                 if (!schoolId)
-                    return new Entities.School;
+                    return new Entities.School();
 
-                var school = new Entities.School;
+                var school = new Entities.School();
                 school.id = schoolId;
                 school.fetch();
                 return school;
             },
 
-            getAllSchools: function() {
-                if (!Entities.allSchools){
-                    Entities.allSchools = new Entities.SortedCollection();
+            getAllSchools: function(update) {
+                if (!Entities.allSchools || update){
+                    Entities.allSchools = new Entities.TitleSortedCollection();
                     Entities.allSchools.url = Entities.allSchoolsUrl;
                     Entities.allSchools.fetch();
                 }
@@ -34,8 +37,8 @@ define([], function(){
             }
         };
 
-        Application.reqres.setHandler(Application.SCHOOLS_GET, function(){
-            return API.getAllSchools();
+        Application.reqres.setHandler(Application.SCHOOLS_GET, function(update){
+            return API.getAllSchools(update);
         });
 
         Application.reqres.setHandler(Application.SCHOOL_GET, function(schoolId){

@@ -11,7 +11,9 @@ define([], function(){
         Application.CLOSE = "close";
         Application.LOGOUT = "logout";
 
-        Application.CHILDVIEW = "childView";
+
+        Application.UPDATE_VIEW = "update:view";
+        Application.CHILD_VIEW = "child:view";
 
         Application.BEFORE_START = "before:start";
         Application.WHEN_FETCHED = "when:fetched";
@@ -46,13 +48,18 @@ define([], function(){
         Application.SPECIALIZATIONS_GET = "specializations:get";
         Application.SPECIALIZATION_GET = "specialization:get";
 
+        Application.STUDENTS_ASSIGNED_GET = "students:assigned:get";
         Application.COUNSELORS_GET = "counselors:get";
         Application.COUNSELOR_GET = "counselor:get";
+
+        Application.COUNTRIES_GET = "countries:get";
+        Application.COUNTRY_GET = "country:get";
 
         Application.SEARCH_SHOW = "search:show";
         Application.CAREER_SHOW = "career:show";
         Application.QUERIES_SHOW = "queries:show";
         Application.PROFILE_SHOW = "profile:show";
+        Application.PROFILES_SHOW = "profiles:show";
         Application.SETTINGS_SHOW = "settings:show";
         Application.FORUM_SHOW = "forum:show";
 
@@ -72,7 +79,7 @@ define([], function(){
 
         Application.USER_URL = '/user';
         Application.GET_LOGGED_USER = "getLoggedUser";
-        Application.GET_USER = "get:user";
+        Application.USER_GET = "user:get";
         Application.GET_PASSWORD = "get:password";
         Application.GET_ROLE = "getRole";
         Application.IS_USER_ADMIN = "isUserAdmin";

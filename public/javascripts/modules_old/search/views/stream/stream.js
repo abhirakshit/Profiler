@@ -28,14 +28,14 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
         }
     })
 
-    Search.collections.SortedCollection = Application.Base.collections.Generic.extend({
+    Search.collections.TitleSortedCollection = Application.Base.collections.Generic.extend({
         comparator: function( collection ){
             return( collection.get( 'title' ) );
         }
     });
 
 //    Search.collections.AllStreamsCollection = Backbone.Collection.extend({
-    Search.collections.AllStreamsCollection = Search.collections.SortedCollection.extend({
+    Search.collections.AllStreamsCollection = Search.collections.TitleSortedCollection.extend({
         url: Search.allStreamsUrl,
         model: Search.models.Stream
     })
@@ -449,7 +449,7 @@ Application.module("Search", function (Search, Application, Backbone, Marionette
 
         //Major Links
         var majorLinksComposite = new Search.views.MajorLinkComposite({
-            collection: new Search.collections.SortedCollection(stream.get('majors')),
+            collection: new Search.collections.TitleSortedCollection(stream.get('majors')),
             model: new Application.Base.models.Generic({
                 headingText: "Majors",
                 contentId: "majors"
